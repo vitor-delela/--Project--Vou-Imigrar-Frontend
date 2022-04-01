@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Flex } from '@chakra-ui/react'
+import { Flex, useToast } from '@chakra-ui/react'
 
 import Logo from '../components/Logo'
 import Input from '../components/Input'
@@ -9,11 +9,11 @@ import PrimaryButton from '../components/buttons/PrimaryButton'
 import TextButton from '../components/buttons/TextButton'
 
 import { setPage } from '../store/pageSlice'
-import ErrorLabel from '../components/ErrorLabel'
 
 export default function Login () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const toast = useToast()
 
   useEffect(() => {
     dispatch(setPage('Entrar no aplicativo'))
@@ -36,13 +36,23 @@ export default function Login () {
 
   const areInputsValid = () => {
     if (email == '' || password == '') {
-      setErrorMessage('É obrigatório informar e-mail e senha')
-      setShouldDisplayError(true);
+      toast({
+        title: 'Campos inválidos',
+        description: "É obrigatório informar e-mail e senha.",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
       return;
     }
     if (!email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-      setErrorMessage('O e-mail informado é inválido')
-      setShouldDisplayError(true);
+      toast({
+        title: 'Campos inválidos',
+        description: "O e-mail informado não é válido.",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
       return;
     }
     login();
@@ -51,7 +61,6 @@ export default function Login () {
   return (
     <Flex id="login" className="center">
       <Logo marginBottom='20px'/>
-      <ErrorLabel message={errorMessage} shouldDisplay={shouldDisplayError} />
       <Input
         type="text"
         onKeyPress={pressKey}
