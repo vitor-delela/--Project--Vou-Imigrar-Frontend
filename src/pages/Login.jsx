@@ -21,8 +21,6 @@ export default function Login () {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('') 
-  const [errorMessage, setErrorMessage] = useState('')
-  const [shouldDisplayError, setShouldDisplayError] = useState(false)
 
   const login = async () => {
     console.log(email, password);
