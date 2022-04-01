@@ -28,7 +28,7 @@ export default function Login () {
 
   const pressKey = (e) => {
     if (e.key === 'Enter') {
-      login()
+      areInputsValid()
     }
   }
 
@@ -64,14 +64,14 @@ export default function Login () {
         onKeyPress={pressKey}
         placeholder="E-mail"
         value={email}
-        onChange={(e) => {setEmail(e.target.value); if (email != '' && password != '') setShouldDisplayError(false)}}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <Input
         type="password"
         onKeyPress={pressKey}
         placeholder="Senha"
         value={password}
-        onChange={(e) => {setPassword(e.target.value); if (email != '' && password != '') setShouldDisplayError(false)}}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <PrimaryButton marginTop='20px' onClick={areInputsValid}>
         Entrar
