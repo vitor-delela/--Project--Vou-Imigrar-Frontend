@@ -10,6 +10,7 @@ import TextButton from '../components/buttons/TextButton'
 import { verifyEmail } from '../utils/functions'
 
 import { setPage } from '../store/pageSlice'
+import { signIn } from '../store/userSlice'
 
 export default function Login () {
   const navigate = useNavigate()
@@ -33,7 +34,8 @@ export default function Login () {
     }
   }
 
-  const areInputsValid = () => {
+  const areInputsValid = async () => {
+    toast.closeAll();
     if (email == '' || password == '') {
       toast({
         title: 'Campos inválidos',
@@ -54,7 +56,7 @@ export default function Login () {
       })
       return;
     }
-    login();
+    await dispatch(signIn({ email, password }));
   }
 
   return (
