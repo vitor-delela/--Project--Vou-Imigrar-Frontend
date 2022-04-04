@@ -5,10 +5,11 @@ export default function InputUI (props) {
   return (
     <Input
       width='100%'
-      height='50px'
+      height='64px'
+      p='20px'
       bg='background'
       borderRadius='14px'
-      margin='3px 0px'
+      margin='5px 0px'
       border='none'
       color='black'
       _active={{
