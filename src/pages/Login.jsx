@@ -9,6 +9,7 @@ import PrimaryButton from '../components/buttons/PrimaryButton'
 import TextButton from '../components/buttons/TextButton'
 
 import { setPage } from '../store/pageSlice'
+import { verifyEmail } from '../utils/functions'
 
 export default function Login () {
   const navigate = useNavigate()
@@ -33,6 +34,7 @@ export default function Login () {
   }
 
   const areInputsValid = () => {
+    toast.closeAll();
     if (email == '' || password == '') {
       toast({
         title: 'Campos inválidos',
@@ -43,7 +45,7 @@ export default function Login () {
       })
       return;
     }
-    if (!email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+    if (!verifyEmail(email)) {
       toast({
         title: 'Campos inválidos',
         description: "O e-mail informado não é válido.",
