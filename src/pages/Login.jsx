@@ -1,34 +1,60 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { Flex } from '@chakra-ui/react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Flex, useToast } from '@chakra-ui/react'
 
 import Logo from '../components/Logo'
 import Input from '../components/Input'
 import PrimaryButton from '../components/buttons/PrimaryButton'
 import TextButton from '../components/buttons/TextButton'
+import { verifyEmail } from '../utils/functions'
 
 import { setPage } from '../store/pageSlice'
+import { signIn, selectUser, setUser } from '../store/userSlice'
+import { verifyEmail } from '../utils/functions'
 
 export default function Login () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const toast = useToast()
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     dispatch(setPage('Entrar no aplicativo'))
   })
 
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
-  const login = async () => {
-    console.log(email, password);
-  }
+  const [password, setPassword] = useState('') 
 
   const pressKey = (e) => {
     if (e.key === 'Enter') {
-      login()
+      areInputsValid()
     }
+  }
+
+  const areInputsValid = async () => {
+    toast.closeAll();
+    if (email == '' || password == '') {
+      toast({
+        title: 'Campos inválidos',
+        description: "É obrigatório informar e-mail e senha.",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+      return;
+    }
+    if (!verifyEmail(email)) {
+      toast({
+        title: 'Campos inválidos',
+        description: "O e-mail informado não é válido.",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+      return;
+    }
+    await dispatch(signIn({ email, password }))
   }
 
   return (
@@ -48,12 +74,13 @@ export default function Login () {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <PrimaryButton marginTop='20px' onClick={login}>
+      <PrimaryButton isDisabled={user.status == 'loading'} marginTop='20px' onClick={areInputsValid}>
         Entrar
       </PrimaryButton>
       <TextButton onClick={() => { navigate('/forget') }}>
         Esqueci a senha
       </TextButton>
+      {user.email != '' ? `Logado como ${user.email}` : ''}
     </Flex>
   )
 }
