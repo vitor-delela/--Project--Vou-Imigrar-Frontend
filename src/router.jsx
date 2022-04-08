@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import Welcome from './pages/Welcome'
 import Login from './pages/Login'
@@ -29,10 +30,8 @@ export default function AppRouter () {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Welcome />} />
-
         <Route path="/" element={<PublicRoute type={null} />}>
-          <Route path="*" element={<Welcome />} />
+          <Route path="/" element={<Welcome />} />
 
           <Route path="/" element={<NavigationStructure />}>
             <Route path="/login" element={<Login />}/>
