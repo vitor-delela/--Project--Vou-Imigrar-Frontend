@@ -18,7 +18,7 @@ export const slice = createSlice({
     name: '',
     email: '',
     token: '',
-    status: 'Ainda Nada',
+    status: '',
   },
   reducers: {
     setUser (state, { payload }) {
@@ -35,18 +35,19 @@ export const slice = createSlice({
       state.status = 'loading';
     },
     [signIn.fulfilled]: (state, action) => {
+      if (!action.payload.data) {
+          state.status = 'failed'
+          state.error = action.payload.message;
+          return
+      }
+      state.status = 'success';
       state.id = action.payload.data.Id;
       state.name = action.payload.data.Name;
       state.email = action.payload.data.Email;
       state.token = action.payload.data.Token;
     },
-    [signIn.rejected]: (state, action) => {
-      state.status = 'failed';
-      state.error = action.error.message;
-    },
   },
 });
-
 
 export const { setUser } = slice.actions;
 export const selectUser = (state) => state.user

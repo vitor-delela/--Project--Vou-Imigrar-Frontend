@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Flex, useToast } from '@chakra-ui/react'
 
 import Logo from '../components/Logo'
@@ -10,12 +10,14 @@ import TextButton from '../components/buttons/TextButton'
 import { verifyEmail } from '../utils/functions'
 
 import { setPage } from '../store/pageSlice'
-import { signIn } from '../store/userSlice'
+import { signIn, selectUser, setUser } from '../store/userSlice'
+import { verifyEmail } from '../utils/functions'
 
 export default function Login () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const toast = useToast()
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     dispatch(setPage('Entrar no aplicativo'))
@@ -23,10 +25,6 @@ export default function Login () {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('') 
-
-  const login = async () => {
-    console.log(email, password);
-  }
 
   const pressKey = (e) => {
     if (e.key === 'Enter') {
@@ -56,7 +54,7 @@ export default function Login () {
       })
       return;
     }
-    await dispatch(signIn({ email, password }));
+    await dispatch(signIn({ email, password }))
   }
 
   return (
@@ -76,12 +74,13 @@ export default function Login () {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <PrimaryButton marginTop='20px' onClick={areInputsValid}>
+      <PrimaryButton isDisabled={user.status == 'loading'} marginTop='20px' onClick={areInputsValid}>
         Entrar
       </PrimaryButton>
       <TextButton onClick={() => { navigate('/forget') }}>
         Esqueci a senha
       </TextButton>
+      {user.email != '' ? `Logado como ${user.email}` : ''}
     </Flex>
   )
 }
