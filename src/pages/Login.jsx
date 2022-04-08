@@ -24,7 +24,12 @@ export default function Login () {
   })
 
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('') 
+  const [password, setPassword] = useState('')
+
+  const login = async () => {
+    console.log(email, password);
+    navigate('/home');
+  }
 
   const pressKey = (e) => {
     if (e.key === 'Enter') {
