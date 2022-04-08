@@ -25,11 +25,13 @@ export default function SignUp () {
   useEffect(() => {
     dispatch(setPage('Inscrever-se'))
   })
-
+  
   const [email, setEmail] = useState('')
+  const [tel, setTel] = useState('')
   const [password, setPassword] = useState('')
   const [secondHidden, setSecondHidden] = useState(true)
   const [name, setName] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const{birthRef}= useIMask(
     {
       mask: "00/00/0000"
@@ -37,7 +39,7 @@ export default function SignUp () {
   )
   
   const login = async () => {
-    console.log(email, password);
+    console.log(email, password, confirmPassword);
   }
 
   const pressKey = (e) => {
@@ -103,8 +105,8 @@ export default function SignUp () {
             type="tel"
             onKeyPress={pressKey}
             placeholder="Celular"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={tel}
+            onChange={(e) => setTel(e.target.value)}
           />
         </Grid>
 
@@ -126,11 +128,11 @@ export default function SignUp () {
           />
 
           <Input
-            type="password"
+            type="confirmPassword"
             onKeyPress={pressKey}
             placeholder="Confirmar Senha"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Grid>
       </Box>
