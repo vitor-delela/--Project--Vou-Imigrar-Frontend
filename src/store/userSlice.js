@@ -19,6 +19,7 @@ export const slice = createSlice({
     email: '',
     token: '',
     status: '',
+    type: ''
   },
   reducers: {
     setUser (state, { payload }) {
