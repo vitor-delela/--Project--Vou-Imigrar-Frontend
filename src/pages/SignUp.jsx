@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Box, Flex, Grid } from '@chakra-ui/react'
 import { useIMask } from "react-imask"
 
+
 import Logo from '../components/Logo'
 import Input from '../components/Input'
 import RoundButton from '../components/buttons/RoundButton'
@@ -28,12 +29,13 @@ export default function SignUp () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [secondHidden, setSecondHidden] = useState(true)
+  const [name, setName] = useState('')
   const{birthRef}= useIMask(
     {
       mask: "00/00/0000"
     }
-  );
-
+  )
+  
   const login = async () => {
     console.log(email, password);
   }
@@ -43,6 +45,34 @@ export default function SignUp () {
       login()
     }
   }
+
+  const areInputsValid = async () => {
+    toast.closeAll();
+    if (!verifyEmail(email)) {
+      toast({
+        title: 'Campos inválidos',
+        description: "O e-mail informado não é válido.",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+      return;
+    }
+
+    if (!verifyEmail(email)) {
+      toast({
+        title: 'Campos inválidos',
+        description: "O e-mail informado não é válido.",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+      return;
+    }
+
+    await dispatch(signIn({ email }))
+  }
+
   
   const nextStep = () => {
     setSecondHidden(false)
@@ -57,15 +87,15 @@ export default function SignUp () {
             type="text"
             onKeyPress={pressKey}
             placeholder="Nome Completo"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <Input
             type="text"
             ref={birthRef}
             onKeyPress={pressKey}
             placeholder="Data de Nascimento"
-            value={password}
+            value={birthRef}
             onChange={(e) => setPassword(e.target.value)}
           />
 
@@ -83,8 +113,8 @@ export default function SignUp () {
             type="email"
             onKeyPress={pressKey}
             placeholder="E-mail"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <Input
