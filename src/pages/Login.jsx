@@ -11,7 +11,6 @@ import { verifyEmail } from '../utils/functions'
 
 import { setPage } from '../store/pageSlice'
 import { signIn, selectUser, setUser } from '../store/userSlice'
-import { verifyEmail } from '../utils/functions'
 
 export default function Login () {
   const navigate = useNavigate()
