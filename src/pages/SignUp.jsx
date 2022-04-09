@@ -8,6 +8,7 @@ import { useIMask } from "react-imask"
 import Logo from '../components/Logo'
 import Input from '../components/Input'
 import RoundButton from '../components/buttons/RoundButton'
+import PrimaryButton from '../components/buttons/PrimaryButton'
 
 import { setPage } from '../store/pageSlice'
 
@@ -29,7 +30,7 @@ export default function SignUp () {
   const [email, setEmail] = useState('')
   const [tel, setTel] = useState('')
   const [password, setPassword] = useState('')
-  const [secondHidden, setSecondHidden] = useState(true)
+  const [actualPage, setActualPage] = useState(0)
   const [name, setName] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const{birthRef}= useIMask(
@@ -50,7 +51,7 @@ export default function SignUp () {
 
   const areInputsValid = async () => {
     toast.closeAll();
-    if (!verifyEmail(email)) {
+    if (email == "" || tel == "") {
       toast({
         title: 'Campos inválidos',
         description: "O e-mail informado não é válido.",
@@ -76,15 +77,13 @@ export default function SignUp () {
   }
 
   
-  const nextStep = () => {
-    setSecondHidden(false)
-  }
+ 
 
   return (
     <Flex id="login" className="center">
       <Logo/>
-      <Box w='100%' mt={8} mb={24}>
-        <Grid w="100%" hidden={!secondHidden}>
+      <Box w='100%' mt={8} mb={16}>
+        <Grid w="100%" hidden={!(actualPage == 0)} mb={8}>
           <Input
             type="text"
             onKeyPress={pressKey}
@@ -100,7 +99,9 @@ export default function SignUp () {
             value={birthRef}
             onChange={(e) => setPassword(e.target.value)}
           />
+        </Grid>
 
+        <Grid w="100%" hidden={!(actualPage == 1)} mb={8}>
           <Input
             type="tel"
             onKeyPress={pressKey}
@@ -108,9 +109,6 @@ export default function SignUp () {
             value={tel}
             onChange={(e) => setTel(e.target.value)}
           />
-        </Grid>
-
-        <Grid w="100%" hidden={secondHidden}>
           <Input
             type="email"
             onKeyPress={pressKey}
@@ -118,7 +116,9 @@ export default function SignUp () {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+        </Grid>
 
+        <Grid w="100%" hidden={!(actualPage == 2)} mb={8}>
           <Input
             type="password"
             onKeyPress={pressKey}
@@ -137,11 +137,18 @@ export default function SignUp () {
         </Grid>
       </Box>
       
+      
 
-      <Flex justifyContent='space-between' alignItems='center' w={36}>
-        <RoundButton hasIcon={false} buttonStyle={{...stepStyle, bg: secondHidden ? 'lightBlue' : 'black'}} onClick={()=> setSecondHidden(true)}/>  
-        <RoundButton hasIcon={false} buttonStyle={{...stepStyle, bg: secondHidden ? 'black' : 'lightBlue'}} onClick={nextStep}/>
-        <RoundButton onClick={nextStep}/>
+      <Flex gap={8} justifyContent='center' alignItems='center' w="100%">
+        {actualPage != 0 && (<RoundButton icon="left" onClick={() => {setActualPage(actualPage-1)}}/>)}
+        <RoundButton hasIcon={false} buttonStyle={{...stepStyle, bg: actualPage == 0 ? 'lightBlue' : 'black'}} onClick={() => {setActualPage(0)}}/>  
+        <RoundButton hasIcon={false} buttonStyle={{...stepStyle, bg: actualPage == 1 ? 'lightBlue' : 'black'}} onClick={() => {setActualPage(1)}}/>
+        <RoundButton hasIcon={false} buttonStyle={{...stepStyle, bg: actualPage == 2 ? 'lightBlue' : 'black'}} onClick={() => {setActualPage(2)}}/>
+        {actualPage != 2 ? (
+          <RoundButton onClick={() => {setActualPage(actualPage+1)}}/> 
+        ) : (
+          <RoundButton icon="done" onClick={() => {''}} borderRadius='60%' w='fit-content'/>
+        )}
       </Flex>
       
       
