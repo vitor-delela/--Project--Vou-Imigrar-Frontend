@@ -11,7 +11,6 @@ import { verifyEmail } from '../utils/functions'
 
 import { setPage } from '../store/pageSlice'
 import { signIn, selectUser, setUser } from '../store/userSlice'
-import { verifyEmail } from '../utils/functions'
 
 export default function Login () {
   const navigate = useNavigate()
@@ -33,7 +32,6 @@ export default function Login () {
   }
 
   const areInputsValid = async () => {
-    toast.closeAll();
     if (email == '' || password == '') {
       toast({
         title: 'Campos inválidos',
@@ -43,8 +41,7 @@ export default function Login () {
         isClosable: true,
       })
       return;
-    }
-    if (!verifyEmail(email)) {
+    } else if (!verifyEmail(email)) {
       toast({
         title: 'Campos inválidos',
         description: "O e-mail informado não é válido.",
@@ -56,6 +53,19 @@ export default function Login () {
     }
     await dispatch(signIn({ email, password }))
   }
+
+  // useEffect(() => {
+  //   if (user.status == 'failed' && !toast.isActive('loginFailed')) {
+  //     toast({
+  //       id: 'loginFailed',
+  //       title: 'Falha ao entrar',
+  //       description: user.error,
+  //       status: 'error',
+  //       duration: null,
+  //       isClosable: false,
+  //     })
+  //   }
+  // })
 
   return (
     <Flex id="login" className="center">
