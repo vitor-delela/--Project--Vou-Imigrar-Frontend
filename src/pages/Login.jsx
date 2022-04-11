@@ -10,12 +10,22 @@ import TextButton from '../components/buttons/TextButton'
 import { verifyEmail } from '../utils/functions'
 
 import { setPage } from '../store/pageSlice'
-import { signIn, selectUser, setUser } from '../store/userSlice'
+import { signIn, selectUser } from '../store/userSlice'
 
 export default function Login () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const toast = useToast()
+  const toast = useToast({
+    title: 'Campos inválidos',
+    position: 'bottom',
+    status: 'error',
+    duration: 5000,
+    isClosable: true,
+    containerStyle: {
+      width: '400px',
+      maxWidth: '90%',
+    },
+  })
   const user = useSelector(selectUser);
 
   useEffect(() => {
@@ -33,39 +43,34 @@ export default function Login () {
 
   const areInputsValid = async () => {
     if (email == '' || password == '') {
+      if (toast.isActive('blankFields')) return
       toast({
-        title: 'Campos inválidos',
+        id: 'blankFields',
         description: "É obrigatório informar e-mail e senha.",
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
       })
       return;
     } else if (!verifyEmail(email)) {
+      if (toast.isActive('invalidEmail')) return
       toast({
-        title: 'Campos inválidos',
+        id: 'invalidEmail',
         description: "O e-mail informado não é válido.",
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
       })
       return;
     }
     await dispatch(signIn({ email, password }))
   }
 
-  // useEffect(() => {
-  //   if (user.status == 'failed' && !toast.isActive('loginFailed')) {
-  //     toast({
-  //       id: 'loginFailed',
-  //       title: 'Falha ao entrar',
-  //       description: user.error,
-  //       status: 'error',
-  //       duration: null,
-  //       isClosable: false,
-  //     })
-  //   }
-  // })
+  useEffect(() => {
+    if (user.status == 'failed' && !toast.isActive('loginFailed')) {
+      toast({
+        id: 'loginFailed',
+        title: 'Falha ao entrar',
+        description: user.error,
+      })
+    } else if (user.status == 'success') {
+      navigate('/home')
+    }
+  })
 
   return (
     <Flex id="login" className="center">

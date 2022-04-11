@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-
 
 import Welcome from './pages/Welcome'
 import Login from './pages/Login'
+import Home from './pages/Home'
 import NavigationStructure from './pages/NavigationStructure'
 
 export default function AppRouter () {
@@ -36,6 +37,10 @@ export default function AppRouter () {
 
         <Route path="/" element={<NavigationStructure />}>
           <Route path="/login" element={<Login />}/>
+        </Route>
+
+        <Route path="/">
+          <Route path="/home" element={<Home />}/>
         </Route>
 
         <Route path="*" element={<Welcome />} />

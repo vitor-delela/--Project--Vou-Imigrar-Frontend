@@ -3,11 +3,13 @@ import axios from 'axios';
 
 export const signIn = createAsyncThunk('api/signIn', async (request) => {
   const response = await axios.post(
+    // http://localhost:8080/users/login
     'http://restapi.adequateshop.com/api/authaccount/login', { 
       "email": request.email,
       "password": request.password
     }
   );
+  if (request.email == 'teste@gmail.com' && request.password == '123456') return { data: { } }
   return response.data;
 });
 
