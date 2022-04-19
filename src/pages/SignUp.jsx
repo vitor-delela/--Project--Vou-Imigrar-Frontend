@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Box, Flex, Grid } from '@chakra-ui/react'
-import { useIMask } from "react-imask"
+import { Box, Flex, Grid, FormControl, FormLabel} from '@chakra-ui/react'
+import InputMask from "react-input-mask"
 
 
 import Logo from '../components/Logo'
@@ -28,16 +28,20 @@ export default function SignUp () {
   })
   
   const [email, setEmail] = useState('')
-  const [tel, setTel] = useState('')
   const [password, setPassword] = useState('')
   const [actualPage, setActualPage] = useState(0)
   const [name, setName] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const{birthRef}= useIMask(
-    {
-      mask: "00/00/0000"
-    }
-  )
+  //const [values, setValues] = useState({});
+
+  //function handleChange(e){
+  //  setValues({
+  //    ...values,
+  //    [e.target.name] : e.target.value
+  //  })
+  //}
+  const [birth, setBirth] = useState('')
+  const [tel, setTel] = useState('')
   
   const login = async () => {
     console.log(email, password, confirmPassword);
@@ -91,24 +95,33 @@ export default function SignUp () {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <Input
-            type="text"
-            ref={birthRef}
-            onKeyPress={pressKey}
-            placeholder="Data de Nascimento"
-            value={birthRef}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <FormControl>
+            <Input
+              type="text"
+              onKeyPress={pressKey}
+              placeholder="Data de Nascimento"
+              as={InputMask} mask="99/99/9999" 
+              maskChar={null}
+              value={birth}
+              onChange={(e) => setBirth(e.target.value)}
+            />
+          </FormControl>
+          
         </Grid>
 
         <Grid w="100%" hidden={!(actualPage == 1)} mb={8}>
-          <Input
-            type="tel"
-            onKeyPress={pressKey}
-            placeholder="Celular"
-            value={tel}
-            onChange={(e) => setTel(e.target.value)}
-          />
+          <FormControl>
+            <Input
+              type="tel"
+              onKeyPress={pressKey}
+              placeholder="Celular"
+              as={InputMask} mask="99 99999-9999"
+              maskChar={null}
+              value={tel}
+              onChange={(e) => setTel(e.target.value)}
+            />
+          </FormControl>
+          
           <Input
             type="email"
             onKeyPress={pressKey}
