@@ -22,6 +22,7 @@ export default function PlatformContainer (props) {
         height='calc(100% - (35px + 1rem))'
         className="page"
         overflow='auto'
+        alignSelf='center'
       >
         <Outlet />
       </Flex>

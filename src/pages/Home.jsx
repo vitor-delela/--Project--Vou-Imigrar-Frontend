@@ -11,12 +11,12 @@ export default function Home () {
   const navigate = useNavigate()
 
   return (
-    <Flex id="home" flexDirection='column' justifyContent='space-between' mb={20}>
+    <Flex id="home" flexDirection='column' justifyContent='space-between' alignItems='center' mb={10}>
       <Heading alignSelf='center'>
         <Logo h={12} w='auto'/>
       </Heading>
 
-      <HStack w='90vw' spacing={4} overflow='auto' whiteSpace='nowrap' alignSelf='center'>
+      <HStack maxW='90vw' spacing={4} overflow='auto' whiteSpace='nowrap' alignSelf='center'>
         {[0,1,2].map((tip) => {
           return (
             <Flex key={tip} py={8} px={6} bg='background' borderRadius={8} alignItems='center' justifyContent='center'>
@@ -27,7 +27,7 @@ export default function Home () {
       </HStack>
       
 
-      <Box w='100%' px={8}>
+      <Box w={['100%', null, '50%']} px={8}>
         <Image
           width='100%'
           height='auto'
@@ -43,7 +43,7 @@ export default function Home () {
         </Text>
       </Box>
 
-      <Box px={4}>
+      <Box px={4} w='100%'>
         <PrimaryButton borderRadius={8} onClick={() => navigate('/map-profile')}>
           Iniciar mapeamento
         </PrimaryButton>
