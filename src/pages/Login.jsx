@@ -23,6 +23,7 @@ export default function Login () {
 
   const login = async () => {
     console.log(email, password);
+    navigate('/home');
   }
 
   const pressKey = (e) => {

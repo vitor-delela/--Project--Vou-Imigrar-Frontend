@@ -8,7 +8,7 @@ export default function PrimaryButton (props) {
       width='100%'
       fontSize='md'
       fontWeight='medium'
-      bg='primary'
+      bg='purple'
       color='white'
       borderRadius='16px'
       margin='5px 0'
