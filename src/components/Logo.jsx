@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image } from '@chakra-ui/react'
 
-export default function Logo () {
+export default function Logo (props) {
   return (
     <Image
       width='200px'
@@ -10,6 +10,7 @@ export default function Logo () {
       src='../src/assets/vou-imigrar-logo.png'
       alt='Logo Vou Imigrar'
       id='logo'
+      {...props}
     />
   )
 }
