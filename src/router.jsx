@@ -49,6 +49,10 @@ export default function AppRouter () {
           <Route path="/home" element={<Home />}/>
         </Route>
 
+        <Route path="/">
+          <Route path="/home" element={<Home />}/>
+        </Route>
+
         <Route path="*" element={<Welcome />} />
       </Routes>
     </Router>

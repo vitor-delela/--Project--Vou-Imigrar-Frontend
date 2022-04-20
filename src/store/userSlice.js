@@ -2,13 +2,30 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const signIn = createAsyncThunk('api/signIn', async (request) => {
-  const response = await axios.post(
-    'http://localhost:8080/users/login', { 
-      "email": request.email,
-      "password": request.password
+  let response;
+  try {
+    response = await axios.post(
+      'http://localhost:8080/users/login', { 
+        "email": request.email,
+        "password": request.password
+      }
+    )
+  } catch(_) {
+    return { 
+      status: 'failed',
+      message: 'Usuário ou senha incorretos.'
     }
-  );
-  return response.data;
+  };
+  return {
+    status: 'success',
+    data: {
+      id: response.data.id,
+      name: response.data.name,
+      email: request.email,
+      token: response.headers.authorization,
+      type: response.data.type
+    }
+  };
 });
 
 export const signUp = createAsyncThunk('api/signUp', async (request) => {
@@ -51,6 +68,15 @@ export const slice = createSlice({
       state.status = 'loading';
     },
     [signIn.fulfilled]: (state, action) => {
+      state.status = action.payload.status
+      if (action.payload.status == 'failed') {
+        state.error = action.payload.message;
+      } else if (action.payload.status == 'success') {
+        state.id = action.payload.data.id;
+        state.name = action.payload.data.name;
+        state.email = action.payload.data.email;
+        state.token = action.payload.data.token;
+      }
       if (!action.payload.data) {
           state.status = 'failed'
           state.error = action.payload.message;
@@ -77,5 +103,5 @@ export const slice = createSlice({
 });
 
 export const { setUser } = slice.actions;
-export const selectUser = (state) => state.user
+export const selectUser = (state) => state.user;
 export default slice.reducer;
