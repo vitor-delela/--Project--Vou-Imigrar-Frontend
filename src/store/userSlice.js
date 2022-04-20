@@ -62,6 +62,17 @@ export const slice = createSlice({
       state.email = action.payload.data.Email;
       state.token = action.payload.data.Token;
     },
+    [signUp.pending]: (state, action) => {
+      state.status = 'loading';
+    },
+    [signUp.fulfilled]: (state, action) => {
+      if (!action.payload.data) {
+          state.status = 'failed'
+          state.error = action.payload.message;
+          return
+      }
+      state.status = 'success';
+    },
   },
 });
 

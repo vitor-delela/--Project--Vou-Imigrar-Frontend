@@ -10,7 +10,7 @@ import Input from '../components/Input'
 import RoundButton from '../components/buttons/RoundButton'
 
 import { setPage } from '../store/pageSlice'
-import { signUp, signIn } from '../store/userSlice'
+import { signUp, signIn, selectUser } from '../store/userSlice'
 
 const stepStyle = {
   width:'16px', 
@@ -205,7 +205,7 @@ export default function SignUp () {
         {actualPage != 2 ? (
           <RoundButton onClick={() => {validateAndSignUp()}}/> 
         ) : (
-          <RoundButton icon="done" onClick={() => {validateAndSignUp()}} borderRadius='60%' w='fit-content'/>
+          <RoundButton icon="done" isDisabled={selectUser.status ==='loading'} onClick={() => {validateAndSignUp()}} borderRadius='60%' w='fit-content'/>
         )}
       </Flex>
       
