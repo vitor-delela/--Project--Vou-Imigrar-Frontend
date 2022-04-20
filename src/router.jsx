@@ -7,6 +7,7 @@ import PlatformContainer from './components/PlatformContainer'
 import Welcome from './pages/Welcome'
 import Login from './pages/Login'
 import Home from './pages/Home'
+import Profile from './pages/Profile'
 import NavigationStructure from './pages/NavigationStructure'
 
 export default function AppRouter () {
@@ -43,6 +44,10 @@ export default function AppRouter () {
 
         <Route path="/" element={<PlatformContainer backNavigation={false} />}>
           <Route path="/home" element={<Home />}/>
+        </Route>
+
+        <Route path="/" element={<PlatformContainer backNavigation={true} />}>
+          <Route path="/profile" element={<Profile />}/>
         </Route>
 
         <Route path="*" element={<Welcome />} />

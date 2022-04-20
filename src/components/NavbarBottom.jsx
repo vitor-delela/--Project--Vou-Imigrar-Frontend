@@ -1,9 +1,14 @@
-import { Flex } from '@chakra-ui/react'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import { BiWorld } from 'react-icons/bi'
 import { MdHome, MdPerson } from 'react-icons/md'
+import { Flex } from '@chakra-ui/react'
+
 
 export default function NavbarBottom () {
+  const navigate = useNavigate()
+
   return (
     <Flex
       w='100vw'
@@ -19,7 +24,7 @@ export default function NavbarBottom () {
     >
       <BiWorld color='white' fontSize={32} />
       <MdHome color='white' fontSize={32} />
-      <MdPerson color='white' fontSize={32} />
+      <MdPerson color='white' fontSize={32} onClick={() => { navigate('/profile') }}/>
     </Flex>
   )
 }
