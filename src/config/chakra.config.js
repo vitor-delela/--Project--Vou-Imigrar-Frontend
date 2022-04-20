@@ -8,9 +8,10 @@ const theme = extendTheme({
         display: 'flex',
         justifyContent: 'center',
         alignSelf: 'center',
-        height: 'calc(100vh - 2rem)',
+        height: 'calc(100vh - 1rem)',
         width: 'calc(100vw - 2rem)',
-        margin: '1rem'
+        margin: '1rem',
+        marginBottom: 0
       },
       '.center': {
         display: 'flex',
