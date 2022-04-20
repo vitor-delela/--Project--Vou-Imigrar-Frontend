@@ -5,12 +5,12 @@ import { Box, Flex, Grid, FormControl, useToast } from '@chakra-ui/react'
 import InputMask from "react-input-mask"
 import { verifyName, verifyEmail } from '../utils/function'
 
-
 import Logo from '../components/Logo'
 import Input from '../components/Input'
 import RoundButton from '../components/buttons/RoundButton'
 
 import { setPage } from '../store/pageSlice'
+import { signUp, signIn } from '../store/userSlice'
 
 const stepStyle = {
   width:'16px', 
@@ -33,8 +33,6 @@ export default function SignUp () {
       maxWidth: '90%',
     },
   })
-
-
 
   useEffect(() => {
     dispatch(setPage('Inscrever-se'))
@@ -123,7 +121,9 @@ export default function SignUp () {
       }
     }
     if(actualPage == 2){
-      await dispatch(SignUp({ name, birth, tel, email, password }))
+      await dispatch(signUp({ name, birth, tel, email, password }))
+      await dispatch(signIn({ email, password }))
+      navigate('/home')
     }else {
       setActualPage(actualPage+1)
     }
@@ -197,8 +197,6 @@ export default function SignUp () {
         </Grid>
       </Box>
       
-      
-
       <Flex gap={8} justifyContent='center' alignItems='center' w="100%">
         {actualPage != 0 && (<RoundButton icon="left" onClick={() => {setActualPage(actualPage-1)}}/>)}
         <RoundButton hasIcon={false} buttonStyle={{...stepStyle, bg: actualPage == 0 ? 'lightBlue' : 'black'}} onClick={() => {setActualPage(0)}}/>  
@@ -210,8 +208,6 @@ export default function SignUp () {
           <RoundButton icon="done" onClick={() => {validateAndSignUp()}} borderRadius='60%' w='fit-content'/>
         )}
       </Flex>
-      
-      
       
     </Flex>
   )

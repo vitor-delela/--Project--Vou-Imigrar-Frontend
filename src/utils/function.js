@@ -5,7 +5,6 @@ export function verifyEmail(email) {
 }
 
 export function verifyName(name){
-  console.log(name)
   let re = new RegExp("^[a-zA-Z]+ [a-zA-Z]")
   return re.test(name)
 }

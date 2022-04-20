@@ -12,13 +12,15 @@ export const signIn = createAsyncThunk('api/signIn', async (request) => {
 });
 
 export const signUp = createAsyncThunk('api/signUp', async (request) => {
+  console.log(request)
   const response = await axios.post(
     'http://localhost:8080/users', { 
       "name": request.name,
       "birth": request.birth,
       "phone": request.tel,
       "email": request.email,
-      "password": request.password
+      "password": request.password,
+      "userType": "USER"
     }
   );
   return response.data;
