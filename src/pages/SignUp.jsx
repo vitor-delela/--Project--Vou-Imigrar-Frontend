@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Box, Flex, Grid, FormControl, FormLabel} from '@chakra-ui/react'
+import { Box, Flex, Grid, FormControl, useToast } from '@chakra-ui/react'
 import InputMask from "react-input-mask"
+import { verifyName, verifyEmail } from '../utils/function'
 
 
 import Logo from '../components/Logo'
 import Input from '../components/Input'
 import RoundButton from '../components/buttons/RoundButton'
-import PrimaryButton from '../components/buttons/PrimaryButton'
 
 import { setPage } from '../store/pageSlice'
 
@@ -22,6 +22,19 @@ const stepStyle = {
 export default function SignUp () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const toast = useToast({
+    title: 'Campos inválidos',
+    position: 'bottom',
+    status: 'error',
+    duration: 5000,
+    isClosable: true,
+    containerStyle: {
+      width: '400px',
+      maxWidth: '90%',
+    },
+  })
+
+
 
   useEffect(() => {
     dispatch(setPage('Inscrever-se'))
@@ -32,14 +45,6 @@ export default function SignUp () {
   const [actualPage, setActualPage] = useState(0)
   const [name, setName] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  //const [values, setValues] = useState({});
-
-  //function handleChange(e){
-  //  setValues({
-  //    ...values,
-  //    [e.target.name] : e.target.value
-  //  })
-  //}
   const [birth, setBirth] = useState('')
   const [tel, setTel] = useState('')
   
@@ -53,36 +58,78 @@ export default function SignUp () {
     }
   }
 
-  const areInputsValid = async () => {
-    toast.closeAll();
-    if (email == "" || tel == "") {
-      toast({
-        title: 'Campos inválidos',
-        description: "O e-mail informado não é válido.",
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      })
-      return;
+  const validateAndSignUp = async () => {
+    if(actualPage==0) {
+      if (name == '' || birth == '') {
+        if (toast.isActive('blankFields')) return
+        toast({
+          id: 'blankFields',
+          description: "É obrigatório informar o nome e a data de nascimento.",
+        })
+        return false
+      } else if(birth.length < 10){
+        if (toast.isActive('invalidBirth')) return
+        toast({
+          id: 'invalidBirth',
+          description: "A data de nascimento informada não é válida.",
+        })
+        return false
+      }else if (!verifyName(name)) {
+        if (toast.isActive('invalidName')) return
+        toast({
+          id: 'invalidName',
+          description: "O nome informado não é válido, insira o nome completo.",
+        })
+        return false
+      }
+    }else if(actualPage==1) {
+      if (tel == '' || email == '') {
+        if (toast.isActive('blankFields')) return
+        toast({
+          id: 'blankFields',
+          description: "É obrigatório informar celular e e-mail.",
+        })
+        return false
+      } else if(tel.length < 13){
+        if (toast.isActive('invalidPhone')) return
+        toast({
+          id: 'invalidPhone',
+          description: "O celular informado não é válido.",
+        })
+        return false
+      }else if (!verifyEmail(email)) {
+        if (toast.isActive('invalidEmail')) return
+        toast({
+          id: 'invalidEmail',
+          description: "O e-mail informado não é válido.",
+        })
+        return false
+      }
+    }else if(actualPage==2) {
+      if(password == '' || confirmPassword == '') {
+        if (toast.isActive('blankFields')) return
+        toast({
+          id: 'blankFields',
+          description: "É obrigatório informar a senha.",
+        })
+        return false
+      }else if(password != confirmPassword){
+        if (toast.isActive('equalPassword')) return
+        toast({
+          id: 'equalPassword',
+          description: "As senhas devem ser iguais.",
+        })
+        return false
+      }
     }
-
-    if (!verifyEmail(email)) {
-      toast({
-        title: 'Campos inválidos',
-        description: "O e-mail informado não é válido.",
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      })
-      return;
+    if(actualPage == 2){
+      await dispatch(SignUp({ name, birth, tel, email, password }))
+    }else {
+      setActualPage(actualPage+1)
     }
-
-    await dispatch(signIn({ email }))
+    
   }
-
-  
  
-
   return (
     <Flex id="login" className="center">
       <Logo/>
@@ -141,7 +188,7 @@ export default function SignUp () {
           />
 
           <Input
-            type="confirmPassword"
+            type="password"
             onKeyPress={pressKey}
             placeholder="Confirmar Senha"
             value={confirmPassword}
@@ -158,9 +205,9 @@ export default function SignUp () {
         <RoundButton hasIcon={false} buttonStyle={{...stepStyle, bg: actualPage == 1 ? 'lightBlue' : 'black'}} onClick={() => {setActualPage(1)}}/>
         <RoundButton hasIcon={false} buttonStyle={{...stepStyle, bg: actualPage == 2 ? 'lightBlue' : 'black'}} onClick={() => {setActualPage(2)}}/>
         {actualPage != 2 ? (
-          <RoundButton onClick={() => {setActualPage(actualPage+1)}}/> 
+          <RoundButton onClick={() => {validateAndSignUp()}}/> 
         ) : (
-          <RoundButton icon="done" onClick={() => {''}} borderRadius='60%' w='fit-content'/>
+          <RoundButton icon="done" onClick={() => {validateAndSignUp()}} borderRadius='60%' w='fit-content'/>
         )}
       </Flex>
       
