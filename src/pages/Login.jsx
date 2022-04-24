@@ -35,11 +35,6 @@ export default function Login () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const login = async () => {
-    console.log(email, password);
-    navigate('/home');
-  }
-
   const pressKey = (e) => {
     if (e.key === 'Enter') {
       areInputsValid()
@@ -100,7 +95,6 @@ export default function Login () {
       <TextButton onClick={() => { navigate('/forget') }}>
         Esqueci a senha
       </TextButton>
-      {user.email != '' ? `Logado como ${user.email}` : ''}
     </Flex>
   )
 }
