@@ -23,7 +23,7 @@ export default function NavbarBottom () {
       bg='purple'
     >
       <BiWorld color='white' fontSize={32} />
-      <MdHome color='white' fontSize={32} />
+      <MdHome color='white' fontSize={32} onClick={() => { navigate('/home') }}/>
       <MdPerson color='white' fontSize={32} onClick={() => { navigate('/profile') }}/>
     </Flex>
   )

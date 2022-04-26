@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../store/pageSlice'
 
-import { Box, Text, Flex, HStack } from '@chakra-ui/react'
+import { Box, Text, Flex, VStack, Avatar, Divider } from '@chakra-ui/react'
+import { MdEmail, MdLogout, MdMap, MdMode } from 'react-icons/md'
 
 export default function Profile () {
   const navigate = useNavigate()
@@ -15,15 +16,34 @@ export default function Profile () {
   })
 
   return (
-    <Flex>
-      <Box>Pessoa</Box>
+    <Box>
+      <Box textAlign='center' position='relative'>
+        <Divider borderColor='purple' w='80vw' mt={24}/>
+        <Avatar name='Kola Tioluwani' bg='purple' color='white' size='xl' mt='-3rem'/>
+        <Text color='purple' fontSize={20} mt={4}>Kola Tioluwani</Text>
+      </Box>
+      
+      <VStack mt={14} color='purple' fontSize={20} alignItems='start' spacing={5}>
+        <Flex alignItems='center'>
+          <MdMode fontSize={28}/>
+          <Text ml={5}> Editar informações</Text>
+        </Flex>
 
-      <HStack>
-        <Text>Item 1</Text>
-        <Text>Item 2</Text>
-        <Text>Item 3</Text>
-        <Text>Item 4</Text>
-      </HStack>
-    </Flex>
+        <Flex alignItems='center'>
+          <MdMap fontSize={28}/>
+          <Text ml={5}>Fazer novo mapeamento</Text>
+        </Flex>
+
+        <Flex alignItems='center'>
+          <MdEmail fontSize={28}/>
+          <Text ml={5}>Fale conosco</Text>
+        </Flex>
+
+        <Flex alignItems='center'>
+          <MdLogout fontSize={28}/>
+          <Text ml={5}>Sair</Text>
+        </Flex>
+      </VStack>
+    </Box>
   )
 }
