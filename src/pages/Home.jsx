@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { Heading, Box, Text, Flex, Image, HStack } from '@chakra-ui/react'
 
 import Logo from '../components/Logo'
-
-import NavbarBottom from '../components/NavbarBottom'
 import PrimaryButton from '../components/buttons/PrimaryButton'
 
 export default function Home () {

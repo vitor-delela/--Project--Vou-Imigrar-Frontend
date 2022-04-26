@@ -9,6 +9,7 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
 import NavigationStructure from './pages/NavigationStructure'
+import SignUp from './pages/SignUp'
 
 export default function AppRouter () {
   /*
@@ -40,6 +41,9 @@ export default function AppRouter () {
 
         <Route path="/" element={<NavigationStructure />}>
           <Route path="/login" element={<Login />}/>
+        </Route>
+        <Route path="/" element={<NavigationStructure />}>
+          <Route path="/signUp" element={<SignUp />}/>
         </Route>
 
         <Route path="/" element={<PlatformContainer backNavigation={false} />}>
