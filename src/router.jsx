@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import PlatformContainer from './components/PlatformContainer'
 
@@ -11,49 +12,44 @@ import NavigationStructure from './pages/NavigationStructure'
 import SignUp from './pages/SignUp'
 
 export default function AppRouter () {
-  /*
-  const { authenticated, type } = useSelector((state) => state.user)
+  const { type } = useSelector((state) => state.user)
 
-  const PublicRoute = () => {
-    if (authenticated) {
-      return <Navigate to="/home" />
+  const PublicRoute = (props) => {
+    if (props.type === type) {
+      return <Outlet/>
     } else {
-      return <Outlet />
+      return <Navigate to="/home"/>
     }
   }
 
   const PrivateRoute = (props) => {
-    if (authenticated === true && (props.clearance === type || props.clearance === 'all')) {
+    if (props.type === type) {
       return <Outlet/>
-    } else if (authenticated === true && (props.clearance !== type)) {
-      return <Navigate to='/home'/>
     } else {
       return <Navigate to="/"/>
     }
   }
-  */
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Welcome />} />
+        <Route path="/" element={<PublicRoute type={null} />}>
+          <Route path="/" element={<Welcome />} />
 
-        <Route path="/" element={<NavigationStructure />}>
-          <Route path="/login" element={<Login />}/>
+          <Route path="/" element={<NavigationStructure />}>
+            <Route path="/login" element={<Login />}/>
+
+            <Route path="/signUp" element={<SignUp />}/>
+          </Route> 
         </Route>
-        <Route path="/" element={<NavigationStructure />}>
-          <Route path="/signUp" element={<SignUp />}/>
+        
+
+        <Route path="/" element={<PrivateRoute type={'client'} />}>
+          <Route path="/" element={<PlatformContainer backNavigation={false} />}>
+            <Route path="/home" element={<Home />}/>
+          </Route>
         </Route>
 
-        <Route path="/" element={<PlatformContainer backNavigation={false} />}>
-          <Route path="/home" element={<Home />}/>
-        </Route>
-
-        <Route path="/">
-          <Route path="/home" element={<Home />}/>
-        </Route>
-
-        <Route path="*" element={<Welcome />} />
       </Routes>
     </Router>
   )
