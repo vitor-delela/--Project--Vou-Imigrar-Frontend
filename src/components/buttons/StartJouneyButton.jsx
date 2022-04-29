@@ -14,6 +14,7 @@ export default function StartJourneyButton (props) {
       height='50px'
       borderRadius='10px'
       fontSize='18'
+      fontWeight='bold'
       marginTop='20px'
       rightIcon={<Icon marginLeft='5px' fontSize='20' as={MdOutlineAirplanemodeActive}/>}
       onClick={startJourney}
