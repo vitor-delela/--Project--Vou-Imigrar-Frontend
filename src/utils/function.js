@@ -8,3 +8,9 @@ export function verifyName(name){
   let re = new RegExp("^[a-zA-Z]+ [a-zA-Z]")
   return re.test(name)
 }
+
+export function verifyPassword(password){
+  return password.length>=8
+          && password
+          .match(/^(?=(?:.*?[A-Z]){1})(?=(?:.*?[a-z]){1})(?=(?:.*?[0-9]){1})/)
+}

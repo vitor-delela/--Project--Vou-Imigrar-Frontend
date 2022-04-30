@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Flex, useToast } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 
-import Input from '../components/Input'
 import PrimaryButton from '../components/buttons/PrimaryButton'
-import TextButton from '../components/buttons/TextButton'
-import { verifyEmail } from '../utils/functions'
 
 import { setPage } from '../store/pageSlice'
-import { signIn, selectUser } from '../store/userSlice'
+import CountryCard from '../components/CountryCard'
 
-export default function CountryMacthes () {
+export default function CountryMatches () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -19,19 +16,12 @@ export default function CountryMacthes () {
     dispatch(setPage('Match de Países'))
   })
 
-  useEffect(() => {
-      navigate('/home')
-  })
-
   return (
-    <Flex id="countryMatches" flexDirection='column' justifyContent='space-between' alignItems='center' mb={10}>
-        {/* <Flex>
-        </Flex> */}
-      <Box px={4} w='100%'>
-        <PrimaryButton borderRadius={8} onClick={() => navigate('/map-profile')}>
-          Ver todos os países
-        </PrimaryButton>
-      </Box>
-    </Flex>
+    <Box marginTop="20px">
+      <CountryCard
+        src= "https://olhardigital.com.br/wp-content/uploads/2021/05/Canada.jpg"
+        name= 'Canadá'
+      />
+    </Box>
   )
 }
