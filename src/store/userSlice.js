@@ -67,7 +67,7 @@ export const slice = createSlice({
     email: '',
     token: '',
     status: '',
-    type: ''
+    type: null
   },
   reducers: {
     setUser (state, { payload }) {
@@ -91,24 +91,16 @@ export const slice = createSlice({
     },
     [signIn.fulfilled]: (state, action) => {
       state.status = action.payload.status
-      if (action.payload.status == 'failed') {
+      if (!action.payload.data || action.payload.status == 'failed') {
         state.error = action.payload.message;
-      } else if (action.payload.status == 'success') {
+        state.error = action.payload.message;
+      } else {
         state.id = action.payload.data.id;
         state.name = action.payload.data.name;
         state.email = action.payload.data.email;
         state.token = action.payload.data.token;
+        state.type = 'client';
       }
-      if (!action.payload.data) {
-          state.status = 'failed'
-          state.error = action.payload.message;
-          return
-      }
-      state.status = 'success';
-      state.id = action.payload.data.Id;
-      state.name = action.payload.data.Name;
-      state.email = action.payload.data.Email;
-      state.token = action.payload.data.Token;
     },
     [signUp.pending]: (state, action) => {
       state.status = 'loading';
@@ -120,6 +112,11 @@ export const slice = createSlice({
           return
       }
       state.status = 'login';
+      state.id = action.payload.data.id;
+      state.name = action.payload.data.name;
+      state.email = action.payload.data.email;
+      state.token = action.payload.data.token;
+      state.type = 'client';
     },
   },
 });
