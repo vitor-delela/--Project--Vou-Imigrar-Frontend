@@ -10,7 +10,7 @@ import TextButton from '../components/buttons/TextButton'
 import { verifyEmail } from '../utils/functions'
 
 import { setPage } from '../store/pageSlice'
-import { signIn, selectUser } from '../store/userSlice'
+import { signIn, selectUser, setStatus } from '../store/userSlice'
 
 export default function Login () {
   const navigate = useNavigate()
@@ -35,11 +35,6 @@ export default function Login () {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  const login = async () => {
-    console.log(email, password);
-    navigate('/home');
-  }
 
   const pressKey = (e) => {
     if (e.key === 'Enter') {
@@ -73,10 +68,12 @@ export default function Login () {
         title: 'Falha ao entrar',
         description: user.error,
       })
-    } else if (user.status == 'success') {      
+      dispatch(setStatus(''))
+    } else if (user.status == 'success') {
       navigate('/home')
+      dispatch(setStatus(''))
     }
-  })
+  }, [user])
 
   return (
     <Flex id="login" className="center">

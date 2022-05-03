@@ -1,9 +1,12 @@
 import { extendTheme } from '@chakra-ui/react'
 
-// 2. Extend the theme to include custom colors, fonts, etc
 const theme = extendTheme({
   styles: {
     global: {
+      '#root':{
+        margin: 'auto',
+        maxWidth: 'calc(600px + 2rem)'
+      },
       '#app': {
         display: 'flex',
         justifyContent: 'center',
@@ -11,7 +14,8 @@ const theme = extendTheme({
         height: 'calc(100vh - 1rem)',
         width: 'calc(100vw - 2rem)',
         margin: '1rem',
-        marginBottom: 0
+        marginBottom: 0,
+        maxWidth: '600px'
       },
       '.center': {
         display: 'flex',
