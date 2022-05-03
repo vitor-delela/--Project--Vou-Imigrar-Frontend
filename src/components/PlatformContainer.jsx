@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import {Flex} from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 
 import NavbarBottom from './NavbarBottom'
 import BackNavigation from './BackNavigation'
@@ -12,7 +12,7 @@ export default function PlatformContainer (props) {
       flexDirection='column'
       width='100%'
     >
-      {props.backNavigation && 
+      {props.backNavigation &&
         <BackNavigation
           marginBottom="1rem"
           height="35px"

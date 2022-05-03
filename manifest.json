@@ -1,0 +1,10 @@
+{
+  "name": "Vou Imigrar",
+  "short_name": "Vou Imigrar",
+  "theme_color": "#6655D4",
+  "background_color": "#ffffff",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/http://localhost:3000/"
+}

@@ -15,7 +15,7 @@ export default function Home () {
       </Heading>
 
       <HStack maxW='90vw' spacing={4} overflow='auto' whiteSpace='nowrap' alignSelf='center'>
-        {[0,1,2].map((tip) => {
+        {[0, 1, 2].map((tip) => {
           return (
             <Flex key={tip} py={8} px={6} bg='background' borderRadius={8} alignItems='center' justifyContent='center'>
               <Text>DICA Lorem ipsum Lorem ipsum</Text>
@@ -23,7 +23,6 @@ export default function Home () {
           )
         })}
       </HStack>
-      
 
       <Box w={['100%', null, '50%']} px={8}>
         <Image
