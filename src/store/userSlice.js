@@ -20,7 +20,6 @@ export const signUp = createAsyncThunk('api/signUp', async (request) => {
       message: 'O cadastro não pode ser realizado com sucesso.'
     }
   };
-  localStorage.setItem("user", JSON.stringify(response.data));
   return {
     status: 'success',
     data: {
