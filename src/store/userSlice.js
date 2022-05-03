@@ -1,11 +1,42 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { HTTP } from '../config/axios.config';
+
+export const signUp = createAsyncThunk('api/signUp', async (request) => {
+  let response;
+  try {
+    response = await HTTP.post(
+      '/users', { 
+        "name": request.name,
+        "birth": request.birth,
+        "phone": request.tel,
+        "email": request.email,
+        "password": request.password,
+        "userType": "USER"
+      }
+    )
+  } catch(_) {
+    return { 
+      status: 'failed',
+      message: 'O cadastro não pode ser realizado com sucesso.'
+    }
+  };
+  return {
+    status: 'success',
+    data: {
+      id: response.data.id,
+      name: response.data.name,
+      email: request.email,
+      token: response.headers.authorization,
+      type: response.data.type
+    }
+  };
+});
 
 export const signIn = createAsyncThunk('api/signIn', async (request) => {
   let response;
   try {
-    response = await axios.post(
-      'http://localhost:8080/users/login', { 
+    response = await HTTP.post(
+      '/users/login', { 
         "email": request.email,
         "password": request.password
       }
@@ -28,21 +59,6 @@ export const signIn = createAsyncThunk('api/signIn', async (request) => {
   };
 });
 
-export const signUp = createAsyncThunk('api/signUp', async (request) => {
-  console.log(request)
-  const response = await axios.post(
-    'http://localhost:8080/users', { 
-      "name": request.name,
-      "birth": request.birth,
-      "phone": request.tel,
-      "email": request.email,
-      "password": request.password,
-      "userType": "USER"
-    }
-  );
-  return response.data;
-});
-
 export const slice = createSlice({
   name: 'user',
   initialState: {
@@ -60,6 +76,12 @@ export const slice = createSlice({
         email: payload.email,
         type: payload.type,
         authenticated: payload.authenticated
+      }
+    },
+    setStatus (state, { payload }) {
+      return {
+        ...state,
+        status: payload
       }
     }
   },
@@ -89,7 +111,7 @@ export const slice = createSlice({
           state.error = action.payload.message;
           return
       }
-      state.status = 'success';
+      state.status = 'login';
       state.id = action.payload.data.id;
       state.name = action.payload.data.name;
       state.email = action.payload.data.email;
@@ -99,6 +121,6 @@ export const slice = createSlice({
   },
 });
 
-export const { setUser } = slice.actions;
+export const { setUser, setStatus } = slice.actions;
 export const selectUser = (state) => state.user;
 export default slice.reducer;
