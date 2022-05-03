@@ -98,7 +98,6 @@ export default function Login () {
       <TextButton onClick={() => { navigate('/forget') }}>
         Esqueci a senha
       </TextButton>
-      {user.email != '' ? `Logado como ${user.email}` : ''}
     </Flex>
   )
 }

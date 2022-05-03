@@ -10,6 +10,7 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import NavigationStructure from './pages/NavigationStructure'
 import SignUp from './pages/SignUp'
+import CountryDetails from './pages/CountryDetails'
 
 export default function AppRouter () {
   const { type } = useSelector((state) => state.user)
@@ -50,6 +51,19 @@ export default function AppRouter () {
           </Route>
         </Route>
 
+        <Route path="/" element={<PlatformContainer backNavigation={false} />}>
+          <Route path="/home" element={<Home />}/>
+        </Route>
+
+        <Route path="/">
+          <Route path="/home" element={<Home />}/>
+        </Route>
+
+        <Route path="/" element={<PlatformContainer backNavigation={true} />}>
+          <Route path="/country" element={<CountryDetails />}/>
+        </Route>
+
+        <Route path="*" element={<Welcome />} />
       </Routes>
     </Router>
   )

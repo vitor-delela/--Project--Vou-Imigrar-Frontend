@@ -1,0 +1,33 @@
+import React from 'react'
+import { Container, Heading, HStack, Image, Flex, Text } from '@chakra-ui/react'
+
+export default function PhotosCarousel (props) {
+
+  return (
+    <div>
+        <Heading
+            fontWeight='normal'
+            fontSize='28px'
+            marginTop='10px'
+        >
+            Fotos
+        </Heading>
+        <Container marginTop='10px'>
+            <HStack maxW='90vw' spacing={4} overflow='auto' whiteSpace='nowrap' alignSelf='center'>
+                {
+                props.photos.map(p => {
+                return (
+                    <Image
+                        key={p}
+                        src={p}
+                        alt='Foto do país'
+                        width='100%'
+                        height='180px'
+                    />
+                  )
+                })}
+            </HStack>
+        </Container>
+    </div>
+  )
+}
