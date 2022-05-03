@@ -27,6 +27,7 @@ export default function Login () {
     },
   })
   const user = useSelector(selectUser);
+  
 
   useEffect(() => {
     dispatch(setPage('Entrar no aplicativo'))
@@ -62,7 +63,7 @@ export default function Login () {
       })
       return;
     }
-    await dispatch(signIn({ email, password }))
+    dispatch(signIn({ email, password }))
   }
 
   useEffect(() => {
@@ -72,7 +73,7 @@ export default function Login () {
         title: 'Falha ao entrar',
         description: user.error,
       })
-    } else if (user.status == 'success') {
+    } else if (user.status == 'success') {      
       navigate('/home')
     }
   })

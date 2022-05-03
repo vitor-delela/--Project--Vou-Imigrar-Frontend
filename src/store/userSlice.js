@@ -16,13 +16,14 @@ export const signIn = createAsyncThunk('api/signIn', async (request) => {
       message: 'Usuário ou senha incorretos.'
     }
   };
+  localStorage.setItem("user", JSON.stringify(response.data));
   return {
     status: 'success',
     data: {
       id: response.data.id,
       name: response.data.name,
-      email: request.email,
-      token: response.headers.authorization,
+      email: response.data.email,
+      token: response.data.authorization,
       type: response.data.type
     }
   };
@@ -77,6 +78,7 @@ export const slice = createSlice({
         state.name = action.payload.data.name;
         state.email = action.payload.data.email;
         state.token = action.payload.data.token;
+        state.phone = action.payload.data.phone;
         state.type = 'client';
       }
     },
