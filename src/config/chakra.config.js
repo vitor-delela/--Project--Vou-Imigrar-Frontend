@@ -3,7 +3,7 @@ import { extendTheme } from '@chakra-ui/react'
 const theme = extendTheme({
   styles: {
     global: {
-      '#root':{
+      '#root': {
         margin: 'auto',
         maxWidth: 'calc(600px + 2rem)'
       },
@@ -24,7 +24,7 @@ const theme = extendTheme({
         alignItems: 'center',
         textAlign: 'center',
         width: '100%',
-        height: '100%',
+        height: '100%'
       },
       '.color': {
         color: '#6D4FD3'
@@ -42,13 +42,13 @@ const theme = extendTheme({
     white: '#ffffff'
   },
   fonts: {
-    heading: "-apple-system, BlinkMacSystemFont, Roboto",
-    body: "-apple-system, BlinkMacSystemFont, Roboto"
+    heading: '-apple-system, BlinkMacSystemFont, Roboto',
+    body: '-apple-system, BlinkMacSystemFont, Roboto'
   },
   fontSizes: {
-    sm: "0.875rem",
-    md: "1rem",
-    lg: "1.125rem"
+    sm: '0.875rem',
+    md: '1rem',
+    lg: '1.125rem'
   },
   fontWeights: {
     hairline: 100,
@@ -59,7 +59,7 @@ const theme = extendTheme({
     semibold: 600,
     bold: 700,
     extrabold: 800,
-    black: 900,
+    black: 900
   }
 })
 

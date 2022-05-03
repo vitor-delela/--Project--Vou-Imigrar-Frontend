@@ -7,7 +7,6 @@ import CountryInformation from '../components/CountryInformation'
 import StartJourneyButton from '../components/buttons/StartJouneyButton'
 
 export default function CountryDetails (props) {
-
   // const country = props.country;
   const country = {
     name: 'Canada',

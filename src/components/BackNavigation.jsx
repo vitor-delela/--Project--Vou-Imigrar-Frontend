@@ -24,10 +24,10 @@ export default function BackNavigation () {
         height='25px'
         color='purple'
         cursor='pointer'
-        className="arrow" 
-        onClick={() => navigate(-1)} 
+        className="arrow"
+        onClick={() => navigate(-1)}
       />
-      <Heading 
+      <Heading
         as="h1"
         size='s'
         fontWeight='light'

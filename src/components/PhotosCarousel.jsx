@@ -1,8 +1,7 @@
 import React from 'react'
-import { Container, Heading, HStack, Image, Flex, Text } from '@chakra-ui/react'
+import { Container, Heading, HStack, Image } from '@chakra-ui/react'
 
 export default function PhotosCarousel (props) {
-
   return (
     <div>
         <Heading
@@ -16,7 +15,7 @@ export default function PhotosCarousel (props) {
             <HStack maxW='90vw' spacing={4} overflow='auto' whiteSpace='nowrap' alignSelf='center'>
                 {
                 props.photos.map(p => {
-                return (
+                  return (
                     <Image
                         key={p}
                         src={p}

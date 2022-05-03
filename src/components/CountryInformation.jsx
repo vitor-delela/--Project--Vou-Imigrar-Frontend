@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Heading, Stack, HStack, Text } from '@chakra-ui/react'
-import { 
+import {
   MdCloudQueue,
   MdMessage,
   MdPeopleOutline,
@@ -12,8 +12,7 @@ import {
 } from 'react-icons/md'
 
 export default function PhotosCarousel (props) {
-
-  const information = props.information;
+  const information = props.information
 
   return (
     <div>

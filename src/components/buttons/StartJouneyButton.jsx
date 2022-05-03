@@ -4,9 +4,8 @@ import PrimaryButton from './PrimaryButton'
 import { MdOutlineAirplanemodeActive } from 'react-icons/md'
 
 export default function StartJourneyButton (props) {
-
   const startJourney = () => {
-    return alert('Iniciar jornada');
+    return alert('Iniciar jornada')
   }
 
   return (

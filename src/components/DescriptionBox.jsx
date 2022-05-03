@@ -7,7 +7,7 @@ export default function DescriptionBox (props) {
       background='rgba(109, 79, 211, 0.05)'
       borderRadius='10px'
     >
-      <Text 
+      <Text
         fontWeight='bold'
         padding='15px'
         fontSize='18'

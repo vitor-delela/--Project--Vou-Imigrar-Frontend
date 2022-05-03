@@ -36,34 +36,19 @@ export default function AppRouter () {
       <Routes>
         <Route path="/" element={<PublicRoute type={null} />}>
           <Route path="/" element={<Welcome />} />
-
+          <Route path="*" element={<Welcome />} />
           <Route path="/" element={<NavigationStructure />}>
             <Route path="/login" element={<Login />}/>
-
             <Route path="/signUp" element={<SignUp />}/>
-          </Route> 
+          </Route>
         </Route>
-        
 
         <Route path="/" element={<PrivateRoute type={'client'} />}>
           <Route path="/" element={<PlatformContainer backNavigation={false} />}>
             <Route path="/home" element={<Home />}/>
+            <Route path="/country" element={<CountryDetails />}/>
           </Route>
         </Route>
-
-        <Route path="/" element={<PlatformContainer backNavigation={false} />}>
-          <Route path="/home" element={<Home />}/>
-        </Route>
-
-        <Route path="/">
-          <Route path="/home" element={<Home />}/>
-        </Route>
-
-        <Route path="/" element={<PlatformContainer backNavigation={true} />}>
-          <Route path="/country" element={<CountryDetails />}/>
-        </Route>
-
-        <Route path="*" element={<Welcome />} />
       </Routes>
     </Router>
   )

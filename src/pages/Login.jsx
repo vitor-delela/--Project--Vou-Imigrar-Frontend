@@ -23,11 +23,10 @@ export default function Login () {
     isClosable: true,
     containerStyle: {
       width: '400px',
-      maxWidth: '90%',
-    },
+      maxWidth: '90%'
+    }
   })
-  const user = useSelector(selectUser);
-  
+  const user = useSelector(selectUser)
 
   useEffect(() => {
     dispatch(setPage('Entrar no aplicativo'))
@@ -43,33 +42,33 @@ export default function Login () {
   }
 
   const areInputsValid = async () => {
-    if (email == '' || password == '') {
+    if (email === '' || password === '') {
       if (toast.isActive('blankFields')) return
       toast({
         id: 'blankFields',
-        description: "É obrigatório informar e-mail e senha.",
+        description: 'É obrigatório informar e-mail e senha.'
       })
-      return;
+      return
     } else if (!verifyEmail(email)) {
       if (toast.isActive('invalidEmail')) return
       toast({
         id: 'invalidEmail',
-        description: "O e-mail informado não é válido.",
+        description: 'O e-mail informado não é válido.'
       })
-      return;
+      return
     }
     dispatch(signIn({ email, password }))
   }
 
   useEffect(() => {
-    if (user.status == 'failed' && !toast.isActive('loginFailed')) {
+    if (user.status === 'failed' && !toast.isActive('loginFailed')) {
       toast({
         id: 'loginFailed',
         title: 'Falha ao entrar',
-        description: user.error,
+        description: user.error
       })
       dispatch(setStatus(''))
-    } else if (user.status == 'success') {
+    } else if (user.status === 'success') {
       navigate('/home')
       dispatch(setStatus(''))
     }
@@ -92,7 +91,7 @@ export default function Login () {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <PrimaryButton isDisabled={user.status == 'loading'} marginTop='20px' onClick={areInputsValid}>
+      <PrimaryButton isDisabled={user.status === 'loading'} marginTop='20px' onClick={areInputsValid}>
         Entrar
       </PrimaryButton>
       <TextButton onClick={() => { navigate('/forget') }}>
