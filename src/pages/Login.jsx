@@ -27,6 +27,7 @@ export default function Login () {
     },
   })
   const user = useSelector(selectUser);
+  
 
   useEffect(() => {
     dispatch(setPage('Entrar no aplicativo'))
@@ -57,7 +58,7 @@ export default function Login () {
       })
       return;
     }
-    await dispatch(signIn({ email, password }))
+    dispatch(signIn({ email, password }))
   }
 
   useEffect(() => {
