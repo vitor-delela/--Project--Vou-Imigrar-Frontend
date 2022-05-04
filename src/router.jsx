@@ -8,6 +8,8 @@ import PlatformContainer from './components/PlatformContainer'
 import Welcome from './pages/Welcome'
 import Login from './pages/Login'
 import Home from './pages/Home'
+import Profile from './pages/Profile'
+import UpdateProfile from './pages/UpdateProfile'
 import NavigationStructure from './pages/NavigationStructure'
 import SignUp from './pages/SignUp'
 import CountryDetails from './pages/CountryDetails'
@@ -46,9 +48,11 @@ export default function AppRouter () {
         <Route path="/" element={<PrivateRoute type={'client'} />}>
           <Route path="/" element={<PlatformContainer backNavigation={false} />}>
             <Route path="/home" element={<Home />}/>
+            <Route path="/profile" element={<Profile />}/>
           </Route>
           <Route path="/" element={<PlatformContainer backNavigation={true} />}>
             <Route path="/country" element={<CountryDetails />}/>
+            <Route path="/update" element={<UpdateProfile />}/>
           </Route>
         </Route>
       </Routes>

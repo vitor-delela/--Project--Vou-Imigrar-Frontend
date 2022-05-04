@@ -23,6 +23,9 @@ export default function PlatformContainer (props) {
         className="page"
         overflow='auto'
         alignSelf='center'
+        justifyContent='center'
+        w='100vw'
+        px={4}
       >
         <Outlet />
       </Flex>
