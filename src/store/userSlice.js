@@ -26,6 +26,7 @@ export const signUp = createAsyncThunk('api/signUp', async (request) => {
       id: response.data.id,
       name: response.data.name,
       email: response.data.email,
+      phone: response.data.phone,
       token: response.data.authorization,
       type: response.data.type
     }
@@ -59,12 +60,42 @@ export const signIn = createAsyncThunk('api/signIn', async (request) => {
   }
 })
 
+export const update = createAsyncThunk('api/update', async (request) => {
+  let response
+  try {
+    response = await HTTP.put(
+      '/users/update', {
+        id: request.user.id,
+        name: request.name,
+        phone: request.tel
+      }
+    )
+  } catch (_) {
+    return {
+      status: 'failed',
+      message: 'Erro ao atualizar os dados.'
+    }
+  };
+  return {
+    status: 'success',
+    data: {
+      id: response.data.id,
+      name: response.data.name,
+      phone: response.data.phone,
+      email: request.email,
+      token: response.headers.authorization,
+      type: response.data.type
+    }
+  }
+})
+
 export const slice = createSlice({
   name: 'user',
   initialState: {
     id: '',
     name: '',
     email: '',
+    phone: '',
     token: '',
     status: '',
     type: null
@@ -116,6 +147,24 @@ export const slice = createSlice({
       state.id = action.payload.data.id
       state.name = action.payload.data.name
       state.email = action.payload.data.email
+      state.phone = action.payload.data.phone
+      state.token = action.payload.data.token
+      state.type = 'client'
+    },
+    [update.pending]: (state, action) => {
+      state.status = 'loading'
+    },
+    [update.fulfilled]: (state, action) => {
+      if (!action.payload.data) {
+        state.status = 'failed'
+        state.error = action.payload.message
+        return
+      }
+      state.status = 'update'
+      state.id = action.payload.data.id
+      state.name = action.payload.data.name
+      state.email = action.payload.data.email
+      state.phone = action.payload.data.phone
       state.token = action.payload.data.token
       state.type = 'client'
     }
