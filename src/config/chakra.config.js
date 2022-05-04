@@ -28,6 +28,9 @@ const theme = extendTheme({
       },
       '.color': {
         color: '#6D4FD3'
+      },
+      '.chakra-container': {
+        padding: '0px!important'
       }
     }
   },

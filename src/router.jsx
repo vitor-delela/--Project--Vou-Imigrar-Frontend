@@ -49,10 +49,9 @@ export default function AppRouter () {
           <Route path="/" element={<PlatformContainer backNavigation={false} />}>
             <Route path="/home" element={<Home />}/>
             <Route path="/profile" element={<Profile />}/>
-            <Route path="/country" element={<CountryDetails />}/>
           </Route>
-
-          <Route path="/" element={<PlatformContainer backNavigation/>}>
+          <Route path="/" element={<PlatformContainer backNavigation={true} />}>
+            <Route path="/country" element={<CountryDetails />}/>
             <Route path="/update" element={<UpdateProfile />}/>
           </Route>
         </Route>
