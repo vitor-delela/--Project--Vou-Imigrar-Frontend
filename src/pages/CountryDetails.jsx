@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../store/pageSlice'
-import { Container } from '@chakra-ui/react'
+import { Container, Box } from '@chakra-ui/react'
 import DescriptionBox from '../components/DescriptionBox'
 import CountryImage from '../components/CountryImage'
 import PhotosCarousel from '../components/PhotosCarousel'
@@ -37,7 +37,7 @@ export default function CountryDetails (props) {
   })
 
   return (
-    <div>
+    <Box w='100%' maxW='600px' mt={8} mb={16}>
       <CountryImage src={country.image} />
       <Container marginTop='20px'>
         <DescriptionBox text={country.description} />
@@ -47,6 +47,6 @@ export default function CountryDetails (props) {
       <CountryInformation information={country.information}/>
       <StartJourneyButton />
       <Container paddingBottom='80px'/>
-    </div>
+    </Box>
   )
 }
