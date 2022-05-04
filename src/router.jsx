@@ -46,6 +46,8 @@ export default function AppRouter () {
         <Route path="/" element={<PrivateRoute type={'client'} />}>
           <Route path="/" element={<PlatformContainer backNavigation={false} />}>
             <Route path="/home" element={<Home />}/>
+          </Route>
+          <Route path="/" element={<PlatformContainer backNavigation={true} />}>
             <Route path="/country" element={<CountryDetails />}/>
           </Route>
         </Route>
