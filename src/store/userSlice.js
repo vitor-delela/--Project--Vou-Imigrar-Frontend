@@ -64,10 +64,10 @@ export const update = createAsyncThunk('api/update', async (request) => {
   let response
   try {
     response = await HTTP.put(
-      '/users/update', {
-        id: request.user.id,
-        name: request.name,
-        phone: request.tel
+      '/users', {
+        id: request.id,
+        updatedName: request.name,
+        updatedPhone: request.tel
       }
     )
   } catch (_) {
@@ -79,12 +79,8 @@ export const update = createAsyncThunk('api/update', async (request) => {
   return {
     status: 'success',
     data: {
-      id: response.data.id,
       name: response.data.name,
       phone: response.data.phone,
-      email: request.email,
-      token: response.headers.authorization,
-      type: response.data.type
     }
   }
 })
@@ -161,15 +157,21 @@ export const slice = createSlice({
         return
       }
       state.status = 'update'
-      state.id = action.payload.data.id
       state.name = action.payload.data.name
-      state.email = action.payload.data.email
       state.phone = action.payload.data.phone
-      state.token = action.payload.data.token
-      state.type = 'client'
     }
   }
 })
+
+export const logOut = (state) => {
+  state.id = '';
+  state.name = '';
+  state.email = '';
+  state.phone = '';
+  state.token = '';
+  state.status = '';
+  state.type = null;
+}
 
 export const { setUser, setStatus } = slice.actions
 export const selectUser = (state) => state.user

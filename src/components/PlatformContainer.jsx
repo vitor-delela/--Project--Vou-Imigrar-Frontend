@@ -24,7 +24,8 @@ export default function PlatformContainer (props) {
         overflow='auto'
         alignSelf='center'
         justifyContent='center'
-        w='100%'
+        w='100vw'
+        px={4}
       >
         <Outlet />
       </Flex>

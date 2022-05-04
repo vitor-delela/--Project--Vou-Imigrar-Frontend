@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPage } from '../store/pageSlice'
-import { selectUser } from '../store/userSlice'
+import { selectUser, logOut } from '../store/userSlice'
 
 import { Box, Text, Flex, VStack, Avatar, Divider } from '@chakra-ui/react'
 import { MdEmail, MdLogout, MdMap, MdMode } from 'react-icons/md'
@@ -49,7 +49,7 @@ export default function Profile () {
 
         <Flex alignItems='center'>
           <MdLogout fontSize={28}/>
-          <Text ml={5}>Sair</Text>
+          <Text ml={5} onClick={logOut(user)}>Sair</Text>
         </Flex>
       </VStack>
     </Box>
