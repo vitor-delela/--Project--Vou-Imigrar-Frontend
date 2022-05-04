@@ -1,5 +1,7 @@
-import React from 'react'
-import { Center, Container, Heading } from '@chakra-ui/react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setPage } from '../store/pageSlice'
+import { Container } from '@chakra-ui/react'
 import DescriptionBox from '../components/DescriptionBox'
 import CountryImage from '../components/CountryImage'
 import PhotosCarousel from '../components/PhotosCarousel'
@@ -29,17 +31,13 @@ export default function CountryDetails (props) {
     }
   }
 
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setPage(country.name.toUpperCase()))
+  })
+
   return (
     <div>
-      <Center>
-        <Heading
-          fontSize='20'
-          position='absolute'
-          top='5px'
-        >
-          {country.name.toUpperCase()}
-        </Heading>
-      </Center>
       <CountryImage src={country.image} />
       <Container marginTop='20px'>
         <DescriptionBox text={country.description} />
