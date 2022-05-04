@@ -5,7 +5,6 @@ import { BiWorld } from 'react-icons/bi'
 import { MdHome, MdPerson } from 'react-icons/md'
 import { Flex } from '@chakra-ui/react'
 
-
 export default function NavbarBottom () {
   const navigate = useNavigate()
 

@@ -28,7 +28,7 @@ export default function UpdateProfile () {
   })
 
   useEffect(() => {
-    dispatch(setPage('Voltar'))
+    dispatch(setPage('Editar informações'))
   })
 
   const user = useSelector(selectUser)
@@ -84,10 +84,10 @@ export default function UpdateProfile () {
   }, [user])
 
   return (
-    <Flex id="update" className="center" w='100%'>
+    <Flex id="update" className="center">
       <Logo/>
-      <Box w='100%' mt={8} mb={16}>
-          <Grid w="100%" mb={8}>
+      <Box w='100%' maxW='600px' mt={8} mb={16}>
+          <Grid w="100%" maxW='600px'>
             <Input
               type="text"
               onKeyPress={pressKey}
@@ -104,11 +104,9 @@ export default function UpdateProfile () {
               value={tel}
               onChange={(e) => setTel(e.target.value)}
             />
+            <PrimaryButton mt={10} onClick={validateAndUpdate}>Atualizar dados</PrimaryButton>
           </Grid>
       </Box>
-
-      <PrimaryButton onClick={validateAndUpdate}>Atualizar dados</PrimaryButton>
-
     </Flex>
   )
 }

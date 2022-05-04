@@ -80,7 +80,7 @@ export const update = createAsyncThunk('api/update', async (request) => {
     status: 'success',
     data: {
       name: response.data.name,
-      phone: response.data.phone,
+      phone: response.data.phone
     }
   }
 })
@@ -109,6 +109,18 @@ export const slice = createSlice({
       return {
         ...state,
         status: payload
+      }
+    },
+    logout (state) {
+      return {
+        ...state,
+        id: '',
+        name: '',
+        email: '',
+        phone: '',
+        token: '',
+        status: '',
+        type: null
       }
     }
   },
@@ -163,16 +175,6 @@ export const slice = createSlice({
   }
 })
 
-export const logOut = (state) => {
-  state.id = '';
-  state.name = '';
-  state.email = '';
-  state.phone = '';
-  state.token = '';
-  state.status = '';
-  state.type = null;
-}
-
-export const { setUser, setStatus } = slice.actions
+export const { setUser, setStatus, logout } = slice.actions
 export const selectUser = (state) => state.user
 export default slice.reducer
