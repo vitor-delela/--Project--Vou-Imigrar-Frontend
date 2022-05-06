@@ -5,7 +5,7 @@ export default function CountryCard (props) {
   return(
     <Flex 
       borderRadius="30px" 
-      h="220px" 
+      h="190px" 
       w="90vw" 
       justifyContent="space-between" 
       flexDirection="column" 
@@ -32,8 +32,8 @@ export default function CountryCard (props) {
           </Text>
         </Flex>
         <Flex h="60%" w="15%" borderRadius={10} justifyContent="center" alignItems="center" bgColor="orange">
-          <Text fontSize={20} color="white">
-            50%
+          <Text fontSize={17} color="white">
+            {props.percentage}
           </Text>
         </Flex>
       </Flex>
