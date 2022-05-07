@@ -16,22 +16,25 @@ export default function CountryCard (props) {
 
   return(
     <Flex 
+      onClick={props.onClick}
       borderRadius="30px" 
-      h="190px" 
+      h="200px" 
       w="90vw" 
       justifyContent="space-between" 
       flexDirection="column" 
       bgImage={props.src} 
       bgPosition="top" 
       bgRepeat="no-repeat" 
-      bgSize="cover">
+      bgSize="cover"
+      marginBottom={5}
+    >
       <Box h="150px"/>
       <Flex h="40%" alignItems="center" justifyContent="space-evenly" borderRadius="0 0 30px 30px" bgGradient='linear(to-l, #01A3DE, #6655D4)' >
         <Flex w="70%" flexDirection="column">
           <Text textAlign="left" paddingLeft={4} fontSize={24} color="white" fontWeight="bold">
             {props.name}
           </Text>
-          <Text paddingLeft={4} fontSize={14} color="white">
+          <Text paddingLeft={4} fontSize={14} color="white" maxWidth='80%' mt='-5px'>
             Clique para mais informações sobre este país 
           </Text>
         </Flex>
@@ -41,7 +44,6 @@ export default function CountryCard (props) {
           </Text>
         </Flex>
       </Flex>
-      
     </Flex>
   )
 }
