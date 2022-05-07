@@ -10,7 +10,7 @@ import TextButton from '../components/buttons/TextButton'
 import { verifyEmail } from '../utils/functions'
 
 import { setPage } from '../store/pageSlice'
-import { signIn, selectUser } from '../store/userSlice'
+import { signIn, selectUser, setStatus } from '../store/userSlice'
 
 export default function Login () {
   const navigate = useNavigate()
@@ -23,10 +23,10 @@ export default function Login () {
     isClosable: true,
     containerStyle: {
       width: '400px',
-      maxWidth: '90%',
-    },
+      maxWidth: '90%'
+    }
   })
-  const user = useSelector(selectUser);
+  const user = useSelector(selectUser)
 
   useEffect(() => {
     dispatch(setPage('Entrar no aplicativo'))
@@ -35,11 +35,6 @@ export default function Login () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const login = async () => {
-    console.log(email, password);
-    navigate('/home');
-  }
-
   const pressKey = (e) => {
     if (e.key === 'Enter') {
       areInputsValid()
@@ -47,35 +42,37 @@ export default function Login () {
   }
 
   const areInputsValid = async () => {
-    if (email == '' || password == '') {
+    if (email === '' || password === '') {
       if (toast.isActive('blankFields')) return
       toast({
         id: 'blankFields',
-        description: "É obrigatório informar e-mail e senha.",
+        description: 'É obrigatório informar e-mail e senha.'
       })
-      return;
+      return
     } else if (!verifyEmail(email)) {
       if (toast.isActive('invalidEmail')) return
       toast({
         id: 'invalidEmail',
-        description: "O e-mail informado não é válido.",
+        description: 'O e-mail informado não é válido.'
       })
-      return;
+      return
     }
-    await dispatch(signIn({ email, password }))
+    dispatch(signIn({ email, password }))
   }
 
   useEffect(() => {
-    if (user.status == 'failed' && !toast.isActive('loginFailed')) {
+    if (user.status === 'failed' && !toast.isActive('loginFailed')) {
       toast({
         id: 'loginFailed',
         title: 'Falha ao entrar',
-        description: user.error,
+        description: user.error
       })
-    } else if (user.status == 'success') {
+      dispatch(setStatus(''))
+    } else if (user.status === 'success') {
       navigate('/home')
+      dispatch(setStatus(''))
     }
-  })
+  }, [user])
 
   return (
     <Flex id="login" className="center">
@@ -94,13 +91,12 @@ export default function Login () {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <PrimaryButton isDisabled={user.status == 'loading'} marginTop='20px' onClick={areInputsValid}>
+      <PrimaryButton isDisabled={user.status === 'loading'} marginTop='20px' onClick={areInputsValid}>
         Entrar
       </PrimaryButton>
       <TextButton onClick={() => { navigate('/forget') }}>
         Esqueci a senha
       </TextButton>
-      {user.email != '' ? `Logado como ${user.email}` : ''}
     </Flex>
   )
 }

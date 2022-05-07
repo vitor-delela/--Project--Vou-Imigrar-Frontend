@@ -1,9 +1,12 @@
 import { extendTheme } from '@chakra-ui/react'
 
-// 2. Extend the theme to include custom colors, fonts, etc
 const theme = extendTheme({
   styles: {
     global: {
+      '#root': {
+        margin: 'auto',
+        maxWidth: 'calc(600px + 2rem)'
+      },
       '#app': {
         display: 'flex',
         justifyContent: 'center',
@@ -11,7 +14,8 @@ const theme = extendTheme({
         height: 'calc(100vh - 1rem)',
         width: 'calc(100vw - 2rem)',
         margin: '1rem',
-        marginBottom: 0
+        marginBottom: 0,
+        maxWidth: '600px'
       },
       '.center': {
         display: 'flex',
@@ -20,10 +24,13 @@ const theme = extendTheme({
         alignItems: 'center',
         textAlign: 'center',
         width: '100%',
-        height: '100%',
+        height: '100%'
       },
       '.color': {
         color: '#6D4FD3'
+      },
+      '.chakra-container': {
+        padding: '0px!important'
       }
     }
   },
@@ -38,13 +45,13 @@ const theme = extendTheme({
     white: '#ffffff'
   },
   fonts: {
-    heading: "-apple-system, BlinkMacSystemFont, Roboto",
-    body: "-apple-system, BlinkMacSystemFont, Roboto"
+    heading: '-apple-system, BlinkMacSystemFont, Roboto',
+    body: '-apple-system, BlinkMacSystemFont, Roboto'
   },
   fontSizes: {
-    sm: "0.875rem",
-    md: "1rem",
-    lg: "1.125rem"
+    sm: '0.875rem',
+    md: '1rem',
+    lg: '1.125rem'
   },
   fontWeights: {
     hairline: 100,
@@ -55,7 +62,7 @@ const theme = extendTheme({
     semibold: 600,
     bold: 700,
     extrabold: 800,
-    black: 900,
+    black: 900
   }
 })
 

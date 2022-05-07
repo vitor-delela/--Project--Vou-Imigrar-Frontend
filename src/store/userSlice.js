@@ -1,17 +1,49 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { HTTP } from '../config/axios.config'
 
-export const signIn = createAsyncThunk('api/signIn', async (request) => {
-  let response;
+export const signUp = createAsyncThunk('api/signUp', async (request) => {
+  let response
   try {
-    response = await axios.post(
-      'http://localhost:8080/users/login', { 
-        "email": request.email,
-        "password": request.password
+    response = await HTTP.post(
+      '/users', {
+        name: request.name,
+        birth: request.birth,
+        phone: request.tel,
+        email: request.email,
+        password: request.password,
+        userType: 'USER'
       }
     )
-  } catch(_) {
-    return { 
+  } catch (_) {
+    return {
+      status: 'failed',
+      message: 'O cadastro não pode ser realizado com sucesso.'
+    }
+  };
+  return {
+    status: 'success',
+    data: {
+      id: response.data.id,
+      name: response.data.name,
+      email: response.data.email,
+      phone: response.data.phone,
+      token: response.data.authorization,
+      type: response.data.type
+    }
+  }
+})
+
+export const signIn = createAsyncThunk('api/signIn', async (request) => {
+  let response
+  try {
+    response = await HTTP.post(
+      '/users/login', {
+        email: request.email,
+        password: request.password
+      }
+    )
+  } catch (_) {
+    return {
       status: 'failed',
       message: 'Usuário ou senha incorretos.'
     }
@@ -25,23 +57,33 @@ export const signIn = createAsyncThunk('api/signIn', async (request) => {
       token: response.headers.authorization,
       type: response.data.type
     }
-  };
-});
+  }
+})
 
-export const signUp = createAsyncThunk('api/signUp', async (request) => {
-  console.log(request)
-  const response = await axios.post(
-    'http://localhost:8080/users', { 
-      "name": request.name,
-      "birth": request.birth,
-      "phone": request.tel,
-      "email": request.email,
-      "password": request.password,
-      "userType": "USER"
+export const update = createAsyncThunk('api/update', async (request) => {
+  let response
+  try {
+    response = await HTTP.put(
+      '/users', {
+        id: request.id,
+        updatedName: request.name,
+        updatedPhone: request.tel
+      }
+    )
+  } catch (_) {
+    return {
+      status: 'failed',
+      message: 'Erro ao atualizar os dados.'
     }
-  );
-  return response.data;
-});
+  };
+  return {
+    status: 'success',
+    data: {
+      name: response.data.name,
+      phone: response.data.phone
+    }
+  }
+})
 
 export const slice = createSlice({
   name: 'user',
@@ -49,9 +91,10 @@ export const slice = createSlice({
     id: '',
     name: '',
     email: '',
+    phone: '',
     token: '',
     status: '',
-    type: ''
+    type: null
   },
   reducers: {
     setUser (state, { payload }) {
@@ -61,47 +104,77 @@ export const slice = createSlice({
         type: payload.type,
         authenticated: payload.authenticated
       }
+    },
+    setStatus (state, { payload }) {
+      return {
+        ...state,
+        status: payload
+      }
+    },
+    logout (state) {
+      return {
+        ...state,
+        id: '',
+        name: '',
+        email: '',
+        phone: '',
+        token: '',
+        status: '',
+        type: null
+      }
     }
   },
   extraReducers: {
     [signIn.pending]: (state, action) => {
-      state.status = 'loading';
+      state.status = 'loading'
     },
     [signIn.fulfilled]: (state, action) => {
       state.status = action.payload.status
-      if (action.payload.status == 'failed') {
-        state.error = action.payload.message;
-      } else if (action.payload.status == 'success') {
-        state.id = action.payload.data.id;
-        state.name = action.payload.data.name;
-        state.email = action.payload.data.email;
-        state.token = action.payload.data.token;
+      if (!action.payload.data || action.payload.status === 'failed') {
+        state.error = action.payload.message
+        state.error = action.payload.message
+      } else {
+        state.id = action.payload.data.id
+        state.name = action.payload.data.name
+        state.email = action.payload.data.email
+        state.token = action.payload.data.token
+        state.phone = action.payload.data.phone
+        state.type = 'client'
       }
-      if (!action.payload.data) {
-          state.status = 'failed'
-          state.error = action.payload.message;
-          return
-      }
-      state.status = 'success';
-      state.id = action.payload.data.Id;
-      state.name = action.payload.data.Name;
-      state.email = action.payload.data.Email;
-      state.token = action.payload.data.Token;
     },
     [signUp.pending]: (state, action) => {
-      state.status = 'loading';
+      state.status = 'loading'
     },
     [signUp.fulfilled]: (state, action) => {
       if (!action.payload.data) {
-          state.status = 'failed'
-          state.error = action.payload.message;
-          return
+        state.status = 'failed'
+        state.error = action.payload.message
+        return
       }
-      state.status = 'success';
+      state.status = 'login'
+      state.id = action.payload.data.id
+      state.name = action.payload.data.name
+      state.email = action.payload.data.email
+      state.phone = action.payload.data.phone
+      state.token = action.payload.data.token
+      state.type = 'client'
     },
-  },
-});
+    [update.pending]: (state, action) => {
+      state.status = 'loading'
+    },
+    [update.fulfilled]: (state, action) => {
+      if (!action.payload.data) {
+        state.status = 'failed'
+        state.error = action.payload.message
+        return
+      }
+      state.status = 'update'
+      state.name = action.payload.data.name
+      state.phone = action.payload.data.phone
+    }
+  }
+})
 
-export const { setUser } = slice.actions;
-export const selectUser = (state) => state.user;
-export default slice.reducer;
+export const { setUser, setStatus, logout } = slice.actions
+export const selectUser = (state) => state.user
+export default slice.reducer
