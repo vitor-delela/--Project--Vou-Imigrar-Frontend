@@ -12,8 +12,10 @@ import {
 } from 'react-icons/md'
 
 export default function PhotosCarousel (props) {
-  const information = props.information
-
+  if (props.infos == undefined){
+    return (<div></div>)
+  }
+  const information = props.infos
   return (
     <div>
         <Heading

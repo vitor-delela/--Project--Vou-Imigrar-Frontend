@@ -2,6 +2,9 @@ import React from 'react'
 import { Container, Heading, HStack, Image } from '@chakra-ui/react'
 
 export default function PhotosCarousel (props) {
+  if (props.photos == undefined){
+    return (<div></div>)
+  }
   return (
     <div>
         <Heading
@@ -14,17 +17,19 @@ export default function PhotosCarousel (props) {
         <Container marginTop='10px'>
             <HStack maxW='90vw' spacing={4} overflow='auto' whiteSpace='nowrap' alignSelf='center'>
                 {
-                props.photos.map(p => {
-                  return (
-                    <Image
-                        key={p}
-                        src={p}
-                        alt='Foto do país'
-                        width='100%'
-                        height='180px'
-                    />
-                  )
-                })}
+                  props.photos.map(p => {
+                    return (
+                      <Image
+                          key={p}
+                          src={p}
+                          alt='Foto do país'
+                          width='100%'
+                          height='180px'
+                      />
+                    )
+                  })
+                }
+                
             </HStack>
         </Container>
     </div>

@@ -7,10 +7,14 @@ import CountryImage from '../components/CountryImage'
 import PhotosCarousel from '../components/PhotosCarousel'
 import CountryInformation from '../components/CountryInformation'
 import StartJourneyButton from '../components/buttons/StartJouneyButton'
+import { getCountryDetails } from '../store/countrySlice'
 
 export default function CountryDetails (props) {
-  // const country = props.country;
-  const country = {
+  // const country = getCountryDetails(props.countryId);
+  // const id = props.countryId
+  const id = 1
+  const country = getCountryDetails({ id });
+  const countryTest = {
     name: 'Canada',
     image: 'https://olhardigital.com.br/wp-content/uploads/2021/05/Canada.jpg',
     description: 'Breve descrição do país',
@@ -44,7 +48,7 @@ export default function CountryDetails (props) {
         <StartJourneyButton />
       </Container>
       <PhotosCarousel photos={country.photos}/>
-      <CountryInformation information={country.information}/>
+      <CountryInformation information={country.infos}/>
       <StartJourneyButton />
       <Container paddingBottom='80px'/>
     </Box>
