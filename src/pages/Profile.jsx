@@ -27,6 +27,9 @@ export default function Profile () {
   const navMapProfile = () => {
     navigate('/map-profile')
   }
+  const logoutClick = () => {
+    dispatch(logout(user))
+  }
 
   return (
     <Box>
@@ -54,7 +57,7 @@ export default function Profile () {
 
         <Flex alignItems='center'>
           <MdLogout fontSize={28}/>
-          <Text ml={5} onClick={logout(user)}>Sair</Text>
+          <Text ml={5} onClick={logoutClick}>Sair</Text>
         </Flex>
       </VStack>
     </Box>
