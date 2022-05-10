@@ -21,7 +21,7 @@ export default function PlatformContainer (props) {
       <Flex
         height='calc(100% - (35px + 1rem))'
         className="page"
-        overflow='auto'
+        overflow='scroll'
         alignSelf='center'
         justifyContent='center'
         w='100vw'
