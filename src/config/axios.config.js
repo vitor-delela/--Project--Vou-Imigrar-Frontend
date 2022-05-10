@@ -5,7 +5,7 @@ export const HTTP = axios.create({
 })
 
 HTTP.interceptors.request.use(function (config) {
-  const token=localStorage.getItem("token")
-  config.headers.Authorization=token ?? ""
+  const token = localStorage.getItem("token")
+  config.headers.Authorization = token ?? ""
   return config
 })

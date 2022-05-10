@@ -13,65 +13,45 @@ export default function CountryMatches () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [isShowingAllCountries, setIsShowingAllCountries] = useState(false)
-  const [countries, setCountries] = useState([])
+  const [matches, setMatches] = useState([])
 
   useEffect(async() => {
     dispatch(setPage('Match de Países'))
-    //await dispatch(setCountries(findAllMatches()))
-    //console.log(countries)
   })
 
-  useEffect(async() => {
-    await dispatch(setCountries(findAllMatches()))
-    console.log(countries)
+  useEffect(async () => {
+    const response = await dispatch(findAllMatches())
+    if (response.payload.status === 'success') {
+      console.log(response.payload.data)
+      setMatches(response.payload.data)
+    }
   }, [])
 
-  const contries = [
-    {
-      name: 'Nova Zelândia',
-      image: 'https://www.estudarfora.org.br/wp-content/uploads/2021/09/Estados-Unidos-768x538.jpg',
-      percentage: 90
-    },
-    {
-      name: 'Canada',
-      image: 'https://www.estudarfora.org.br/wp-content/uploads/2021/09/Estados-Unidos-768x538.jpg',
-      percentage: 75
-    },{
-      name: 'Austrália',
-      image: 'https://www.estudarfora.org.br/wp-content/uploads/2021/09/Estados-Unidos-768x538.jpg',
-      percentage: 50
-    },{
-      name: 'Portugal',
-      image: 'https://www.estudarfora.org.br/wp-content/uploads/2021/09/Estados-Unidos-768x538.jpg',
-      percentage: 25
-    },
-  ];
-  
   return (
     <div>
       <Box marginTop="20px" paddingBottom="82px">
         {
-          isShowingAllCountries 
-          ? contries.map((country, key) => {
-            return <CountryCard
-              key={key}
-              src={country.image}
-              name={country.name}
-              percentage={country.percentage}
-              onClick={() => navigate('/country')}
-            />
-          })
-          : contries.slice(0, 3).map((country, key) => {
-            return <CountryCard
-              key={key}
-              src={country.image}
-              name={country.name}
-              percentage={country.percentage}
-              onClick={() => navigate('/country')}
-            />
-          })
-        }        
-          
+          isShowingAllCountries
+            ? matches.map((match) => {
+              return <CountryCard
+                key={match.id}
+                src={match.country.image}
+                name={match.country.name}
+                percentage={match.matchPercentage}
+                onClick={() => navigate('/country')}
+              />
+            })
+            : matches.slice(0, 3).map((match) => {
+              return <CountryCard
+                key={match.id}
+                src={match.country.image}
+                name={match.country.name}
+                percentage={match.matchPercentage}
+                onClick={() => navigate('/country')}
+              />
+            })
+        }
+
         <PrimaryButton
           fontSize={18}
           fontWeight='bold'
@@ -80,10 +60,10 @@ export default function CountryMatches () {
           onClick={() => setIsShowingAllCountries(true)}
           display={isShowingAllCountries ? 'none' : 'block'}
         >
-          Ver todos os países 
+          Ver todos os países
         </PrimaryButton>
       </Box>
     </div>
-    
+
   )
 }
