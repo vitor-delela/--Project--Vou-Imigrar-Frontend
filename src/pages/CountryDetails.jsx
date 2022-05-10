@@ -1,56 +1,72 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../store/pageSlice'
-import { Container, Box } from '@chakra-ui/react'
+import { Container, Box, useToast, Spinner, Center } from '@chakra-ui/react'
 import DescriptionBox from '../components/DescriptionBox'
 import CountryImage from '../components/CountryImage'
 import PhotosCarousel from '../components/PhotosCarousel'
 import CountryInformation from '../components/CountryInformation'
 import StartJourneyButton from '../components/buttons/StartJouneyButton'
 import { getCountryDetails } from '../store/countrySlice'
+import { useNavigate } from 'react-router-dom'
 
 export default function CountryDetails (props) {
-  // const country = getCountryDetails(props.countryId);
-  // const id = props.countryId
-  const id = 1
-  const country = getCountryDetails({ id });
-  const countryTest = {
-    name: 'Canada',
-    image: 'https://olhardigital.com.br/wp-content/uploads/2021/05/Canada.jpg',
-    description: 'Breve descrição do país',
-    photos: [
-      'https://www.ie.com.br/wp-content/uploads/2021/12/cidades-mais-quentes-canada.jpeg',
-      'https://www.ie.com.br/wp-content/uploads/2022/01/onde-fica-canada.jpeg',
-      'https://www.tirarvistocanadense.com.br/wp-content/uploads/2020/01/Canad%C3%A1-min.jpeg'
-    ],
-    information: {
-      clima: 'Entre julho e setembro, os meses mais quentes, a temperatura média é de 25°C. No inverno, fica entre 10°C e 19°C',
-      idioma: 'Inglês',
-      populacao: 'Cerca de 36 milhões de habitantes',
-      territorio: '9.985.000 km²',
-      timezone: '(UTC -7 a UTC -2:30) 4 horas a menos à meia hora à frente do horário do Brasil',
-      moeda: 'Dólar Canadense',
-      ddi: '+1',
-      voltagem: '110 V'
-    }
-  }
+  // const id = props.id
+  const id = 10
+  const toast = useToast()
+  const navigate = useNavigate()
+
+  const [country, setCountry] = useState(null)
 
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(setPage(country.name.toUpperCase()))
+  useEffect(async () => {
+    if (country) {
+      dispatch(setPage(country.name.toUpperCase()))
+    } else {
+      dispatch(setPage('Carregando'))
+      let response = await getCountryDetails({ id })
+      if (response.status == 'failed' && !toast.isActive('countryNotFound')) {
+        toast({
+          id: 'countryNotFound',
+          title: 'Falha ao buscar país',
+          position: 'bottom',
+          status: 'error',
+          description: response.message,
+          isClosable: false,
+          containerStyle: {
+            width: '400px',
+            maxWidth: '90%'
+          }
+        })
+        await new Promise(r => setTimeout(r, 3000));
+        navigate(-1)
+      }
+      setCountry(response.data)
+    }
   })
 
-  return (
-    <Box w='100%' maxW='600px' mt={8} mb={16}>
-      <CountryImage src={country.image} />
-      <Container marginTop='20px'>
-        <DescriptionBox text={country.description} />
-        <StartJourneyButton />
-      </Container>
-      <PhotosCarousel photos={country.photos}/>
-      <CountryInformation information={country.infos}/>
-      <StartJourneyButton />
-      <Container paddingBottom='80px'/>
-    </Box>
-  )
+  return country
+    ? (
+      <Box w='100%' maxW='600px' mt={8} mb={16}>
+        <CountryImage src={country.image} />
+        <Container marginTop='20px'>
+          <DescriptionBox text={country.description} />
+          <StartJourneyButton />
+        </Container>
+        <PhotosCarousel photos={country.photos}/>
+        <CountryInformation information={country.infos}/>
+        <StartJourneyButton mb={20} />
+      </Box>
+    )
+    : (
+      <Center w='100%' maxW='600px' mt={8} mb={16}>
+        <Spinner
+          thickness='4px'
+          speed='0.65s'
+          emptyColor='gray.200'
+          color='#6655D4'
+          size='xl'
+        />
+      </Center>
+    )
 }
