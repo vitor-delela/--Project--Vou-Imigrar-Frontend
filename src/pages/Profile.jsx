@@ -32,9 +32,9 @@ export default function Profile () {
   }
 
   return (
-    <Box>
+    <Box px={4}>
       <Box textAlign='center' position='relative'>
-        <Divider borderColor='purple' w='80vw' mt={24}/>
+        <Divider borderColor='purple' mt={24}/>
         <Avatar name={user.name} bg='purple' color='white' size='xl' mt='-3rem'/>
         <Text color='purple' fontSize={20} mt={4}>{user.name}</Text>
       </Box>
