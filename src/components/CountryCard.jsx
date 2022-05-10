@@ -5,20 +5,20 @@ export default function CountryCard (props) {
 
   const getColor = (percentage) => {
     if (percentage <= 25)
-      return 'red';
+      return 'rgba(255, 0, 0, 0.83)';
     else if (percentage <= 50)
-      return 'orange';
+      return 'rgba(236, 142, 0, 0.83)';
     else if (percentage <= 75)
-      return 'yellow';
+      return 'rgba(215, 220, 6, 0.78)';
     else
-      return 'green';
+      return 'rgba(37, 211, 102, 0.66)';
   }
 
   return(
     <Flex 
       onClick={props.onClick}
       borderRadius="30px" 
-      h="200px" 
+      h="190px" 
       w="90vw" 
       justifyContent="space-between" 
       flexDirection="column" 
@@ -26,7 +26,7 @@ export default function CountryCard (props) {
       bgPosition="top" 
       bgRepeat="no-repeat" 
       bgSize="cover"
-      marginBottom={5}
+      marginBottom={3}
     >
       <Box h="150px"/>
       <Flex h="40%" alignItems="center" justifyContent="space-evenly" borderRadius="0 0 30px 30px" bgGradient='linear(to-l, #01A3DE, #6655D4)' >
@@ -38,8 +38,8 @@ export default function CountryCard (props) {
             Clique para mais informações sobre este país 
           </Text>
         </Flex>
-        <Flex h="60%" w="15%" borderRadius={10} justifyContent="center" alignItems="center" bgColor={getColor(props.percentage)}>
-          <Text fontSize={17} color="white">
+        <Flex h="65%" w="15%" borderRadius={10} justifyContent="center" alignItems="center" bgColor={getColor(props.percentage)}>
+          <Text fontWeight="bold" fontSize={17} color="white">
             {props.percentage}%
           </Text>
         </Flex>

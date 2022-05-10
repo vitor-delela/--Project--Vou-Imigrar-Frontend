@@ -44,8 +44,8 @@ export default function AppRouter () {
             <Route path="/login" element={<Login />}/>
             <Route path="/signUp" element={<SignUp />}/>
           </Route>
-        </Route>
-
+        </Route> 
+        
         <Route path="/" element={<PrivateRoute type={'client'} />}>
           <Route path="/" element={<PlatformContainer backNavigation={false} />}>
             <Route path="/home" element={<Home />}/>
@@ -55,10 +55,6 @@ export default function AppRouter () {
             <Route path="/country" element={<CountryDetails />}/>
             <Route path="/update" element={<UpdateProfile />}/>
           </Route>
-        </Route>
-
-        <Route path="/">
-          <Route path="/home" element={<Home />}/>
         </Route>
 
         <Route path="/" element={<PlatformContainer backNavigation={true} />}>
