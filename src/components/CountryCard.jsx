@@ -17,8 +17,8 @@ export default function CountryCard (props) {
   return(
     <Flex 
       onClick={props.onClick}
-      borderRadius="30px" 
-      h="190px" 
+      borderRadius="20px" 
+      h="200px" 
       w="90vw" 
       justifyContent="space-between" 
       flexDirection="column" 
@@ -29,7 +29,8 @@ export default function CountryCard (props) {
       marginBottom={3}
     >
       <Box h="150px"/>
-      <Flex h="40%" alignItems="center" justifyContent="space-evenly" borderRadius="0 0 30px 30px" bgGradient='linear(to-l, #01A3DE, #6655D4)' >
+      
+      <Flex h="40%" alignItems="center" justifyContent="space-evenly" borderRadius="0 0 20px 20px" bgGradient='linear(to-l, #01A3DE, #6655D4)' >
         <Flex w="70%" flexDirection="column">
           <Text textAlign="left" paddingLeft={4} fontSize={24} color="white" fontWeight="bold">
             {props.name}

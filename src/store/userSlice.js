@@ -4,7 +4,6 @@ import { HTTP } from '../config/axios.config'
 export const signUp = createAsyncThunk('api/signUp', async (request) => {
   let response
   try {
-    console.log(request)
     response = await HTTP.post(
       '/users', {
         name: request.name,
