@@ -43,18 +43,20 @@ export default function AppRouter () {
             <Route path="/login" element={<Login />}/>
             <Route path="/signUp" element={<SignUp />}/>
           </Route>
-        </Route>
+        </Route> 
 
+        <Route path="/" element={<PlatformContainer backNavigation={true} />}>
+                    <Route path="/country" element={<CountryDetails />}/>
+                    <Route path="/update" element={<UpdateProfile />}/>
+                    <Route path="/countryMatches" element={<CountryMatches />}/>
+        </Route>
+        
         <Route path="/" element={<PrivateRoute type={'client'} />}>
           <Route path="/" element={<PlatformContainer backNavigation={false} />}>
             <Route path="/home" element={<Home />}/>
             <Route path="/profile" element={<Profile />}/>
           </Route>
-          <Route path="/" element={<PlatformContainer backNavigation={true} />}>
-            <Route path="/country" element={<CountryDetails />}/>
-            <Route path="/update" element={<UpdateProfile />}/>
-            <Route path="/countryMatches" element={<CountryMatches />}/>
-          </Route>
+          
         </Route>
       </Routes>
     </Router>
