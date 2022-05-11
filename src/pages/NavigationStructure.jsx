@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { Flex } from '@chakra-ui/react'
+import { Flex, Box } from '@chakra-ui/react'
 
 import BackNavigation from '../components/BackNavigation'
 
@@ -16,10 +16,13 @@ export default function NavigationStructure () {
         height="35px"
       />
       <Flex
-        height='calc(100% - (35px + 1rem))'
         className="page"
+        height='calc(100% - (35px + 1rem))'
+        overflow='scroll'
       >
-        <Outlet />
+        <Box w='100%' minH='600px'>
+          <Outlet />
+        </Box>
       </Flex>
     </Flex>
   )

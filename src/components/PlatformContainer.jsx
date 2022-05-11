@@ -25,6 +25,7 @@ export default function PlatformContainer (props) {
         alignSelf='center'
         justifyContent='center'
         w='100%'
+        mb='74px'
       >
         <Box w='100%' minH='600px'>
           <Outlet />
