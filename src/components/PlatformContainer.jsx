@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { Flex } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 
 import NavbarBottom from './NavbarBottom'
 import BackNavigation from './BackNavigation'
@@ -21,13 +21,15 @@ export default function PlatformContainer (props) {
       <Flex
         height='calc(100% - (35px + 1rem))'
         className="page"
-        overflow='auto'
+        overflow='scroll'
         alignSelf='center'
         justifyContent='center'
-        w='100vw'
-        px={4}
+        w='100%'
+        mb='74px'
       >
-        <Outlet />
+        <Box w='100%' minH='600px'>
+          <Outlet />
+        </Box>   
       </Flex>
       <NavbarBottom />
     </Flex>

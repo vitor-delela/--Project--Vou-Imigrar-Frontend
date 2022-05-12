@@ -76,7 +76,7 @@ export default function UpdateProfile () {
         title: 'Falha ao atualizar os dados',
         description: user.error
       })
-      dispatch(setStatus('update'))
+      dispatch(setStatus(''))
     } else if (user.status === 'success') {
       navigate('/profile')
       dispatch(setStatus(''))

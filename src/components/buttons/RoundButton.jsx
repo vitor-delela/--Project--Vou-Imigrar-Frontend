@@ -1,7 +1,17 @@
 import React from 'react'
 import { Button, Icon } from '@chakra-ui/react'
 
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
+import { MdDone, MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
+
+const getIcon = (icon) => {
+  if (icon == 'done') {
+    return MdDone;
+  }
+  if (icon == 'left') {
+    return MdKeyboardArrowLeft;
+  }
+  return MdKeyboardArrowRight;
+}
 
 export default function RoundButton (props) {
   const { hasIcon, icon, buttonStyle, onClick } = props
@@ -24,21 +34,13 @@ export default function RoundButton (props) {
       sx={buttonStyle}
     >
       { hasIcon ?? (
-        icon === 'left'
-          ? <Icon
-              as={MdKeyboardArrowLeft}
-              width='30px'
-              height='30px'
-              color='white'
-              className="icon"
-            />
-          : <Icon
-              as={MdKeyboardArrowRight}
-              width='25px'
-              height='25px'
-              color='white'
-              className="icon"
-            />
+        <Icon
+          as={getIcon(icon)}
+          width='30px'
+          height='30px'
+          color='white'
+          className="icon"
+        />
       )
       }
     </Button>
