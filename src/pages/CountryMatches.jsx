@@ -28,7 +28,7 @@ export default function CountryMatches () {
 
   return (
     <div>
-      <Box marginTop="20px" paddingBottom="82px">
+      <Box marginTop="20px" paddingBottom="20px">
         {
           isShowingAllCountries
             ? matches.map((match) => {

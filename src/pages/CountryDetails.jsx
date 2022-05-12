@@ -8,11 +8,10 @@ import PhotosCarousel from '../components/PhotosCarousel'
 import CountryInformation from '../components/CountryInformation'
 import StartJourneyButton from '../components/buttons/StartJouneyButton'
 import { getCountryDetails } from '../store/countrySlice'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams} from 'react-router-dom'
 
 export default function CountryDetails (props) {
-  // const id = props.id
-  const id = 1
+  const { id } = useParams()
   const toast = useToast()
   const navigate = useNavigate()
 
@@ -55,7 +54,7 @@ export default function CountryDetails (props) {
         </Container>
         <PhotosCarousel photos={country.photos}/>
         <CountryInformation information={country.infos}/>
-        <StartJourneyButton mb={20} />
+        <StartJourneyButton mb={7} />
       </Box>
     )
     : (
