@@ -27,11 +27,14 @@ export default function Profile () {
   const navMapProfile = () => {
     navigate('/map-profile')
   }
+  const logoutClick = () => {
+    dispatch(logout(user))
+  }
 
   return (
-    <Box>
+    <Box px={4}>
       <Box textAlign='center' position='relative'>
-        <Divider borderColor='purple' w='80vw' mt={24}/>
+        <Divider borderColor='purple' mt={24}/>
         <Avatar name={user.name} bg='purple' color='white' size='xl' mt='-3rem'/>
         <Text color='purple' fontSize={20} mt={4}>{user.name}</Text>
       </Box>
@@ -54,7 +57,7 @@ export default function Profile () {
 
         <Flex alignItems='center'>
           <MdLogout fontSize={28}/>
-          <Text ml={5} onClick={logout(user)}>Sair</Text>
+          <Text ml={5} onClick={logoutClick}>Sair</Text>
         </Flex>
       </VStack>
     </Box>

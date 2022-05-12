@@ -65,7 +65,7 @@ export const update = createAsyncThunk('api/update', async (request) => {
   try {
     response = await HTTP.put(
       '/users', {
-        id: request.id,
+        id: request.user.id,
         updatedName: request.name,
         updatedPhone: request.tel
       }
@@ -100,6 +100,7 @@ export const slice = createSlice({
     setUser (state, { payload }) {
       return {
         ...state,
+        id: payload.id,
         email: payload.email,
         type: payload.type,
         authenticated: payload.authenticated
@@ -163,12 +164,12 @@ export const slice = createSlice({
       state.status = 'loading'
     },
     [update.fulfilled]: (state, action) => {
+      state.status = action.payload.status
       if (!action.payload.data) {
-        state.status = 'failed'
         state.error = action.payload.message
         return
       }
-      state.status = 'update'
+      state.error = ''
       state.name = action.payload.data.name
       state.phone = action.payload.data.phone
     }

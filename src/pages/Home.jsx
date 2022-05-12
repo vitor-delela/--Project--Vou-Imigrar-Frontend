@@ -9,7 +9,7 @@ export default function Home () {
   const navigate = useNavigate()
 
   return (
-    <Flex id="home" flexDirection='column' justifyContent='space-between' alignItems='center' mb={10}>
+    <Flex id="home" flexDirection='column' justifyContent='space-between' alignItems='center' h='100%'>
       <Heading alignSelf='center'>
         <Logo h={12} w='auto'/>
       </Heading>
