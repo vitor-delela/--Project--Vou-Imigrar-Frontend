@@ -35,7 +35,7 @@ const theme = extendTheme({
     }
   },
   colors: {
-    primary: 'linear-gradient(189.42deg, rgba(1, 163, 222, 0.7) -214.82%, rgba(102, 85, 212, 0.7) 92.88%), rgba(0, 0, 0, 0.6)',
+    primary: 'linear-gradient(189.42deg, rgba(1, 163, 222, 0.8) -214.82%, rgba(102, 85, 212, 0.8) 92.88%), rgba(0, 0, 0, 0.6)',
     primaryHover: '#6D4FD3',
     lightBlue: '#00A4DE',
     purple: '#6655D4',

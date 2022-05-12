@@ -27,42 +27,39 @@ export default function CountryMatches () {
   }, [])
 
   return (
-    <div>
-      <Box marginTop="20px" paddingBottom="20px">
-        {
-          isShowingAllCountries
-            ? matches.map((match) => {
-              return <CountryCard
-                key={match.id}
-                src={match.country.image}
-                name={match.country.name}
-                percentage={match.matchPercentage}
-                onClick={() => navigate(`/country/${match.country.id}`)}
-              />
-            })
-            : matches.slice(0, 3).map((match) => {
-              return <CountryCard
-                key={match.id}
-                src={match.country.image}
-                name={match.country.name}
-                percentage={match.matchPercentage}
-                onClick={() => navigate(`/country/${match.country.id}`)}
-              />
-            })
-        }
+    <Box marginTop="20px" paddingBottom="20px">
+      {
+        isShowingAllCountries
+          ? matches.map((match) => {
+            return <CountryCard
+              key={match.id}
+              src={match.country.image}
+              name={match.country.name}
+              percentage={match.matchPercentage}
+              onClick={() => navigate(`/country/${match.country.id}`)}
+            />
+          })
+          : matches.slice(0, 3).map((match) => {
+            return <CountryCard
+              key={match.id}
+              src={match.country.image}
+              name={match.country.name}
+              percentage={match.matchPercentage}
+              onClick={() => navigate(`/country/${match.country.id}`)}
+            />
+          })
+      }
 
-        <PrimaryButton
-          fontSize={18}
-          fontWeight='bold'
-          marginTop={8}
-          borderRadius={8}
-          onClick={() => setIsShowingAllCountries(true)}
-          display={isShowingAllCountries ? 'none' : 'block'}
-        >
-          Ver todos os países
-        </PrimaryButton>
-      </Box>
-    </div>
-
+      <PrimaryButton
+        fontSize={18}
+        fontWeight='bold'
+        marginTop={8}
+        borderRadius={8}
+        onClick={() => setIsShowingAllCountries(true)}
+        display={isShowingAllCountries ? 'none' : 'block'}
+      >
+        Ver todos os países
+      </PrimaryButton>
+    </Box>
   )
 }

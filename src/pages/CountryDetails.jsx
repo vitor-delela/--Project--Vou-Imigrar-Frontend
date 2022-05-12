@@ -46,7 +46,7 @@ export default function CountryDetails (props) {
 
   return country
     ? (
-      <Box w='100%' maxW='600px' mt={8} mb={16}>
+      <Box w='100%' maxW='600px' mt={8} mb={8}>
         <CountryImage src={country.image} />
         <Container marginTop='20px'>
           <DescriptionBox text={country.description} />
@@ -54,7 +54,7 @@ export default function CountryDetails (props) {
         </Container>
         <PhotosCarousel photos={country.photos}/>
         <CountryInformation information={country.infos}/>
-        <StartJourneyButton mb={7} />
+        <StartJourneyButton />
       </Box>
     )
     : (

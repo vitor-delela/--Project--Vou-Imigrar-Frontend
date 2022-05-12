@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Flex, Text, Box } from '@chakra-ui/react'
+import { Flex, Text, Box } from '@chakra-ui/react'
 
 export default function CountryCard (props) {
 
@@ -17,22 +17,27 @@ export default function CountryCard (props) {
   return(
     <Flex 
       onClick={props.onClick}
-      borderRadius="20px" 
+      borderRadius={30}
       h="200px" 
-      w="90vw" 
+      w="90vw"
+      mb={8}
       justifyContent="space-between" 
       flexDirection="column" 
       bgImage={props.src} 
       bgPosition="top" 
       bgRepeat="no-repeat" 
       bgSize="cover"
-      marginBottom={3}
     >
       <Box h="150px"/>
-      
-      <Flex h="40%" alignItems="center" justifyContent="space-evenly" borderRadius="0 0 20px 20px" bgGradient='linear(to-l, #01A3DE, #6655D4)' >
+      <Flex
+        h="40%"
+        alignItems="center"
+        justifyContent="space-evenly"
+        borderRadius="0 0 30px 30px"
+        bg="primary"
+      >
         <Flex w="70%" flexDirection="column">
-          <Text textAlign="left" paddingLeft={4} fontSize={24} color="white" fontWeight="bold">
+          <Text textAlign="left" paddingLeft={4} fontSize={22} color="white" fontWeight="extrabold">
             {props.name}
           </Text>
           <Text paddingLeft={4} fontSize={14} color="white" maxWidth='80%' mt='-5px'>
