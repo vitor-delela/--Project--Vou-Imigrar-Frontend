@@ -38,7 +38,7 @@ export default function CountryMatches () {
                 src={match.country.image}
                 name={match.country.name}
                 percentage={match.matchPercentage}
-                onClick={() => navigate('/country')}
+                onClick={() => navigate(`/country/${match.country.id}`)}
               />
             })
             : matches.slice(0, 3).map((match) => {
@@ -47,7 +47,7 @@ export default function CountryMatches () {
                 src={match.country.image}
                 name={match.country.name}
                 percentage={match.matchPercentage}
-                onClick={() => navigate('/country')}
+                onClick={() => navigate(`/country/${match.country.id}`)}
               />
             })
         }

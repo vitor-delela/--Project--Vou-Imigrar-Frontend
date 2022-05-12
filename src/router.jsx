@@ -52,7 +52,7 @@ export default function AppRouter () {
             <Route path="/profile" element={<Profile />}/>
           </Route>
           <Route path="/" element={<PlatformContainer backNavigation={true} />}>
-            <Route path="/country" element={<CountryDetails />}/>
+            <Route path="/country/:id" element={<CountryDetails />}/>
             <Route path="/update" element={<UpdateProfile />}/>
           </Route>
         </Route>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import InputMask from 'react-input-mask'
 import { Box, Flex, Grid, useToast } from '@chakra-ui/react'
-import { verifyName, verifyEmail, verifyPassword } from '../utils/function'
+import { verifyName, verifyEmail, verifyPassword } from '../utils/functions'
 
 import Logo from '../components/Logo'
 import Input from '../components/Input'
