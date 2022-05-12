@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function CountryDetails (props) {
   // const id = props.id
-  const id = 10
+  const id = 1
   const toast = useToast()
   const navigate = useNavigate()
 
