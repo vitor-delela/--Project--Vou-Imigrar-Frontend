@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, Flex, Grid, useToast } from '@chakra-ui/react'
 import InputMask from 'react-input-mask'
-import { verifyName, verifyEmail } from '../utils/functions'
+import { Box, Flex, Grid, useToast } from '@chakra-ui/react'
+import { verifyName, verifyEmail, verifyPassword } from '../utils/functions'
 
 import Logo from '../components/Logo'
 import Input from '../components/Input'
@@ -108,7 +108,14 @@ export default function SignUp () {
           description: 'É obrigatório informar a senha.'
         })
         return false
-      } else if (password !== confirmPassword) {
+      }else if(!verifyPassword(password)){
+        if (toast.isActive('lengthPassword')) return
+        toast({
+          id: 'lengthPassword',
+          description: "A senha deve ter pelo menos 8 dígitos, tendo uma letra maiúscula e uma minúscula.",
+        })
+        return false
+      }else if(password != confirmPassword){
         if (toast.isActive('equalPassword')) return
         toast({
           id: 'equalPassword',

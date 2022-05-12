@@ -42,6 +42,7 @@ export const signIn = createAsyncThunk('api/signIn', async (request) => {
         password: request.password
       }
     )
+    localStorage.setItem("token", response.headers.authorization)
   } catch (_) {
     return {
       status: 'failed',

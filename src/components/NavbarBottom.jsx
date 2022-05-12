@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { BiWorld } from 'react-icons/bi'
 import { MdHome, MdPerson } from 'react-icons/md'
-import { Flex } from '@chakra-ui/react'
+import { Button, Flex } from '@chakra-ui/react'
 
 export default function NavbarBottom () {
   const navigate = useNavigate()
@@ -14,16 +14,22 @@ export default function NavbarBottom () {
       bottom={0}
       left={0}
       pt={4}
-      pb={6}
+      pb={4}
       px={12}
       position='absolute'
       justifyContent='space-around'
       alignItems='top'
       bg='purple'
     >
-      <BiWorld color='white' fontSize={32} />
-      <MdHome color='white' fontSize={32} onClick={() => { navigate('/home') }}/>
-      <MdPerson color='white' fontSize={32} onClick={() => { navigate('/profile') }}/>
+      <Button background='transparent' onClick={() => { navigate('/country-matches') }}>
+        <BiWorld color='white' fontSize={32} />
+      </Button>
+      <Button background='transparent' onClick={() => { navigate('/home') }}>
+        <MdHome color='white' fontSize={32} />
+      </Button>
+      <Button background='transparent' onClick={() => { navigate('/profile') }}>
+        <MdPerson color='white' fontSize={32} />
+      </Button>
     </Flex>
   )
 }
