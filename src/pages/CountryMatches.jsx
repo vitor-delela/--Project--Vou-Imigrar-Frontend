@@ -22,7 +22,6 @@ export default function CountryMatches () {
   useEffect(async () => {
     const response = await dispatch(findAllMatches())
     if (response.payload.status === 'success') {
-      console.log(response.payload.data)
       setMatches(response.payload.data)
     }
   }, [])
