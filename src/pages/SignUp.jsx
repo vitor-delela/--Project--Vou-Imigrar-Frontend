@@ -10,7 +10,7 @@ import Input from '../components/Input'
 import RoundButton from '../components/buttons/RoundButton'
 
 import { setPage } from '../store/pageSlice'
-import { signUp, signIn, selectUser, setStatus } from '../store/userSlice'
+import { signUp, signIn, selectUser } from '../store/userSlice'
 
 const stepStyle = {
   width: '16px',
@@ -108,14 +108,14 @@ export default function SignUp () {
           description: 'É obrigatório informar a senha.'
         })
         return false
-      }else if(!verifyPassword(password)){
+      } else if (!verifyPassword(password)) {
         if (toast.isActive('lengthPassword')) return
         toast({
           id: 'lengthPassword',
-          description: "A senha deve ter pelo menos 8 dígitos, tendo uma letra maiúscula e uma minúscula.",
+          description: 'A senha deve ter pelo menos 8 dígitos, tendo uma letra maiúscula e uma minúscula.'
         })
         return false
-      }else if(password != confirmPassword){
+      } else if (password !== confirmPassword) {
         if (toast.isActive('equalPassword')) return
         toast({
           id: 'equalPassword',
@@ -125,97 +125,101 @@ export default function SignUp () {
       }
     }
     if (actualPage === 2) {
-      await dispatch(signUp({ name, birth, tel, email, password }))
+      dispatch(signUp({ name, birth, tel, email, password }))
+        .then(response => (response.payload.status === 'success'
+          ? login()
+          : toast({
+            id: 'registerFailed',
+            title: 'Falha ao cadastrar',
+            description: user.error
+          })))
     } else {
       setActualPage(actualPage + 1)
     }
   }
 
-  useEffect(() => {
-    if (user.status === 'failed' && !toast.isActive('loginFailed')) {
-      toast({
-        id: 'loginFailed',
-        title: 'Falha ao entrar',
-        description: user.error
-      })
-      dispatch(setStatus('login'))
-    } else if (user.status === 'login') {
-      dispatch(signIn({ email, password }))
-    } else if (user.status === 'success') {
-      navigate('/home')
-      dispatch(setStatus(''))
-    }
-  }, [user])
+  function login () {
+    dispatch(signIn({ email, password }))
+      .then(response => (response.payload.status === 'success'
+        ? navigate('/home')
+        : toast({
+          id: 'loginFailed',
+          title: 'Falha ao entrar',
+          description: user.error
+        })
+      ))
+    navigate('/home')
+  }
 
   return (
     <Flex id="login" className="center">
-      <Logo/>
+      <Logo />
       <Box w='100%' mt={8} mb={16}>
-          <Grid w="100%" hidden={!(actualPage === 0)} mb={8}>
-            <Input
-              type="text"
-              onKeyPress={pressKey}
-              placeholder="Nome Completo"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <Input
-              type="text"
-              onKeyPress={pressKey}
-              placeholder="Data de Nascimento"
-              as={InputMask} mask="99/99/9999"
-              maskChar={null}
-              value={birth}
-              onChange={(e) => setBirth(e.target.value)}
-            />
-          </Grid>
-          <Grid w="100%" hidden={!(actualPage === 1)} mb={8}>
-            <Input
-              type="tel"
-              onKeyPress={pressKey}
-              placeholder="Celular"
-              as={InputMask} mask="99 99999-9999"
-              maskChar={null}
-              value={tel}
-              onChange={(e) => setTel(e.target.value)}
-            />
-            <Input
-              type="email"
-              onKeyPress={pressKey}
-              placeholder="E-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </Grid>
-          <Grid w="100%" hidden={!(actualPage === 2)} mb={8}>
-            <Input
-              type="password"
-              onKeyPress={pressKey}
-              placeholder="Senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Input
-              type="password"
-              onKeyPress={pressKey}
-              placeholder="Confirmar Senha"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </Grid>
+        <Grid w="100%" hidden={!(actualPage === 0)} mb={8}>
+          <Input
+            type="text"
+            onKeyPress={pressKey}
+            placeholder="Nome Completo"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Input
+            type="text"
+            onKeyPress={pressKey}
+            placeholder="Data de Nascimento"
+            as={InputMask} mask="99/99/9999"
+            maskChar={null}
+            value={birth}
+            onChange={(e) => setBirth(e.target.value)}
+          />
+        </Grid>
+        <Grid w="100%" hidden={!(actualPage === 1)} mb={8}>
+          <Input
+            type="tel"
+            onKeyPress={pressKey}
+            placeholder="Celular"
+            as={InputMask} mask="99 99999-9999"
+            maskChar={null}
+            value={tel}
+            onChange={(e) => setTel(e.target.value)}
+          />
+          <Input
+            type="email"
+            onKeyPress={pressKey}
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Grid>
+        <Grid w="100%" hidden={!(actualPage === 2)} mb={8}>
+          <Input
+            type="password"
+            onKeyPress={pressKey}
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Input
+            type="password"
+            onKeyPress={pressKey}
+            placeholder="Confirmar Senha"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        </Grid>
       </Box>
 
       <Flex gap={8} justifyContent='center' alignItems='center' w="100%">
-        {actualPage !== 0 && (<RoundButton icon="left" onClick={() => { setActualPage(actualPage - 1) }}/>)}
-        <RoundButton hasIcon={false} buttonStyle={{ ...stepStyle, bg: actualPage === 0 ? 'lightBlue' : 'black' }} onClick={() => { setActualPage(0) }}/>
-        <RoundButton hasIcon={false} buttonStyle={{ ...stepStyle, bg: actualPage === 1 ? 'lightBlue' : 'black' }} onClick={() => { setActualPage(1) }}/>
-        <RoundButton hasIcon={false} buttonStyle={{ ...stepStyle, bg: actualPage === 2 ? 'lightBlue' : 'black' }} onClick={() => { setActualPage(2) }}/>
+        {actualPage !== 0 && (<RoundButton icon="left" onClick={() => { setActualPage(actualPage - 1) }} />)}
+        <RoundButton hasIcon={false} buttonStyle={{ ...stepStyle, bg: actualPage === 0 ? 'lightBlue' : 'black' }} onClick={() => { setActualPage(0) }} />
+        <RoundButton hasIcon={false} buttonStyle={{ ...stepStyle, bg: actualPage === 1 ? 'lightBlue' : 'black' }} onClick={() => { setActualPage(1) }} />
+        <RoundButton hasIcon={false} buttonStyle={{ ...stepStyle, bg: actualPage === 2 ? 'lightBlue' : 'black' }} onClick={() => { setActualPage(2) }} />
         {actualPage !== 2
           ? (
-          <RoundButton onClick={() => { validateAndSignUp() }}/>
+            <RoundButton onClick={() => { validateAndSignUp() }} />
             )
           : (
-          <RoundButton icon="done" isDisabled={selectUser.status === 'loading'} onClick={() => { validateAndSignUp() }} borderRadius='60%' w='fit-content'/>
+            <RoundButton icon="done" isDisabled={selectUser.status === 'loading'} onClick={() => { validateAndSignUp() }} borderRadius='60%' w='fit-content' />
             )}
       </Flex>
 
