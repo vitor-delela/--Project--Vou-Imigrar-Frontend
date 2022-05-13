@@ -1,28 +1,31 @@
 import { HTTP } from "../config/axios.config";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getCountryDetails = async (request) => {
-  let response;
-  try {
-    response = await HTTP.get(
-      `/countries/findCountryDetailsById/${request.id}`
-    );
-  } catch (_) {
+export const getCountryDetails = createAsyncThunk(
+  "api/countries/findCountryDetailsById",
+  async (request) => {
+    let response;
+    try {
+      response = await HTTP.get(
+        `/countries/findCountryDetailsById/${request.id}`
+      );
+    } catch (_) {
+      return {
+        status: "failed",
+        message: "País não encontrado.",
+      };
+    }
     return {
-      status: "failed",
-      message: "País não encontrado.",
+      status: "success",
+      data: {
+        ...response.data,
+      },
     };
   }
-  return {
-    status: "success",
-    data: {
-      ...response.data,
-    },
-  };
-};
+);
 
 export const findAllMatches = createAsyncThunk(
-  "api/signUp",
+  "api/matches/findByUser",
   async (request) => {
     let response;
     try {

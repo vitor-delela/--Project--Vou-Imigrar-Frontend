@@ -25,7 +25,7 @@ export default function Profile () {
     navigate('/update')
   }
   const navMapProfile = () => {
-    navigate('/map-profile')
+    navigate('/map')
   }
   const logoutClick = () => {
     dispatch(logout(user))

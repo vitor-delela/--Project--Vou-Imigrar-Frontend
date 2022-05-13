@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { useDispatch } from 'react-redux'
 import { setPage } from '../store/pageSlice'
-import { findAllQuestions } from '../store/mappingSlice'
+import { calculateMatch, findAllQuestions } from '../store/mappingSlice'
 
 import { Flex, RadioGroup, Stack, Radio, useToast } from '@chakra-ui/react'
 import TextArea from '../components/TextArea'
@@ -27,81 +27,6 @@ export default function Profile () {
     const response = await dispatch(findAllQuestions())
     if (response.payload.status === 'success') {
       setQuestions(response.payload.data)
-      setQuestions([ // remove this to use the real data
-        {
-          id: 1,
-          description: 'Qual a sua idade?',
-          position: 1,
-          questionType: 'OBJECTIVE',
-          answers: [
-            {
-              id: 1,
-              description: '-17',
-              questionId: 1
-            },
-            {
-              id: 2,
-              description: '18 a 24',
-              questionId: 1
-            },
-            {
-              id: 3,
-              description: '25 a 30',
-              questionId: 1
-            },
-            {
-              id: 4,
-              description: '31 a 40',
-              questionId: 1
-            },
-            {
-              id: 5,
-              description: '40+',
-              questionId: 1
-            }
-          ]
-        },
-        {
-          id: 2,
-          description: 'Qual é a sua escolaridade?',
-          position: 2,
-          requirementId: 1,
-          questionType: 'OBJECTIVE',
-          answers: [
-            {
-              id: 6,
-              description: 'Ensino médio',
-              questionId: 2
-            },
-            {
-              id: 7,
-              description: 'Superior Incompleto',
-              questionId: 2
-            },
-            {
-              id: 8,
-              description: 'Superior Completo',
-              questionId: 2
-            },
-            {
-              id: 9,
-              description: 'Pós Graduação',
-              questionId: 2
-            },
-            {
-              id: 10,
-              description: 'Mestrado ou Doutorado',
-              questionId: 2
-            }
-          ]
-        },
-        {
-          id: 3,
-          description: 'Qual é a sua área de formação?',
-          position: 3,
-          questionType: 'ESSAY'
-        }
-      ])
     } else {
       toast({
         description: 'Não foi possível carregar as questões.',
@@ -128,11 +53,33 @@ export default function Profile () {
   }
 
   const nextPage = () => {
-    setActualPage(actualPage + 1)
+    if (Object.values(response).length > actualPage) {
+      setActualPage(actualPage + 1)
+    } else {
+      toast({
+        description: 'Para seguir para a próxima questão, por favor responda a atual.',
+        id: 'answerQuestion',
+        status: 'error'
+      })
+    }
   }
 
-  const sendResponse = () => {
-    console.log(response)
+  const sendResponse = async () => {
+    let answers = []
+
+    Object.entries(response).map(([key, value] = a) => {
+      if (key !== "3") {
+        answers.push({
+          questionId: key,
+          answerId: value
+        })
+      }
+    })
+
+    const res = await dispatch(calculateMatch(answers))
+    if (res.payload.status === 'success') {
+      navigate('/country-matches')
+    }
   }
 
   const questionResponse = () => {
@@ -145,6 +92,7 @@ export default function Profile () {
         answers.push(
           <Radio
             className={response[questions[actualPage].id] == questions[actualPage].answers[i].id && 'selected'}
+            w="100%"
             value={questions[actualPage].answers[i].id}
             key={i}
           >
@@ -154,8 +102,8 @@ export default function Profile () {
       }
 
       return (
-        <RadioGroup name={actualPage} onChange={radioResponse} value={response[questions[actualPage].id]} >
-          <Stack direction='column'>
+        <RadioGroup name={actualPage} onChange={radioResponse} value={response[questions[actualPage].id]} w="80%">
+          <Stack direction='column' w="100%">
             {answers}
           </Stack>
         </RadioGroup>
@@ -187,7 +135,7 @@ export default function Profile () {
       { questions.length !== 0 && questionResponse() }
       <Flex marginTop={10} alignItems='center' gap={3}>
         {questions.length !== 0 && actualPage !== 0 && <RoundButton icon="left" onClick={prevPage} />}
-        {questions.length !== 0 && steps() }
+        {/* {questions.length !== 0 && steps() } */}
         {questions.length !== 0 && (actualPage === questions.length - 1 ? <RoundButton icon="done" onClick={sendResponse} /> : <RoundButton onClick={nextPage} />)}
       </Flex>
     </Flex>

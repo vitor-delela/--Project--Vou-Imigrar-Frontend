@@ -40,7 +40,7 @@ export default function CountryCard (props) {
           <Text textAlign="left" paddingLeft={4} fontSize={22} color="white" fontWeight="extrabold">
             {props.name}
           </Text>
-          <Text paddingLeft={4} fontSize={14} color="white" maxWidth='80%' mt='-5px'>
+          <Text paddingLeft={4} fontSize={12} color="white" maxWidth='80%' mt='-5px'>
             Clique para mais informações sobre este país 
           </Text>
         </Flex>
