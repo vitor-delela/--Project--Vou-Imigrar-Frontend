@@ -132,6 +132,12 @@ export default function Profile () {
   }
 
   const sendResponse = () => {
+    toast({
+      description: 'Mapeamento realizado com sucesso!',
+      id: 'findAllQuestions',
+      status: 'success'
+    })
+    navigate('/home')
     console.log(response)
   }
 
