@@ -27,7 +27,7 @@ export default function Profile () {
     const response = await dispatch(findAllQuestions())
     if (response.payload.status === 'success') {
       setQuestions(response.payload.data)
-      setQuestions([ // remove this to use the real data
+      /* setQuestions([ // remove this to use the real data
         {
           id: 1,
           description: 'Qual a sua idade?',
@@ -101,7 +101,7 @@ export default function Profile () {
           position: 3,
           questionType: 'ESSAY'
         }
-      ])
+      ]) */
     } else {
       toast({
         description: 'Não foi possível carregar as questões.',
