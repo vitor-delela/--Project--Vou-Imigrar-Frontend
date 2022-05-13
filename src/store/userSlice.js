@@ -56,7 +56,8 @@ export const signIn = createAsyncThunk('api/signIn', async (request) => {
       name: response.data.name,
       email: request.email,
       token: response.headers.authorization,
-      type: response.data.type
+      type: response.data.type,
+      phone: response.data.phone
     }
   }
 })
