@@ -41,7 +41,7 @@ export default function Home () {
       </Box>
 
       <Box px={4} w='100%'>
-        <PrimaryButton borderRadius={8} onClick={() => navigate('/map-profile')}>
+        <PrimaryButton borderRadius={8} onClick={() => navigate('/map')}>
           Iniciar mapeamento
         </PrimaryButton>
       </Box>

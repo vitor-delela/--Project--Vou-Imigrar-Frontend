@@ -14,6 +14,7 @@ import NavigationStructure from './pages/NavigationStructure'
 import SignUp from './pages/SignUp'
 import CountryDetails from './pages/CountryDetails'
 import CountryMatches from './pages/CountryMatches'
+import ProfileMap from './pages/ProfileMap'
 
 export default function AppRouter () {
   const { type } = useSelector((state) => state.user)
@@ -44,8 +45,8 @@ export default function AppRouter () {
             <Route path="/login" element={<Login />}/>
             <Route path="/signUp" element={<SignUp />}/>
           </Route>
-        </Route> 
-        
+        </Route>
+
         <Route path="/" element={<PrivateRoute type={'client'} />}>
           <Route path="/" element={<PlatformContainer backNavigation={false} />}>
             <Route path="/home" element={<Home />}/>
@@ -54,6 +55,7 @@ export default function AppRouter () {
           <Route path="/" element={<PlatformContainer backNavigation={true} />}>
             <Route path="/country/:id" element={<CountryDetails />}/>
             <Route path="/update" element={<UpdateProfile />}/>
+            <Route path="/map" element={<ProfileMap />}/>
           </Route>
         </Route>
 

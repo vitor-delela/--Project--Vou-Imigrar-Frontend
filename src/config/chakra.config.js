@@ -31,6 +31,15 @@ const theme = extendTheme({
       },
       '.chakra-container': {
         padding: '0px!important'
+      },
+      '.chakra-radio': {
+        padding: '10px 20px',
+        border: '1px solid #6D4FD3',
+        borderRadius: '5px',
+        color: '#6D4FD3'
+      },
+      '.chakra-radio__control css-1rggdzb': {
+        display: 'none'
       }
     }
   },
@@ -45,8 +54,8 @@ const theme = extendTheme({
     white: '#ffffff'
   },
   fonts: {
-    heading: '-apple-system, BlinkMacSystemFont, Roboto',
-    body: '-apple-system, BlinkMacSystemFont, Roboto'
+    heading: '-apple-system, BlinkMacSystemFont, Roboto, arial, sans-serif',
+    body: '-apple-system, BlinkMacSystemFont, Roboto, arial, sans-serif'
   },
   fontSizes: {
     sm: '0.875rem',
