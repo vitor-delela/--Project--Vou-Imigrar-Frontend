@@ -38,8 +38,8 @@ const theme = extendTheme({
         borderRadius: '5px',
         color: '#6D4FD3'
       },
-      '.chakra-radio__control css-1rggdzb': {
-        display: 'none'
+      '.selected': {
+        backgroundColor: '#6D4FD3!important'
       }
     }
   },

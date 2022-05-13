@@ -144,6 +144,7 @@ export default function Profile () {
       for (let i = 0; i < questions[actualPage].answers.length; i++) {
         answers.push(
           <Radio
+            className={response[questions[actualPage].id] == questions[actualPage].answers[i].id && 'selected'}
             value={questions[actualPage].answers[i].id}
             key={i}
           >
@@ -153,7 +154,7 @@ export default function Profile () {
       }
 
       return (
-        <RadioGroup name={actualPage} onChange={radioResponse} value={questions.length && response[questions[actualPage].id]} >
+        <RadioGroup name={actualPage} onChange={radioResponse} value={response[questions[actualPage].id]} >
           <Stack direction='column'>
             {answers}
           </Stack>
