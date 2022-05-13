@@ -190,7 +190,6 @@ export default function Profile () {
         {questions.length !== 0 && steps() }
         {questions.length !== 0 && (actualPage === questions.length - 1 ? <RoundButton icon="done" onClick={sendResponse} /> : <RoundButton onClick={nextPage} />)}
       </Flex>
-      {Object.keys(response).length && <h1>{JSON.stringify(response)}</h1>}
     </Flex>
   )
 }
