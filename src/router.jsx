@@ -14,6 +14,7 @@ import NavigationStructure from './pages/NavigationStructure'
 import SignUp from './pages/SignUp'
 import CountryMatches from './pages/CountryMatches'
 import CountryDetails from './pages/CountryDetails'
+import MappingProfile from './pages/MappingProfile'
 
 export default function AppRouter () {
   const { type } = useSelector((state) => state.user)
@@ -49,6 +50,7 @@ export default function AppRouter () {
                     <Route path="/country" element={<CountryDetails />}/>
                     <Route path="/update" element={<UpdateProfile />}/>
                     <Route path="/country-matches" element={<CountryMatches />}/>
+                    <Route path="/map-profile" element={<MappingProfile />}/>
         </Route>
         
         <Route path="/" element={<PrivateRoute type={'client'} />}>
