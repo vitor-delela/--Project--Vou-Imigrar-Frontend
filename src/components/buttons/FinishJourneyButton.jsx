@@ -5,7 +5,7 @@ import { MdOutlineAirplanemodeActive } from 'react-icons/md'
 
 export default function FinishJourneyButton (props) {
   const finishJourney = () => {
-    return alert('Iniciar jornada')
+    return alert('Finalizar jornada')
   }
 
   return (

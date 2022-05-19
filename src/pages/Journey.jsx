@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../store/pageSlice'
-import { Container, Box, useToast, Spinner, Center } from '@chakra-ui/react'
-import DescriptionBox from '../components/DescriptionBox'
+import { Box, useToast, Spinner, Center } from '@chakra-ui/react'
 import CountryImage from '../components/CountryImage'
-import PhotosCarousel from '../components/PhotosCarousel'
-import CountryInformation from '../components/CountryInformation'
+import CountrySocialGroups from '../components/CountrySocialGroups'
 import FinishJourneyButton from '../components/buttons/FinishJourneyButton'
 import { useNavigate, useParams} from 'react-router-dom'
 
@@ -23,7 +21,12 @@ export default function Journey (props) {
             id: 1,
             name: "Facebook",
             link: "https://facebook.com/",
-        }
+        },
+        {
+            id: 2,
+            name: "WhatsApp",
+            link: "https://web.whatsapp.com/",
+        },
     ],
     requirements: []
   }
@@ -39,8 +42,7 @@ export default function Journey (props) {
     ? (
       <Box w='100%' maxW='600px' mt={8} mb={8}>
         <CountryImage src={journey.country.image} />
-        <Container marginTop='20px'>
-        </Container>
+        <CountrySocialGroups groups={journey.socialGroups}/>
         <FinishJourneyButton />
       </Box>
     )
