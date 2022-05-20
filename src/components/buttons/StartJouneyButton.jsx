@@ -19,6 +19,7 @@ export default function StartJourneyButton (props) {
       onClick={startJourney}
       {...props}
     >
+    <PrimaryButton onClick={() => { navigate('/countrydetails') }}></PrimaryButton>
       Iniciar jornada
     </PrimaryButton>
   )
