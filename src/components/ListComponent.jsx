@@ -3,45 +3,45 @@ import { Box, Text, Heading, Checkbox, Link, AccordionItem, AccordionButton, Acc
 import { MdKeyboardArrowRight } from 'react-icons/md'
 
 export default function SuperComponent (props) {
-  props = {
-    title: 'Categorias',
-    // text: 'Escolha as categorias que deseja visualizar',
-    items: [
-      {
-        type: 'link',
-        label: 'Facebook',
-        to: 'https://facebook.com'
-      },
-      {
-        type: 'check',
-        label: 'Visto para o país'
-        // value: true
-      },
-      {
-        type: 'accordion',
-        label: 'Acordeão',
-        body: {
-          text: 'aqui é o acordeãoque não tem checkbox',
-          button: {
-            label: 'Botão',
-            to: 'https://facebook.com'
-          }
-        }
-      },
-      {
-        type: 'accordionCheck',
-        label: 'Acordeão checkbox',
-        // value: true,
-        body: {
-          text: 'aqui é o que tem checkbox',
-          button: {
-            label: 'Botão',
-            to: 'https://facebook.com'
-          }
-        }
-      }
-    ]
-  }
+  // props = {
+  //   title: 'Categorias',
+  //   // text: 'Escolha as categorias que deseja visualizar',
+  //   items: [
+  //     {
+  //       type: 'link',
+  //       label: 'Facebook',
+  //       to: 'https://facebook.com'
+  //     },
+  //     {
+  //       type: 'check',
+  //       label: 'Visto para o país'
+  //       // value: true
+  //     },
+  //     {
+  //       type: 'accordion',
+  //       label: 'Acordeão',
+  //       body: {
+  //         text: 'aqui é o acordeãoque não tem checkbox',
+  //         button: {
+  //           label: 'Botão',
+  //           to: 'https://facebook.com'
+  //         }
+  //       }
+  //     },
+  //     {
+  //       type: 'accordionCheck',
+  //       label: 'Acordeão checkbox',
+  //       // value: true,
+  //       body: {
+  //         text: 'aqui é o que tem checkbox',
+  //         button: {
+  //           label: 'Botão',
+  //           to: 'https://facebook.com'
+  //         }
+  //       }
+  //     }
+  //   ]
+  // }
 
   return (
     <Box id="platform-container"
