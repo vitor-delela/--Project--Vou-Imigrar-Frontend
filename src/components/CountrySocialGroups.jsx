@@ -1,12 +1,12 @@
 import React from 'react'
-import { Box, Text, Container, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon } from '@chakra-ui/react'
+import { Icon, Box, Link, Text, Container, Divider } from '@chakra-ui/react'
+import { MdKeyboardArrowRight } from 'react-icons/md'
 
 export default function CountrySocialGroups(props) {
     const socialGroups = props.groups
     return (
         <Container my={8} bg='background' borderRadius={8}>
-            <Accordion allowToggle>
-            <Box textAlign='left' p={[5, 0, 5, 5]}>
+            <Box textAlign='left' p={[5, 0, 5, 5]} >
                 <Text textAlign="left" fontSize={17} fontWeight="bold" pb={2.5}>
                     Grupos
                 </Text>
@@ -16,23 +16,32 @@ export default function CountrySocialGroups(props) {
             </Box>
             {socialGroups.map((group, index) => {
                 return (
-                <AccordionItem key={index}>
-                    <AccordionButton>
-                        <Box flex='1' textAlign='left' >
-                        {group.name}
-                        </Box>
-                        <AccordionIcon />
-                    </AccordionButton>
-                    <AccordionPanel pb={4}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat.
-                        </AccordionPanel>
-                    </AccordionItem>
-                    )
-                })}
-            </Accordion>
+                    <Box key={index}>
+                        <Divider />
+                        <Link href={group.link} lex='1' textAlign='left' isExternal>
+                            <Box 
+                                textAlign='left'
+                                px={5}
+                                py='13px'
+                                display="flex"
+                                justifyContent="space-between"
+                                alignItems="center">
+                                <Text textAlign="left" fontSize={14}>
+                                    {group.name}
+                                </Text>
+                                <Icon
+                                    as={MdKeyboardArrowRight}
+                                    width='35px'
+                                    height='35px'
+                                    color='purple'
+                                    cursor='pointer'
+                                    className="arrow"
+                                />
+                            </Box>
+                        </Link>
+                    </Box>
+                )
+            })}
         </Container>
     )
 }
