@@ -64,7 +64,7 @@ export default function AppRouter () {
           <Route path="/country-matches" element={<CountryMatches />}/>
         </Route>
         <Route path="/" element={<PlatformContainer backNavigation={true} />}>
-          <Route path="/journey" element={<Journey />}/>
+          <Route path="/journey/:countryId" element={<Journey />}/>
         </Route>
 
         <Route path="*" element={<Welcome />} />

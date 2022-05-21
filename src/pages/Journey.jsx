@@ -6,63 +6,76 @@ import CountryImage from '../components/CountryImage'
 import CountrySocialGroups from '../components/CountrySocialGroups'
 import FinishJourneyButton from '../components/buttons/FinishJourneyButton'
 import { useNavigate, useParams} from 'react-router-dom'
+import { getJourneyDetails, getCountry } from '../store/journeySlice'
+
+
+
 
 export default function Journey (props) {
-  const { id } = useParams()
-  const { country } = props.route.params
+  const navigate = useNavigate()
+  const toast = useToast()
+  const dispatch = useDispatch()
 
-  const [journey, setJourney] = useState(null)
-
-  const journey = {
-    socialGroups:[
-        {
-            id: 1,
-            name: "Facebook",
-            link: "https://facebook.com/",
-        },
-        {
-            id: 2,
-            name: "WhatsApp",
-            link: "https://web.whatsapp.com/",
-        },
-    ],
-    requirements: []
+  const showToastWhenStatusFailed = async (toast) => {
+    toast(toast)
+    await new Promise(r => setTimeout(r, 3000));
+    navigate(-1)
   }
 
-  const toast = useToast()
+  const { countryId } = useParams()
+  const [journey, setJourney] = useState(null)
+  const [country, setCountry] = useState(null)
 
-  const dispatch = useDispatch()
   useEffect(async () => {
-    if (country) {
+    if (props.route != undefined && props.route.params.country != undefined) {
+      setCountry(props.route.params.country)
+    }
+    if (country && journey) {
       dispatch(setPage(country.name.toUpperCase()))
     } else {
       dispatch(setPage('Carregando'))
-      let response = await getJourneyDetails({ id })
-      if (response.status == 'failed' && !toast.isActive('journeyNotFound')) {
-        toast({
+      let responseJourney = await getJourneyDetails({ countryId })
+      if(!country){
+        let responseCountry = await getCountry({ countryId })
+        if (responseCountry.status == 'failed' && !toast.isActive('countryNotFound')) {
+          showToastWhenStatusFailed({
+              id: 'countryNotFound',
+              title: 'Falha ao encontrar país',
+              position: 'bottom',
+              status: 'error',
+              description: responseCountry.message,
+              isClosable: false,
+              containerStyle: {
+                width: '400px',
+                maxWidth: '90%'
+              }
+          })
+        }
+        setCountry(responseCountry.data)
+      }
+      if (responseJourney.status == 'failed' && !toast.isActive('journeyNotFound')) {
+        showToastWhenStatusFailed({
           id: 'journeyNotFound',
           title: 'Falha ao buscar jornada',
           position: 'bottom',
           status: 'error',
-          description: response.message,
+          description: responseJourney.message,
           isClosable: false,
           containerStyle: {
             width: '400px',
             maxWidth: '90%'
           }
         })
-        await new Promise(r => setTimeout(r, 3000));
-        navigate(-1)
       }
-      setJourney(response.data)
+      setJourney(responseJourney.data)
     }
   })
 
-  return journey
+  return (country && journey)
     ? (
       <Box w='100%' maxW='600px' mt={8} mb={8}>
-        <CountryImage src={journey.country.image} />
-        <CountrySocialGroups groups={journey.socialGroups}/>
+        <CountryImage src={country.image} />
+        <CountrySocialGroups groups={journey.groups}/>
         <FinishJourneyButton />
       </Box>
     )
