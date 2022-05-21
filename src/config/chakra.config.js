@@ -3,6 +3,10 @@ import { extendTheme } from '@chakra-ui/react'
 const theme = extendTheme({
   styles: {
     global: {
+      ':root': {
+        '--chakra-colors-pink-500': '#6655D4',
+        '--chakra-colors-pink-600': '#6655D4'
+      },
       '#root': {
         margin: 'auto',
         maxWidth: 'calc(600px + 2rem)'

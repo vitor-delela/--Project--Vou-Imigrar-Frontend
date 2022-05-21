@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Heading, HStack, Image } from '@chakra-ui/react'
 
 export default function PhotosCarousel (props) {
-  if (props.photos == undefined){
+  if (props.photos == undefined) {
     return (<div></div>)
   }
   return (
@@ -29,7 +29,6 @@ export default function PhotosCarousel (props) {
                     )
                   })
                 }
-                
             </HStack>
         </Container>
     </div>

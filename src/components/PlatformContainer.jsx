@@ -29,7 +29,7 @@ export default function PlatformContainer (props) {
       >
         <Box w='100%' minH='600px'>
           <Outlet />
-        </Box>   
+        </Box>
       </Flex>
       <NavbarBottom />
     </Flex>
