@@ -54,7 +54,7 @@ export default function CountryDetails (props) {
         </Container>
         <PhotosCarousel photos={country.photos}/>
         <CountryInformation information={country.infos}/>
-        <StartJourneyButton />
+        <StartJourneyButton countryId={country.id}/>
       </Box>
     )
     : (
