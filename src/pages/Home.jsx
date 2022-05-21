@@ -4,7 +4,6 @@ import { Heading, Box, Text, Flex, Image, HStack } from '@chakra-ui/react'
 
 import Logo from '../components/Logo'
 import PrimaryButton from '../components/buttons/PrimaryButton'
-import ListComponent from '../components/ListComponent'
 
 export default function Home () {
   const navigate = useNavigate()
@@ -24,8 +23,6 @@ export default function Home () {
           )
         })}
       </HStack>
-
-      <ListComponent/>
 
       <Box w={['100%', null, '50%']} px={8}>
         <Image
