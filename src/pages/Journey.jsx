@@ -8,14 +8,12 @@ import FinishJourneyButton from '../components/buttons/FinishJourneyButton'
 import { useNavigate, useParams} from 'react-router-dom'
 
 export default function Journey (props) {
-//   const { id } = useParams()
+  const { id } = useParams()
+  const { country } = props.route.params
+
+  const [journey, setJourney] = useState(null)
+
   const journey = {
-    country: {
-        id: 1,
-        name: "Canada",
-        description: "Lorem i",
-        image: "https://vouimigrar.s3.us-east-2.amazonaws.com/countries/1/logo/canada.png",
-    },
     socialGroups:[
         {
             id: 1,
@@ -30,14 +28,36 @@ export default function Journey (props) {
     ],
     requirements: []
   }
+
   const toast = useToast()
-  const navigate = useNavigate()
 
   const dispatch = useDispatch()
   useEffect(async () => {
-        dispatch(setPage(journey.country.name.toUpperCase()))
+    if (country) {
+      dispatch(setPage(country.name.toUpperCase()))
+    } else {
+      dispatch(setPage('Carregando'))
+      let response = await getJourneyDetails({ id })
+      if (response.status == 'failed' && !toast.isActive('journeyNotFound')) {
+        toast({
+          id: 'journeyNotFound',
+          title: 'Falha ao buscar jornada',
+          position: 'bottom',
+          status: 'error',
+          description: response.message,
+          isClosable: false,
+          containerStyle: {
+            width: '400px',
+            maxWidth: '90%'
+          }
+        })
+        await new Promise(r => setTimeout(r, 3000));
+        navigate(-1)
+      }
+      setJourney(response.data)
     }
-  )
+  })
+
   return journey
     ? (
       <Box w='100%' maxW='600px' mt={8} mb={8}>
