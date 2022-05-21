@@ -6,7 +6,7 @@ import CountryImage from '../components/CountryImage'
 import CountrySocialGroups from '../components/CountrySocialGroups'
 import FinishJourneyButton from '../components/buttons/FinishJourneyButton'
 import { useNavigate, useParams} from 'react-router-dom'
-import { getJourneyDetails, getCountry } from '../store/journeySlice'
+import { getJourneyDetails, getCountry, postFinishJourney } from '../store/journeySlice'
 
 
 
@@ -16,8 +16,8 @@ export default function Journey (props) {
   const toast = useToast()
   const dispatch = useDispatch()
 
-  const showToastWhenStatusFailed = async (toast) => {
-    toast(toast)
+  const showToastWhenStatusFailed = async (toastO) => {
+    toast(toastO)
     await new Promise(r => setTimeout(r, 3000));
     navigate(-1)
   }
@@ -25,7 +25,7 @@ export default function Journey (props) {
   const { countryId } = useParams()
   const [journey, setJourney] = useState(null)
   const [country, setCountry] = useState(null)
-
+  
   useEffect(async () => {
     if (props.route != undefined && props.route.params.country != undefined) {
       setCountry(props.route.params.country)
@@ -71,12 +71,18 @@ export default function Journey (props) {
     }
   })
 
+  const finishJourney = () => {
+    postFinishJourney({ countryId })
+    alert('Finalizando jornada...')
+    navigate('/')
+  }
+
   return (country && journey)
     ? (
       <Box w='100%' maxW='600px' mt={8} mb={8}>
         <CountryImage src={country.image} />
         <CountrySocialGroups groups={journey.groups}/>
-        <FinishJourneyButton />
+        <FinishJourneyButton onClick={finishJourney}/>
       </Box>
     )
     : (

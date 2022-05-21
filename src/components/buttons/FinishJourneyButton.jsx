@@ -4,10 +4,6 @@ import PrimaryButton from './PrimaryButton'
 import { MdOutlineAirplanemodeActive } from 'react-icons/md'
 
 export default function FinishJourneyButton (props) {
-  const finishJourney = () => {
-    return alert('Finalizar jornada')
-  }
-
   return (
     <PrimaryButton
       height='50px'
@@ -16,7 +12,6 @@ export default function FinishJourneyButton (props) {
       fontWeight='bold'
       marginTop='20px'
       rightIcon={<Icon marginLeft='5px' fontSize='20' as={MdOutlineAirplanemodeActive} transform = {'rotate(180deg)'}/>}
-      onClick={finishJourney}
       {...props}
     >
       Finalizar jornada

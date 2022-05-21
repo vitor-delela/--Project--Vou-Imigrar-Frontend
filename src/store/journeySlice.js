@@ -35,3 +35,21 @@ export const getCountry = async (request) => {
     },
   };
 };
+
+export const postFinishJourney = async (request) => {
+  let response;
+  try {
+    response = await HTTP.post(`/journeys/finish/${request.countryId}`);
+  } catch (_) {
+    return {
+      status: "failed",
+      message: "Jornada para esse país ainda não iniciada.",
+    };
+  }
+  return {
+    status: "success",
+    data: {
+      ...response.data,
+    },
+  };
+};
