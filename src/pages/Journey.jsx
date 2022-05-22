@@ -5,13 +5,10 @@ import { Box, useToast, Spinner, Center } from '@chakra-ui/react'
 import CountryImage from '../components/CountryImage'
 import CountrySocialGroups from '../components/CountrySocialGroups'
 import FinishJourneyButton from '../components/buttons/FinishJourneyButton'
-import { useNavigate, useParams} from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getJourneyDetails, getCountry, postFinishJourney } from '../store/journeySlice'
 
-
-
-
-export default function Journey (props) {
+export default function Journey(props) {
   const navigate = useNavigate()
   const toast = useToast()
   const dispatch = useDispatch()
@@ -25,35 +22,35 @@ export default function Journey (props) {
   const { countryId } = useParams()
   const [journey, setJourney] = useState(null)
   const [country, setCountry] = useState(null)
-  
+
   useEffect(async () => {
-    if (props.route != undefined && props.route.params.country != undefined) {
+    if (props.route !== undefined && props.route.params.country !== undefined) {
       setCountry(props.route.params.country)
     }
     if (country && journey) {
       dispatch(setPage(country.name.toUpperCase()))
     } else {
       dispatch(setPage('Carregando'))
-      let responseJourney = await getJourneyDetails({ countryId })
-      if(!country){
-        let responseCountry = await getCountry({ countryId })
-        if (responseCountry.status == 'failed' && !toast.isActive('countryNotFound')) {
+      const responseJourney = await getJourneyDetails({ countryId })
+      if (!country) {
+        const responseCountry = await getCountry({ countryId })
+        if (responseCountry.status === 'failed' && !toast.isActive('countryNotFound')) {
           showToastWhenStatusFailed({
-              id: 'countryNotFound',
-              title: 'Falha ao encontrar país',
-              position: 'bottom',
-              status: 'error',
-              description: responseCountry.message,
-              isClosable: false,
-              containerStyle: {
-                width: '400px',
-                maxWidth: '90%'
-              }
+            id: 'countryNotFound',
+            title: 'Falha ao encontrar país',
+            position: 'bottom',
+            status: 'error',
+            description: responseCountry.message,
+            isClosable: false,
+            containerStyle: {
+              width: '400px',
+              maxWidth: '90%'
+            }
           })
         }
         setCountry(responseCountry.data)
       }
-      if (responseJourney.status == 'failed' && !toast.isActive('journeyNotFound')) {
+      if (responseJourney.status === 'failed' && !toast.isActive('journeyNotFound')) {
         showToastWhenStatusFailed({
           id: 'journeyNotFound',
           title: 'Falha ao buscar jornada',
@@ -69,7 +66,7 @@ export default function Journey (props) {
       }
       setJourney(responseJourney.data)
     }
-  })
+  }, [country, journey])
 
   const finishJourney = () => {
     postFinishJourney({ countryId })
@@ -81,10 +78,10 @@ export default function Journey (props) {
     ? (
       <Box w='100%' maxW='600px' mt={8} mb={8}>
         <CountryImage src={country.image} />
-        <CountrySocialGroups groups={journey.groups}/>
-        <FinishJourneyButton onClick={finishJourney}/>
+        <CountrySocialGroups groups={journey.groups} />
+        <FinishJourneyButton onClick={finishJourney} />
       </Box>
-    )
+      )
     : (
       <Center w='100%' maxW='600px' mt={8} mb={16}>
         <Spinner
@@ -95,5 +92,5 @@ export default function Journey (props) {
           size='xl'
         />
       </Center>
-    )
+      )
 }

@@ -11,7 +11,7 @@ export default function FinishJourneyButton (props) {
       fontSize='18'
       fontWeight='bold'
       marginTop='20px'
-      rightIcon={<Icon marginLeft='5px' fontSize='20' as={MdOutlineAirplanemodeActive} transform = {'rotate(180deg)'}/>}
+      rightIcon={<Icon marginLeft='5px' fontSize='20' as={MdOutlineAirplanemodeActive} transform = {'rotate(90deg)'}/>}
       {...props}
     >
       Finalizar jornada
