@@ -51,7 +51,7 @@ export default function SuperComponent (props) {
       bg='rgba(109, 79, 211, 0.05);'
       borderRadius='8px'
     >
-      {props.title && <Heading padding='22px 16px 20px 16px' size='sm'>{props.title}</Heading>}
+      {props.title && <Heading padding='25px 16px 22px 16px' size='sm'>{props.title}</Heading>}
       {props.text && <Text padding='0 0 20px 16px' size='xs'>{props.text}</Text>}
       {
         props.items &&
@@ -96,8 +96,9 @@ export default function SuperComponent (props) {
                   item.type === 'check' &&
                     <Checkbox
                       colorScheme='pink'
+                      _hover={{ bg: 'var(--chakra-colors-blackAlpha-50)' }}
                       borderTop='1px solid rgba(109, 79, 211, 0.05)'
-                      padding={15}
+                      padding='20.5px 16px 20.5px 16px'
                       isChecked={item.value}
                     >
                       {item.label}
@@ -136,6 +137,7 @@ export default function SuperComponent (props) {
                               alignItems='center'
                               color='purple'
                               isExternal
+                              marginTop={3}
                             >
                                 {item.body.button.label}
                                 <Icon
@@ -187,6 +189,7 @@ export default function SuperComponent (props) {
                               alignItems='center'
                               color='purple'
                               isExternal
+                              marginTop={3}
                             >
                                 {item.body.button.label}
                                 <Icon
