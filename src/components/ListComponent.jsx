@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Text, Heading, Checkbox, Link, AccordionItem, AccordionButton, AccordionPanel, Accordion, AccordionIcon, Icon } from '@chakra-ui/react'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 
-export default function SuperComponent (props) {
+export default function ListComponent (props) {
   // props = {
   //   title: 'Categorias',
   //   // text: 'Escolha as categorias que deseja visualizar',
