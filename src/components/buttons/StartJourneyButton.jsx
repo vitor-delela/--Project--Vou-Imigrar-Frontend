@@ -14,7 +14,6 @@ export default function StartJourneyButton (props) {
   const beginJourney = async () => {
     console.log(props)
     dispatch(startJourney(props)).then((response) => {
-      console.log(response.payload)
       if (response.payload.status === 'failed' && !toast.isActive('countryNotFound')) {
         toast({
           id: 'startJourneyFail',
