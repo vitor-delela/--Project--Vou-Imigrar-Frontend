@@ -15,6 +15,7 @@ import SignUp from './pages/SignUp'
 import CountryDetails from './pages/CountryDetails'
 import CountryMatches from './pages/CountryMatches'
 import ProfileMap from './pages/ProfileMap'
+import Partner from './pages/Partner'
 
 export default function AppRouter () {
   const { type } = useSelector((state) => state.user)
@@ -61,6 +62,7 @@ export default function AppRouter () {
 
         <Route path="/" element={<PlatformContainer backNavigation={true} />}>
           <Route path="/country-matches" element={<CountryMatches />}/>
+          <Route path="/partner" element={<Partner />}/>
         </Route>
 
         <Route path="*" element={<Welcome />} />
