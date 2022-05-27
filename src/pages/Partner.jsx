@@ -5,6 +5,7 @@ import { Container, Box, useToast, Spinner, Center } from '@chakra-ui/react'
 import DescriptionBoxWithoutTitle from '../components/DescriptionBoxWithoutTitle'
 import { useNavigate, useParams} from 'react-router-dom'
 import PartnerImage from '../components/PartnerImage'
+import ListComponent from '../components/ListComponent'
 
 export default function Partner (props) {
   const { id } = useParams()
@@ -18,16 +19,56 @@ export default function Partner (props) {
     dispatch(setPage('Parceiro'))
   })
 
-  const standardDescription = "Nossos estabelecimentos parceiros estão disponíveis para ajudar os nossos imigrantes! Faça sua escolha e entre em contato.";
+  const itemsSend = [{
+          type: 'accordion',
+          label: 'FISK',
+          body: {
+            text: 'Descrição do parceiro',
+            button: {
+              label: 'Agendar Reunião',
+              to: 'https://facebook.com'
+            }
+          }
+        },
+        {
+          type: 'accordion',
+          label: 'Wizard',
+          body: {
+            text: 'Descrição do parceiro',
+            button: {
+              label: 'Agendar Reunião',
+              to: 'https://facebook.com'
+            }
+          }
+        },
+        {
+          type: 'accordion',
+          label: 'CNA',
+          body: {
+            text: 'Descrição do parceiro',
+            button: {
+              label: 'Agendar Reunião',
+              to: 'https://facebook.com'
+            }
+          }
+        }
+      ]
 
   return (
       <Box w='100%' maxW='600px' mt={8} mb={8}>
         <Center> 
             <PartnerImage />
         </Center>
-        <DescriptionBoxWithoutTitle text={"Escolas de Inglês"} fontWeight='bold'/>
-        <DescriptionBoxWithoutTitle text={standardDescription} />
+        <Center>
+            <DescriptionBoxWithoutTitle text={"Escolas de Inglês"} fontWeight='bold'/>
+        </Center>
+        <DescriptionBoxWithoutTitle />
+        <ListComponent items={itemsSend} />
       </Box>
     )
     
 }
+
+
+
+
