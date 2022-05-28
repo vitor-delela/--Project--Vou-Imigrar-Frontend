@@ -7,7 +7,7 @@ export default function PartnerImage (props) {
       width='90px'
       height='100px'
       objectFit='cover'
-      src={'https://vouimigrar.s3.us-east-2.amazonaws.com/countries/3/logo/australia.png'}
+      src={props.src}
       alt='Imagem da categoria do parceiro'
       borderRadius='15px'
     />

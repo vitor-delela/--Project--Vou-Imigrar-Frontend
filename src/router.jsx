@@ -57,12 +57,12 @@ export default function AppRouter () {
             <Route path="/country/:id" element={<CountryDetails />}/>
             <Route path="/update" element={<UpdateProfile />}/>
             <Route path="/map" element={<ProfileMap />}/>
+            <Route path="/partner" element={<Partner />}/>
           </Route>
         </Route>
 
         <Route path="/" element={<PlatformContainer backNavigation={true} />}>
           <Route path="/country-matches" element={<CountryMatches />}/>
-          <Route path="/partner" element={<Partner />}/>
         </Route>
 
         <Route path="*" element={<Welcome />} />
