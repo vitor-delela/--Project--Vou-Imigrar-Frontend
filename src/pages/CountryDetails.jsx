@@ -6,7 +6,7 @@ import DescriptionBox from '../components/DescriptionBox'
 import CountryImage from '../components/CountryImage'
 import PhotosCarousel from '../components/PhotosCarousel'
 import CountryInformation from '../components/CountryInformation'
-import StartJourneyButton from '../components/buttons/StartJouneyButton'
+import StartJourneyButton from '../components/buttons/StartJourneyButton'
 import { getCountryDetails } from '../store/countrySlice'
 import { useNavigate, useParams } from 'react-router-dom'
 
