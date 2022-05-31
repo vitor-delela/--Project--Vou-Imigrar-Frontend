@@ -6,9 +6,9 @@ import DescriptionBox from '../components/DescriptionBox'
 import CountryImage from '../components/CountryImage'
 import PhotosCarousel from '../components/PhotosCarousel'
 import CountryInformation from '../components/CountryInformation'
-import StartJourneyButton from '../components/buttons/StartJouneyButton'
+import StartJourneyButton from '../components/buttons/StartJourneyButton'
 import { getCountryDetails } from '../store/countrySlice'
-import { useNavigate, useParams} from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 export default function CountryDetails (props) {
   const { id } = useParams()
@@ -23,8 +23,8 @@ export default function CountryDetails (props) {
       dispatch(setPage(country.name.toUpperCase()))
     } else {
       dispatch(setPage('Carregando'))
-      let response = await getCountryDetails({ id })
-      if (response.status == 'failed' && !toast.isActive('countryNotFound')) {
+      const response = await getCountryDetails({ id })
+      if (response.status === 'failed' && !toast.isActive('countryNotFound')) {
         toast({
           id: 'countryNotFound',
           title: 'Falha ao buscar país',
@@ -37,7 +37,7 @@ export default function CountryDetails (props) {
             maxWidth: '90%'
           }
         })
-        await new Promise(r => setTimeout(r, 3000));
+        await new Promise(r => setTimeout(r, 3000))
         navigate(-1)
       }
       setCountry(response.data)
@@ -50,13 +50,13 @@ export default function CountryDetails (props) {
         <CountryImage src={country.image} />
         <Container marginTop='20px'>
           <DescriptionBox text={country.description} />
-          <StartJourneyButton />
+          <StartJourneyButton country={country.id}/>
         </Container>
         <PhotosCarousel photos={country.photos}/>
         <CountryInformation information={country.infos}/>
-        <StartJourneyButton />
+        <StartJourneyButton country={country.id}/>
       </Box>
-    )
+      )
     : (
       <Center w='100%' maxW='600px' mt={8} mb={16}>
         <Spinner
@@ -67,5 +67,5 @@ export default function CountryDetails (props) {
           size='xl'
         />
       </Center>
-    )
+      )
 }
