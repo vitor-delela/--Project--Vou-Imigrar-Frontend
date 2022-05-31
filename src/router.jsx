@@ -15,11 +15,8 @@ import SignUp from './pages/SignUp'
 import CountryDetails from './pages/CountryDetails'
 import CountryMatches from './pages/CountryMatches'
 import ProfileMap from './pages/ProfileMap'
-<<<<<<< HEAD
 import Partner from './pages/Partner'
-=======
 import Journey from './pages/Journey'
->>>>>>> f9645768643501e152ce20e0f02bf280ba6fcb6e
 
 export default function AppRouter () {
   const { type } = useSelector((state) => state.user)
