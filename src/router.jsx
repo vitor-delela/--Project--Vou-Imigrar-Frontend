@@ -57,7 +57,7 @@ export default function AppRouter () {
             <Route path="/country/:id" element={<CountryDetails />}/>
             <Route path="/update" element={<UpdateProfile />}/>
             <Route path="/map" element={<ProfileMap />}/>
-            <Route path="/partner" element={<Partner />}/>
+            <Route path="/partner/:id" element={<Partner />}/>
           </Route>
         </Route>
 

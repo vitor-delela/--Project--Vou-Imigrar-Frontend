@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../store/pageSlice'
-import { Container, Box, useToast, Spinner, Center } from '@chakra-ui/react'
+import { Box, useToast, Spinner, Center } from '@chakra-ui/react'
 import PartnerDescriptionBox from '../components/PartnerDescriptionBox'
 import { useNavigate, useParams} from 'react-router-dom'
 import PartnerImage from '../components/PartnerImage'
@@ -9,18 +9,19 @@ import ListComponent from '../components/ListComponent'
 import { getPartners } from '../store/partnerSlice'
 
 export default function Partner (props) {
+  const { id } = useParams()
   const toast = useToast()
   const navigate = useNavigate()
 
-  const [partners, setPartners] = useState(null)
+  const [partnerCategory, setPartnerCategory] = useState(null)
 
   const dispatch = useDispatch()
   useEffect(async () => {
-    if(partners){
+    if(partnerCategory){
       dispatch(setPage("Parceiro"))
     } else{
       dispatch(setPage('carregando Parceiro'))
-      const response = await getPartners()
+      const response = await getPartners({ id })
 
       if (response.status == 'failed' && !toast.isActive('partnersNotFound')) {
         toast({
@@ -38,61 +39,53 @@ export default function Partner (props) {
         await new Promise(r => setTimeout(r, 3000));
         navigate(-1)
       }
-      setPartners(response.data)
+      setPartnerCategory(response.data)
     }
   })
 
-  console.log(partners)
+  const itemsSend = []
 
-  const itemsSend = [{
-          type: 'accordion',
-          label: 'FISK',
+  {if (partnerCategory)
+    partnerCategory.partners.map( (currentPartner) => {
+      itemsSend.push({
+        type: 'accordion',
+          label: currentPartner.name,
           body: {
-            text: 'Descrição do parceiro',
+            text: currentPartner.description,
             button: {
               label: 'Agendar Reunião',
-              to: 'https://facebook.com'
+              to: ''
             }
           }
-        }
-        //,
-        // {
-        //   type: 'accordion',
-        //   label: 'Wizard',
-        //   body: {
-        //     text: 'Descrição do parceiro',
-        //     button: {
-        //       label: 'Agendar Reunião',
-        //       to: 'https://facebook.com'
-        //     }
-        //   }
-        // },
-        // {
-        //   type: 'accordion',
-        //   label: 'CNA',
-        //   body: {
-        //     text: 'Descrição do parceiro',
-        //     button: {
-        //       label: 'Agendar Reunião',
-        //       to: 'https://facebook.com'
-        //     }
-        //   }
-        // }
-      ]
+      })
+    })
+  }
 
-  return (
+  return  partnerCategory ?
+    (
       <Box w='100%' maxW='600px' mt={8} mb={8}>
         <Center> 
-            <PartnerImage src={partners === null ? null : partners.image}/>
+            <PartnerImage src={partnerCategory === null ? null : partnerCategory.image}/>
         </Center>
         <Center>
-            <PartnerDescriptionBox text={partners === null ? null : partners.name} fontWeight='bold'/>
+            <PartnerDescriptionBox text={partnerCategory === null ? null : partnerCategory.name} fontWeight='bold'/>
         </Center>
         <PartnerDescriptionBox />
         <ListComponent items={itemsSend} />
       </Box>
     )
-    
+    : 
+    (
+      <Center w='100%' maxW='600px' mt={8} mb={16}>
+        <Spinner
+          thickness='4px'
+          speed='0.65s'
+          emptyColor='gray.200'
+          color='#6655D4'
+          size='xl'
+        />
+      </Center>
+    )
 }
 
 

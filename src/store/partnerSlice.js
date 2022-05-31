@@ -5,7 +5,7 @@ export const getPartners = async (request) => {
     let response;
     try {
       response = await HTTP.get(
-        `/partners/findAllPartnersByCategoryId/1`
+        `/partners/findAllPartnersByCategoryId/${request.id}`
       );
     } catch (_) {
       return {
