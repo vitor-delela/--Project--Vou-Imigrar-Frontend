@@ -56,6 +56,7 @@ const theme = extendTheme({
     primary: 'linear-gradient(189.42deg, rgba(1, 163, 222, 0.8) -214.82%, rgba(102, 85, 212, 0.8) 92.88%), rgba(0, 0, 0, 0.6)',
     primaryHover: '#6D4FD3',
     lightBlue: '#00A4DE',
+    green: '#4CBF77',
     purple: '#6655D4',
     black: '#00082D',
     glass: 'rgba(243, 243, 243, 0.2)',
