@@ -77,3 +77,22 @@ export const postFinishJourney = async (request) => {
     }
   }
 }
+
+export const getUserStatusAndJourneys = createAsyncThunk(
+  'api/journeys/status',
+  async (request) => {
+    let response
+    try {
+      response = await HTTP.get('/journeys/status')
+    } catch (_) {
+      return {
+        status: 'failed',
+        message: 'Erro ao buscar status.'
+      }
+    }
+    return {
+      status: 'success',
+      data: response.data
+    }
+  }
+)
