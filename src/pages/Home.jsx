@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import Logo from '../components/Logo'
 import PrimaryButton from '../components/buttons/PrimaryButton'
-import { Heading, Box, Text, Flex, Image, Icon } from '@chakra-ui/react'
+import { Heading, Box, Text, Flex, Image, Icon, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react'
 import { BiWorld } from 'react-icons/bi'
 import CountryCard from '../components/CountryCard'
 import { getUserStatusAndJourneys } from '../store/journeySlice'
@@ -69,7 +69,7 @@ export default function Home () {
         })}
       </Flex>
 
-      {content &&
+      {['UNMAPPED_PROFILE', 'MAPPED_PROFILE'].includes(status) &&
         <Box w={['100%', null, '50%']} px={8} my={16}>
           <Image
             width='100%'
@@ -91,20 +91,26 @@ export default function Home () {
         </Box>
       }
 
-      {!content && journeys &&
+      {status === 'STARTED_JOURNEY' &&
         <Box my={12} w='100%'>
           <Text ml={2} mb={2}>Jornadas iniciadas</Text>
-          { journeys.map((journey) => {
-            console.log(journey)
-            return <CountryCard
+          { !journeys
+            ? <Alert status='error'>
+                <AlertIcon/>
+                <AlertTitle>Erro ao buscar jornadas iniciadas.</AlertTitle>
+              </Alert>
+            : journeys.map((journey) => {
+              console.log(journey)
+              return <CountryCard
                     key={journey.journeyId}
-                    // src={journey.country.image}
-                    // name={journey.country.name}
+                    src={journey.country.image}
+                    name={journey.country.name}
                     percentage={journey.metRequirementPercentage}
-                    onClick={() => navigate(`/country/${journey.countryId}`)}
+                    onClick={() => navigate(`/country/${journey.country.id}`)}
                     circular={true}
                   />
-          })}
+            })
+          }
         </Box>
       }
 
