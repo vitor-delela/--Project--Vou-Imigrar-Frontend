@@ -71,8 +71,7 @@ export default function Journey (props) {
 
   const finishJourney = () => {
     postFinishJourney({ countryId })
-    alert('Finalizando jornada...')
-    navigate('/')
+    navigate('/finished-journey')
   }
 
   return (country && journey)

@@ -17,6 +17,7 @@ import CountryMatches from './pages/CountryMatches'
 import ProfileMap from './pages/ProfileMap'
 import Partner from './pages/Partner'
 import Journey from './pages/Journey'
+import Finishedjourney from './pages/Finishedjourney'
 
 export default function AppRouter () {
   const { type } = useSelector((state) => state.user)
@@ -67,6 +68,9 @@ export default function AppRouter () {
         </Route>
         <Route path="/" element={<PlatformContainer backNavigation={true} />}>
           <Route path="/journey/:countryId" element={<Journey />}/>
+        </Route>
+        <Route path="/" element={<PlatformContainer backNavigation={true} />}>
+          <Route path="/finished-journey" element={<Finishedjourney />}/>
         </Route>
 
         <Route path="*" element={<Welcome />} />
