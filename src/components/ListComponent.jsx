@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Text, Heading, Checkbox, Link, AccordionItem, AccordionButton, AccordionPanel, Accordion, AccordionIcon, Icon } from '@chakra-ui/react'
+import { Box, Text, Heading, Checkbox, Link, AccordionItem, AccordionButton, AccordionPanel, Accordion, AccordionIcon, Icon, Divider } from '@chakra-ui/react'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 
 export default function ListComponent (props) {
@@ -124,10 +124,12 @@ export default function ListComponent (props) {
                           <AccordionIcon />
                         </AccordionButton>
                       </h2>
-                      <AccordionPanel pb={4}>
+                      <AccordionPanel pb={3}>
+                        <Divider />
                         <Box
                           display='flex'
                           flexDirection='column'
+                          mt={3}
                         >
                           {item.body.text}
                           {
@@ -139,6 +141,7 @@ export default function ListComponent (props) {
                               color='purple'
                               isExternal
                               marginTop={3}
+                              justifyContent="flex-end"
                             >
                                 {item.body.button.label}
                                 <Icon

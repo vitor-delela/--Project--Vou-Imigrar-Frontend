@@ -65,12 +65,12 @@ export default function Partner (props) {
     (
       <Box w='100%' maxW='600px' mt={8} mb={8}>
         <Center> 
-            <PartnerImage src={partnerCategory === null ? null : partnerCategory.image}/>
+            <PartnerImage src={partnerCategory?.image}/>
         </Center>
         <Center>
-            <PartnerDescriptionBox text={partnerCategory === null ? null : partnerCategory.name} fontWeight='bold'/>
+          <PartnerDescriptionBox text={partnerCategory?.name} fontWeight='bold' background="rgba(109, 79, 211, 0.1)"/>
         </Center>
-        <PartnerDescriptionBox />
+        <PartnerDescriptionBox text={partnerCategory.description} background="rgba(109, 79, 211, 0.05)" />
         <ListComponent items={itemsSend} />
       </Box>
     )
