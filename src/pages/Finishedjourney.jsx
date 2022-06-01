@@ -76,8 +76,7 @@ export default function Endendjourney () {
                 color="rgb(102, 85, 213)"
                 textDecoration="underline"
                 onClick={() => {
-                  // navigate('/tela/:BOARDING_ASSISTANT')
-                  navigate('/home')
+                  navigate('/partner/BOARDING_ASSISTANT')
                 }}
               >
                 Precisa de ajuda para o embarque?
