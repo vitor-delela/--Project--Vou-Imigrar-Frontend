@@ -106,7 +106,7 @@ export default function Home () {
                     src={journey.country.image}
                     name={journey.country.name}
                     percentage={journey.metRequirementPercentage}
-                    onClick={() => navigate(`/country/${journey.country.id}`)}
+                    onClick={() => navigate(`/journey/${journey.country.id}`)}
                     circular={true}
                   />
             })
