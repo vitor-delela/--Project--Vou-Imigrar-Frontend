@@ -37,8 +37,8 @@ export default function Endendjourney () {
           m={1}
         >
           <Box pb={3}>
-            <Circle size="40px" background="green.100" margin="auto">
-              <Icon fontSize="20" color="green.600" as={MdDone} />
+            <Circle size="40px" background="#C8E6C9" margin="auto">
+              <Icon fontSize="20" color="#43A047" as={MdDone} />
             </Circle>
           </Box>
           <Box pb={3}>
