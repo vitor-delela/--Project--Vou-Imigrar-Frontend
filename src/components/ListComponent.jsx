@@ -1,47 +1,53 @@
 import React from 'react'
 import { Box, Text, Heading, Checkbox, Link, AccordionItem, AccordionButton, AccordionPanel, Accordion, AccordionIcon, Icon, Divider } from '@chakra-ui/react'
 import { MdKeyboardArrowRight } from 'react-icons/md'
+import { updateChecklist } from '../store/journeySlice'
+import { useDispatch } from 'react-redux'
 
 export default function ListComponent (props) {
   // props = {
   //   title: 'Categorias',
   //   // text: 'Escolha as categorias que deseja visualizar',
-  //   items: [
-  //     {
-  //       type: 'link',
-  //       label: 'Facebook',
-  //       to: 'https://facebook.com'
-  //     },
-  //     {
-  //       type: 'check',
-  //       label: 'Visto para o país'
-  //       // value: true
-  //     },
-  //     {
-  //       type: 'accordion',
-  //       label: 'Acordeão',
-  //       body: {
-  //         text: 'aqui é o acordeãoque não tem checkbox',
-  //         button: {
-  //           label: 'Botão',
-  //           to: 'https://facebook.com'
-  //         }
-  //       }
-  //     },
-  //     {
-  //       type: 'accordionCheck',
-  //       label: 'Acordeão checkbox',
-  //       // value: true,
-  //       body: {
-  //         text: 'aqui é o que tem checkbox',
-  //         button: {
-  //           label: 'Botão',
-  //           to: 'https://facebook.com'
-  //         }
+  // items: [
+  //   {
+  //     type: 'link',
+  //     label: 'Facebook',
+  //     to: 'https://facebook.com'
+  //   },
+  //   {
+  //     type: 'check',
+  //     label: 'Visto para o país'
+  //     id: 1,
+  //     // value: true
+  //   },
+  //   {
+  //     type: 'accordion',
+  //     label: 'Acordeão',
+  //     body: {
+  //       text: 'aqui é o acordeãoque não tem checkbox',
+  //       button: {
+  //         label: 'Botão',
+  //         to: 'https://facebook.com'
   //       }
   //     }
-  //   ]
-  // }
+  //   },
+  //   {
+  //     type: 'accordionCheck',
+  //     label: 'Acordeão checkbox',
+  //     id: 2,
+  //     // value: true,
+  //     body: {
+  //       text: 'aqui é o que tem checkbox',
+  //       button: {
+  //         label: 'Botão',
+  //         to: 'https://facebook.com'
+  //       }
+  //     }
+  //   }
+  // ]
+  // } updateChecklist
+
+  const dispatch = useDispatch()
 
   return (
     <Box id="platform-container"
@@ -50,7 +56,7 @@ export default function ListComponent (props) {
       width='100%'
       bg='rgba(109, 79, 211, 0.05);'
       borderRadius='8px'
-      style={{marginTop: '20px'}}
+      style={{ marginTop: '20px' }}
     >
       {props.title && <Heading padding='25px 16px 22px 16px' size='sm'>{props.title}</Heading>}
       {props.text && <Text padding='0 0 20px 16px' size='xs'>{props.text}</Text>}
@@ -101,6 +107,7 @@ export default function ListComponent (props) {
                       borderTop='1px solid rgba(109, 79, 211, 0.05)'
                       padding='20.5px 16px 20.5px 16px'
                       isChecked={item.value}
+                      onChange={() => dispatch(updateChecklist({ id: item.id, value: !item.value }))}
                     >
                       {item.label}
                     </Checkbox>
@@ -174,7 +181,11 @@ export default function ListComponent (props) {
                         >
                           <Box flex={1} textAlign='left'>
                             <Checkbox
-                              colorScheme='pink' isChecked={item.value}>{item.label}</Checkbox>
+                              onChange={() => dispatch(updateChecklist({ id: item.id, value: !item.value }))}
+                              colorScheme='pink' isChecked={item.value}
+                            >
+                              {item.label}
+                            </Checkbox>
                           </Box>
                           <AccordionIcon />
                         </AccordionButton>
