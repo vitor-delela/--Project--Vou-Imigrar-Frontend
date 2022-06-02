@@ -7,6 +7,7 @@ import { useNavigate, useParams} from 'react-router-dom'
 import PartnerImage from '../components/PartnerImage'
 import ListComponent from '../components/ListComponent'
 import { getPartners } from '../store/partnerSlice'
+import { HTTP } from '../config/axios.config'
 
 export default function Partner (props) {
   const { id } = useParams()
@@ -45,7 +46,20 @@ export default function Partner (props) {
 
   const itemsSend = []
 
-  {if (partnerCategory)
+  const sendEmail = async (jouneyId, partnerId) => {
+    let response;
+    response = await HTTP.post(
+      '/users/meet-infos', {
+        jouneyId: jouneyId,
+        partnerId: partnerId
+      }
+    )
+    const email = response.data
+    const body = encodeURIComponent(email.body)
+    window.location = `mailto:${email.to}?subject=${email.subject}&body=${body}`
+  }
+
+  if (partnerCategory) {
     partnerCategory.partners.map( (currentPartner) => {
       itemsSend.push({
         type: 'accordion',
@@ -54,7 +68,7 @@ export default function Partner (props) {
             text: currentPartner.description,
             button: {
               label: 'Agendar Reunião',
-              to: ''
+              to: () => sendEmail(props.journeyId, id)
             }
           }
       })

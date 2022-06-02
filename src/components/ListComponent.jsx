@@ -135,7 +135,7 @@ export default function ListComponent (props) {
                           {
                             item.body.button &&
                             <Link
-                              href={item.body.button.to}
+                              onClick={item.body.button.to}
                               display='flex'
                               alignItems='center'
                               color='purple'
