@@ -41,6 +41,7 @@ export default function CountryDetails (props) {
         navigate(-1)
       }
       setCountry(response.data)
+      console.log(response.data)
     }
   })
 
@@ -50,11 +51,18 @@ export default function CountryDetails (props) {
         <CountryImage src={country.image} />
         <Container marginTop='20px'>
           <DescriptionBox text={country.description} />
-          <StartJourneyButton country={country.id}/>
+          { country.hasStartedJourney === 'N'
+            ? <StartJourneyButton country={country.id}/>
+            : null
+          }
         </Container>
         <PhotosCarousel photos={country.photos}/>
         <CountryInformation information={country.infos}/>
-        <StartJourneyButton country={country.id}/>
+        {
+          country.hasStartedJourney === 'N'
+            ? <StartJourneyButton country={country.id}/>
+            : null
+        }
       </Box>
       )
     : (
