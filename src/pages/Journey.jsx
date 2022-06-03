@@ -79,7 +79,7 @@ export default function Journey (props) {
       <Box w='100%' maxW='600px' mt={8} mb={8}>
         <CountryImage src={country.image} />
         <CountrySocialGroups groups={journey.groups} />
-        <ListComponent title='Requisitos' checklist={journey.requirements}/>
+        <ListComponent title='Requisitos' journey={journey}/>
         <FinishJourneyButton onClick={finishJourney} />
       </Box>
       )

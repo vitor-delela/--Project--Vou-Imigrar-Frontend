@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setPage } from '../store/pageSlice'
 import { Box, useToast, Spinner, Center } from '@chakra-ui/react'
 import PartnerDescriptionBox from '../components/PartnerDescriptionBox'
-import { useNavigate, useParams} from 'react-router-dom'
+import { useNavigate, useParams, useLocation} from 'react-router-dom'
 import PartnerImage from '../components/PartnerImage'
 import ListComponent from '../components/ListComponent'
 import { getPartners } from '../store/partnerSlice'
@@ -13,6 +13,7 @@ export default function Partner (props) {
   const { id } = useParams()
   const toast = useToast()
   const navigate = useNavigate()
+  const location = useLocation()
 
   const [partnerCategory, setPartnerCategory] = useState(null)
 
@@ -68,7 +69,7 @@ export default function Partner (props) {
             text: currentPartner.description,
             button: {
               label: 'Agendar Reunião',
-              to: () => sendEmail(props.journeyId, id)
+              to: () => sendEmail(location.state.journeyId, id)
             }
           }
       })
