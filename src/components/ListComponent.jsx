@@ -87,6 +87,7 @@ export default function ListComponent (props) {
                                   onClick={item.body.button.to}
                                   display='flex'
                                   alignItems='center'
+                                  justifyContent='flex-end'
                                   color='purple'
                                   isExternal
                                   marginTop={3}

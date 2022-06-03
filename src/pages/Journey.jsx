@@ -77,7 +77,14 @@ export default function Journey (props) {
   return (country && journey)
     ? (
       <Box w='100%' maxW='600px' mt={8} mb={8}>
-        <CountryImage src={country.image} />
+        <Box
+          cursor="pointer"
+          onClick={() => {
+            navigate(`/country/${country.id}`)
+          }}
+        >
+          <CountryImage src={country.image} />
+        </Box>
         <CountrySocialGroups groups={journey.groups} />
         <ListComponent title='Requisitos' journey={journey}/>
         <FinishJourneyButton onClick={finishJourney} />
