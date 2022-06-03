@@ -1,7 +1,7 @@
 import React from 'react'
 import { Flex, Text, Box, CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
 
-export default function CountryCard (props) {
+export default function CountryCard(props) {
   const getColor = (percentage) => {
     if (percentage <= 25) { return 'rgba(255, 0, 0, 0.83)' } else if (percentage <= 50) { return 'rgba(236, 142, 0, 0.83)' } else if (percentage <= 75) { return 'rgba(215, 220, 6, 0.78)' } else { return 'rgba(37, 211, 102, 0.66)' }
   }
@@ -19,8 +19,9 @@ export default function CountryCard (props) {
       bgPosition="top"
       bgRepeat="no-repeat"
       bgSize="cover"
+      opacity={props.opacity || 1}
     >
-      <Box h="150px"/>
+      <Box h="150px" />
       <Flex
         minH="40%"
         alignItems="center"
@@ -36,7 +37,7 @@ export default function CountryCard (props) {
             Clique para mais informações sobre este país
           </Text>
         </Flex>
-        { props.circular
+        {props.circular
           ? (
             <CircularProgress value={props.percentage} color="green" size={16}>
               <CircularProgressLabel color="white" fontSize={16}>{props.percentage}%</CircularProgressLabel>
@@ -48,7 +49,7 @@ export default function CountryCard (props) {
                 {props.percentage}%
               </Text>
             </Flex>
-            ) }
+            )}
       </Flex>
     </Flex>
   )

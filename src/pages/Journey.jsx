@@ -72,7 +72,7 @@ export default function Journey(props) {
   const finishJourney = () => {
     postFinishJourney(journey.id).then((response) => {
       response.status === 'success'
-        ? navigate('/finished-journey')
+        ? navigate('/finished-journey', { state: { journeyId: journey.id } })
         : showToastWhenStatusFailed({
           id: 'journeyNotFound',
           title: 'Falha ao finalizar jornada',

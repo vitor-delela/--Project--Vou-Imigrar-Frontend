@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import {
   Box,
   Text,
@@ -18,6 +18,7 @@ import { MdDone, MdFlightTakeoff } from 'react-icons/md'
 export default function Endendjourney () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const location = useLocation()
 
   useEffect(() => {
     dispatch(setPage())
@@ -76,7 +77,7 @@ export default function Endendjourney () {
                 color="rgb(102, 85, 213)"
                 textDecoration="underline"
                 onClick={() => {
-                  navigate('/partner/2')
+                  navigate('/partner/2', { state: { journeyId: location.state.journeyId } })
                 }}
               >
                 Precisa de ajuda para o embarque?

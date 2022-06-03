@@ -163,7 +163,7 @@ export default function ListComponent (props) {
                             {
                               item.partnerCategoryId
                                 ? <Link
-                                onClick={() => { navigate(`/partner/${item.partnerCategoryId}`, {state: { journeyId: props.journey.id } } ) }}
+                                onClick={() => { navigate(`/partner/${item.partnerCategoryId}`, { state: { journeyId: props.journey.id } }) }}
                                 display='flex'
                                 alignItems='center'
                                 color='purple'

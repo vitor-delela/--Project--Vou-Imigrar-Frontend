@@ -107,6 +107,7 @@ export default function Home () {
                     percentage={journey.metRequirementPercentage}
                     onClick={() => navigate(`/journey/${journey.country.id}`)}
                     circular={true}
+                    opacity={journey.finalized === 'Y' ? 0.5 : 1}
                   />
             })
           }
