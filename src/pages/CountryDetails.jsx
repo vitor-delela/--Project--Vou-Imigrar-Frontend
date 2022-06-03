@@ -41,7 +41,6 @@ export default function CountryDetails (props) {
         navigate(-1)
       }
       setCountry(response.data)
-      console.log(response.data)
     }
   })
 
