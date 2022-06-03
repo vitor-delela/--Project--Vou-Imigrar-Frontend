@@ -3,6 +3,8 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
+import { isAuthenticated } from './utils/functions'
+
 import PlatformContainer from './components/PlatformContainer'
 
 import Welcome from './pages/Welcome'
@@ -31,7 +33,7 @@ export default function AppRouter () {
   }
 
   const PrivateRoute = (props) => {
-    if (props.type === type) {
+    if (isAuthenticated()) {
       return <Outlet/>
     } else {
       return <Navigate to="/"/>
@@ -59,18 +61,11 @@ export default function AppRouter () {
             <Route path="/country/:id" element={<CountryDetails />}/>
             <Route path="/update" element={<UpdateProfile />}/>
             <Route path="/map" element={<ProfileMap />}/>
-            <Route path="/partner/:id" element={<Partner />}/>
+            <Route path="/partner/:id" element={<Partner />} />
+            <Route path="/country-matches" element={<CountryMatches />} />
+            <Route path="/journey/:countryId" element={<Journey />} />
+            <Route path="/finished-journey" element={<FinishedJourney />}/>
           </Route>
-        </Route>
-
-        <Route path="/" element={<PlatformContainer backNavigation={true} />}>
-          <Route path="/country-matches" element={<CountryMatches />}/>
-        </Route>
-        <Route path="/" element={<PlatformContainer backNavigation={true} />}>
-          <Route path="/journey/:countryId" element={<Journey />}/>
-        </Route>
-        <Route path="/" element={<PlatformContainer backNavigation={true} />}>
-          <Route path="/finished-journey" element={<FinishedJourney />}/>
         </Route>
 
         <Route path="*" element={<Welcome />} />

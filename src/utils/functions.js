@@ -14,3 +14,11 @@ export function verifyPassword(password) {
           && password
           .match(/^(?=(?:.*?[A-Z]){1})(?=(?:.*?[a-z]){1})(?=(?:.*?[0-9]){1})/)
 }
+
+export function isAuthenticated() {
+  const token = localStorage.getItem("token");
+  if (token) {
+    return true;
+  }
+  return false;
+};

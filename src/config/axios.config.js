@@ -11,3 +11,14 @@ HTTP.interceptors.request.use(function (config) {
   }
   return config
 })
+
+HTTP.interceptors.response.use(function (config) {
+  return config
+}, function (error) {
+  if (error.response.status === 403) {
+    localStorage.removeItem('token')
+    localStorage.removeItem('persist:root')
+    location.href = '/'
+  }
+  return error;
+})
