@@ -1,53 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Text, Heading, Checkbox, Link, AccordionItem, AccordionButton, AccordionPanel, Accordion, AccordionIcon, Icon, Divider } from '@chakra-ui/react'
 import { MdKeyboardArrowRight } from 'react-icons/md'
-import { updateChecklist } from '../store/journeySlice'
 import { useDispatch } from 'react-redux'
+import { updateChecklist } from '../store/journeySlice'
+import { useNavigate } from 'react-router'
 
 export default function ListComponent (props) {
-  // props = {
-  //   title: 'Categorias',
-  //   // text: 'Escolha as categorias que deseja visualizar',
-  // items: [
-  //   {
-  //     type: 'link',
-  //     label: 'Facebook',
-  //     to: 'https://facebook.com'
-  //   },
-  //   {
-  //     type: 'check',
-  //     label: 'Visto para o país'
-  //     id: 1,
-  //     // value: true
-  //   },
-  //   {
-  //     type: 'accordion',
-  //     label: 'Acordeão',
-  //     body: {
-  //       text: 'aqui é o acordeãoque não tem checkbox',
-  //       button: {
-  //         label: 'Botão',
-  //         to: 'https://facebook.com'
-  //       }
-  //     }
-  //   },
-  //   {
-  //     type: 'accordionCheck',
-  //     label: 'Acordeão checkbox',
-  //     id: 2,
-  //     // value: true,
-  //     body: {
-  //       text: 'aqui é o que tem checkbox',
-  //       button: {
-  //         label: 'Botão',
-  //         to: 'https://facebook.com'
-  //       }
-  //     }
-  //   }
-  // ]
-  // } updateChecklist
-
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const [requirements, setRequirements] = useState(props.checklist)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const changeChecklist = (id) => {
+    setIsLoading(true)
+    dispatch(updateChecklist(id))
+    setRequirements(requirements.map(requirement => {
+      if (requirement.id === id) {
+        requirement.isCompleted = requirement.isCompleted === 'Y' ? 'N' : 'Y'
+      }
+
+      return requirement
+    }))
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
+  }
 
   return (
     <Box id="platform-container"
@@ -59,173 +37,161 @@ export default function ListComponent (props) {
       style={{ marginTop: '20px' }}
     >
       {props.title && <Heading padding='25px 16px 22px 16px' size='sm'>{props.title}</Heading>}
-      {props.text && <Text padding='0 0 20px 16px' size='xs'>{props.text}</Text>}
+      {props.text && <Text padding='0 0 20px 16px' size='xs' fontSize={12}>{props.text}</Text>}
       {
-        props.items &&
-        <Box
-          display="flex"
-          flexDirection='column'
-          width='100%'
-        >
-          {props.items.map((item, index) => {
-            return (
-              <Box
-                key={index}
-                display="flex"
-                flexDirection='column'
-                width='100%'
-              >
-                {
-                  item.type === 'link' &&
-                    <Link
-                      href={item.to}
-                      isExternal
-                      borderTop='1px solid rgba(109, 79, 211, 0.05)'
-                      padding='15px'
-                      _hover={{ bg: 'var(--chakra-colors-blackAlpha-50)' }}
-                      _focus={{ boxShadow: 'none' }}
-                      display='flex'
-                      alignItems='center'
-                      justifyContent='space-between'
-                    >
-                      {item.label}
-                      <Icon
-                        as={MdKeyboardArrowRight}
-                        width='35px'
-                        height='35px'
-                        color='purple'
-                        cursor='pointer'
-                        className="arrow"
-                      />
-                    </Link>
-                }
-                {
-                  item.type === 'check' &&
-                    <Checkbox
-                      colorScheme='pink'
-                      _hover={{ bg: 'var(--chakra-colors-blackAlpha-50)' }}
-                      borderTop='1px solid rgba(109, 79, 211, 0.05)'
-                      padding='20.5px 16px 20.5px 16px'
-                      isChecked={item.value}
-                      onChange={() => dispatch(updateChecklist({ id: item.id, value: !item.value }))}
-                    >
-                      {item.label}
-                    </Checkbox>
-                }
-                {
-                  item.type === 'accordion' &&
-                  <Accordion allowMultiple
+        props.items
+          ? <Box
+              display="flex"
+              flexDirection='column'
+              width='100%'
+            >
+              {props.items.map((item, index) => {
+                return (
+                  <Box
+                    key={index}
+                    display="flex"
+                    flexDirection='column'
+                    width='100%'
                   >
-                    <AccordionItem
-                      border={0}
-                    >
-                      <h2 padding={0}>
-                        <AccordionButton
-                          borderTop='1px solid rgba(109, 79, 211, 0.05)'
-                          padding={15}
-                          _focus={{ boxShadow: 'none' }}
+                    {
+                      item.type === 'accordion' &&
+                      <Accordion allowMultiple
+                      >
+                        <AccordionItem
+                          border={0}
                         >
-                          <Box flex={1} textAlign='left'>
-                            {item.label}
-                          </Box>
-                          <AccordionIcon />
-                        </AccordionButton>
-                      </h2>
-                      <AccordionPanel pb={3}>
-                        <Divider />
-                        <Box
-                          display='flex'
-                          flexDirection='column'
-                          mt={3}
-                        >
-                          {item.body.text}
-                          {
-                            item.body.button &&
-                            <Link
-                              onClick={item.body.button.to}
-                              display='flex'
-                              alignItems='center'
-                              color='purple'
-                              isExternal
-                              marginTop={3}
-                              justifyContent="flex-end"
+                          <h2 padding={0}>
+                            <AccordionButton
+                              borderTop='1px solid rgba(109, 79, 211, 0.05)'
+                              padding={15}
+                              _focus={{ boxShadow: 'none' }}
                             >
-                                {item.body.button.label}
-                                <Icon
-                                    as={MdKeyboardArrowRight}
-                                    width='35px'
-                                    height='35px'
-                                    color='purple'
-                                    cursor='pointer'
-                                    className="arrow"
-                                />
-                            </Link>
-                          }
-                        </Box>
-                      </AccordionPanel>
-                    </AccordionItem>
-                  </Accordion>
-                }
-                {
-                  item.type === 'accordionCheck' &&
-                  <Accordion allowMultiple
+                              <Box flex={1} textAlign='left' fontSize={14}>
+                                {item.label}
+                              </Box>
+                              <AccordionIcon />
+                            </AccordionButton>
+                          </h2>
+                          <AccordionPanel pb={3}>
+                            <Divider />
+                            <Box
+                              display='flex'
+                              flexDirection='column'
+                              mt={3}
+                              textAlign="left" fontSize={14}
+                            >
+                              {item.body.text}
+                              {
+                                item.body.button &&
+                                <Link
+                                  onClick={item.body.button.to}
+                                  display='flex'
+                                  alignItems='center'
+                                  color='purple'
+                                  isExternal
+                                  marginTop={3}
+                                  fontSize={14}
+                                >
+                                    {item.body.button.label}
+                                    <Icon
+                                        as={MdKeyboardArrowRight}
+                                        width='35px'
+                                        height='35px'
+                                        color='purple'
+                                        cursor='pointer'
+                                        className="arrow"
+                                    />
+                                </Link>
+                              }
+                            </Box>
+                          </AccordionPanel>
+                        </AccordionItem>
+                      </Accordion>
+                    }
+                  </Box>
+                )
+              })}
+            </Box>
+          : <Box
+              display="flex"
+              flexDirection='column'
+              width='100%'
+            >
+              {requirements.map((item, index) => {
+                return (
+                  <Box
+                    key={index}
+                    display="flex"
+                    flexDirection='column'
+                    width='100%'
                   >
-                    <AccordionItem
-                      border={0}
-                    >
-                      <h2 padding={0}>
-                        <AccordionButton
-                          borderTop='1px solid rgba(109, 79, 211, 0.05)'
-                          padding={15}
-                          _focus={{ boxShadow: 'none' }}
-                        >
-                          <Box flex={1} textAlign='left'>
-                            <Checkbox
-                              onChange={() => dispatch(updateChecklist({ id: item.id, value: !item.value }))}
-                              colorScheme='pink' isChecked={item.value}
-                            >
-                              {item.label}
-                            </Checkbox>
+                  <Accordion allowMultiple>
+                      <AccordionItem
+                        border={0}
+                      >
+                        <h2 padding={0}>
+                          <AccordionButton
+                            borderTop='1px solid rgba(109, 79, 211, 0.05)'
+                            padding={15}
+                            _focus={{ boxShadow: 'none' }}
+                          >
+                            <Box flex={1} textAlign='left'>
+                              <Checkbox
+                                isDisabled={isLoading}
+                                _disabled={{ opacity: 0.5 }}
+                                onChange={() => changeChecklist(item.id)}
+                                colorScheme='pink'
+                                isChecked={item.isCompleted === 'Y'}
+                                fontSize={14}
+                              >
+                                <Text textAlign="left" fontSize={14}>
+                                    {item.name}
+                                </Text>
+                              </Checkbox>
+                            </Box>
+                            <AccordionIcon />
+                          </AccordionButton>
+                        </h2>
+                        <AccordionPanel pb={4}>
+                          <Box
+                            display='flex'
+                            flexDirection='column'
+                            textAlign="left" fontSize={14}
+                          >
+                            {item.description}
+                            {
+                              item.partnerCategoryId
+                                ? <Link
+                                onClick={() => { navigate(`/partner/${item.partnerCategoryId}`) }}
+                                display='flex'
+                                alignItems='center'
+                                color='purple'
+                                isExternal
+                                marginTop={3}
+                                fontSize={14}
+                              >
+                                  Obtenha ajuda com nossos parceiros
+                                  <Icon
+                                      as={MdKeyboardArrowRight}
+                                      width='35px'
+                                      height='35px'
+                                      color='purple'
+                                      cursor='pointer'
+                                      className="arrow"
+                                  />
+                              </Link>
+                                : <Text textAlign="left" fontSize={14}>
+                                Atualmente esse requisito não possui parceiros.
+                              </Text>
+                            }
                           </Box>
-                          <AccordionIcon />
-                        </AccordionButton>
-                      </h2>
-                      <AccordionPanel pb={4}>
-                        <Box
-                          display='flex'
-                          flexDirection='column'
-                        >
-                          {item.body.text}
-                          {
-                            item.body.button &&
-                            <Link
-                              href={item.body.button.to}
-                              display='flex'
-                              alignItems='center'
-                              color='purple'
-                              isExternal
-                              marginTop={3}
-                            >
-                                {item.body.button.label}
-                                <Icon
-                                    as={MdKeyboardArrowRight}
-                                    width='35px'
-                                    height='35px'
-                                    color='purple'
-                                    cursor='pointer'
-                                    className="arrow"
-                                />
-                            </Link>
-                          }
-                        </Box>
-                      </AccordionPanel>
-                    </AccordionItem>
-                  </Accordion>
-                }
+                        </AccordionPanel>
+                      </AccordionItem>
+                    </Accordion>
+                  </Box>
+                )
+              })}
               </Box>
-            )
-          })}
-        </Box>
       }
     </Box>
   )

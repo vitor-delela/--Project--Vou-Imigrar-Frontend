@@ -27,11 +27,7 @@ export const startJourney = createAsyncThunk('api/journeys', async (request) => 
 export const updateChecklist = createAsyncThunk('api/journeys', async (request) => {
   let response
   try {
-    response = await HTTP.post('/journeys/checklist/' + request.id,
-      {
-        value: request.value
-      }
-    )
+    response = await HTTP.put('/journey-requirements/' + request)
   } catch (_) {
     return {
       status: 'failed',

@@ -7,15 +7,16 @@ import CountrySocialGroups from '../components/CountrySocialGroups'
 import FinishJourneyButton from '../components/buttons/FinishJourneyButton'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getJourneyDetails, getCountry, postFinishJourney } from '../store/journeySlice'
+import ListComponent from '../components/ListComponent'
 
-export default function Journey(props) {
+export default function Journey (props) {
   const navigate = useNavigate()
   const toast = useToast()
   const dispatch = useDispatch()
 
   const showToastWhenStatusFailed = async (toastO) => {
     toast(toastO)
-    await new Promise(r => setTimeout(r, 3000));
+    await new Promise(r => setTimeout(r, 3000))
     navigate(-1)
   }
 
@@ -79,6 +80,7 @@ export default function Journey(props) {
       <Box w='100%' maxW='600px' mt={8} mb={8}>
         <CountryImage src={country.image} />
         <CountrySocialGroups groups={journey.groups} />
+        <ListComponent title='Requisitos' checklist={journey.requirements}/>
         <FinishJourneyButton onClick={finishJourney} />
       </Box>
       )
