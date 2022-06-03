@@ -9,7 +9,7 @@ export default function ListComponent (props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [requirements, setRequirements] = useState(props.checklist)
+  const [requirements, setRequirements] = useState(props.journey?.requirements)
   const [isLoading, setIsLoading] = useState(false)
 
   const changeChecklist = (id) => {
@@ -163,7 +163,7 @@ export default function ListComponent (props) {
                             {
                               item.partnerCategoryId
                                 ? <Link
-                                onClick={() => { navigate(`/partner/${item.partnerCategoryId}`) }}
+                                onClick={() => { navigate(`/partner/${item.partnerCategoryId}`, {state: { journeyId: props.journey.id } } ) }}
                                 display='flex'
                                 alignItems='center'
                                 color='purple'

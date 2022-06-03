@@ -100,7 +100,6 @@ export default function Home () {
                 <AlertTitle>Erro ao buscar jornadas iniciadas.</AlertTitle>
               </Alert>
             : journeys.map((journey) => {
-              console.log(journey)
               return <CountryCard
                     key={journey.journeyId}
                     src={journey.country.image}
