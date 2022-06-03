@@ -76,7 +76,7 @@ export default function Endendjourney () {
                 color="rgb(102, 85, 213)"
                 textDecoration="underline"
                 onClick={() => {
-                  navigate('/partner/BOARDING_ASSISTANT')
+                  navigate('/partner/2')
                 }}
               >
                 Precisa de ajuda para o embarque?
