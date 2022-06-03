@@ -9,7 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { getJourneyDetails, getCountry, postFinishJourney } from '../store/journeySlice'
 import ListComponent from '../components/ListComponent'
 
-export default function Journey (props) {
+export default function Journey(props) {
   const navigate = useNavigate()
   const toast = useToast()
   const dispatch = useDispatch()
@@ -70,8 +70,22 @@ export default function Journey (props) {
   }, [country, journey])
 
   const finishJourney = () => {
-    postFinishJourney({ countryId })
-    navigate('/finished-journey')
+    postFinishJourney(journey.id).then((response) => {
+      response.status === 'success'
+        ? navigate('/finished-journey')
+        : showToastWhenStatusFailed({
+          id: 'journeyNotFound',
+          title: 'Falha ao finalizar jornada',
+          position: 'bottom',
+          status: 'error',
+          description: response.message,
+          isClosable: false,
+          containerStyle: {
+            width: '400px',
+            maxWidth: '90%'
+          }
+        })
+    })
   }
 
   return (country && journey)
@@ -86,10 +100,10 @@ export default function Journey (props) {
           <CountryImage src={country.image} />
         </Box>
         <CountrySocialGroups groups={journey.groups} />
-        <ListComponent title='Requisitos' journey={journey}/>
-        <FinishJourneyButton onClick={finishJourney} />
+        <ListComponent title='Requisitos' journey={journey} />
+        {journey.finalized !== 'Y' && <FinishJourneyButton onClick={finishJourney} />}
       </Box>
-      )
+    )
     : (
       <Center w='100%' maxW='600px' mt={8} mb={16}>
         <Spinner
@@ -100,5 +114,5 @@ export default function Journey (props) {
           size='xl'
         />
       </Center>
-      )
+    )
 }

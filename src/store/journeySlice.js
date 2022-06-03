@@ -81,7 +81,7 @@ export const getCountry = async (request) => {
 export const postFinishJourney = async (request) => {
   let response
   try {
-    response = await HTTP.put(`/journeys/end-journey/${request.countryId}`)
+    response = await HTTP.put(`/journeys/end-journey/${request}`)
   } catch (_) {
     return {
       status: 'failed',
