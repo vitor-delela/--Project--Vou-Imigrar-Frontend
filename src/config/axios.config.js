@@ -19,6 +19,7 @@ HTTP.interceptors.response.use(function (config) {
     localStorage.removeItem('token')
     localStorage.removeItem('persist:root')
     location.href = '/'
+    throw Error("Forbidden");
   }
   return error;
 })
