@@ -15,11 +15,10 @@ HTTP.interceptors.request.use(function (config) {
 HTTP.interceptors.response.use(function (config) {
   return config
 }, function (error) {
-  if (error.response.status === 403) {
+  if (error.response.status === 403 && typeof error.response.data == "string" && error.response.data.includes('JWT expired')) {
     localStorage.removeItem('token')
     localStorage.removeItem('persist:root')
-    location.href = '/'
-    throw Error("Forbidden");
+    location.href = location.href
   }
-  return error;
+  throw Error(error);
 })
