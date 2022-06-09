@@ -116,7 +116,7 @@ export default function Home () {
 
       {status === 'UNMAPPED_PROFILE' &&
         <Box px={4} w='100%'>
-          <PrimaryButton borderRadius={8} onClick={() => navigate('/map')}>
+          <PrimaryButton borderRadius={8} fontSize={18} fontWeight='bold' onClick={() => navigate('/map')}>
             Iniciar mapeamento
           </PrimaryButton>
         </Box>
