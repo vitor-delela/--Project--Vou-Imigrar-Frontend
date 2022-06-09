@@ -54,26 +54,18 @@ export default function AppRouter () {
           <Route path="/" element={<PlatformContainer backNavigation={false} />}>
             <Route path="/home" element={<Home />}/>
             <Route path="/profile" element={<Profile />}/>
+            <Route path="/country-matches" element={<CountryMatches />}/>
           </Route>
           <Route path="/" element={<PlatformContainer backNavigation={true} />}>
             <Route path="/country/:id" element={<CountryDetails />}/>
             <Route path="/update" element={<UpdateProfile />}/>
             <Route path="/map" element={<ProfileMap />}/>
             <Route path="/partner/:id" element={<Partner />}/>
+            <Route path="/journey/:countryId" element={<Journey />}/>
+            <Route path="/finished-journey" element={<FinishedJourney />}/>
           </Route>
         </Route>
 
-        <Route path="/" element={<PlatformContainer backNavigation={true} />}>
-          <Route path="/country-matches" element={<CountryMatches />}/>
-        </Route>
-        <Route path="/" element={<PlatformContainer backNavigation={true} />}>
-          <Route path="/journey/:countryId" element={<Journey />}/>
-        </Route>
-        <Route path="/" element={<PlatformContainer backNavigation={true} />}>
-          <Route path="/finished-journey" element={<FinishedJourney />}/>
-        </Route>
-
-        <Route path="*" element={<Welcome />} />
       </Routes>
     </Router>
   )
