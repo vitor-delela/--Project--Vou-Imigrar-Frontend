@@ -18,6 +18,7 @@ import ProfileMap from './pages/ProfileMap'
 import Partner from './pages/Partner'
 import Journey from './pages/Journey'
 import FinishedJourney from './pages/Finishedjourney'
+import Dashboard from './pages/Dashboard'
 
 export default function AppRouter () {
   const { type } = useSelector((state) => state.user)
@@ -71,6 +72,10 @@ export default function AppRouter () {
         </Route>
         <Route path="/" element={<PlatformContainer backNavigation={true} />}>
           <Route path="/finished-journey" element={<FinishedJourney />}/>
+        </Route>
+
+        <Route path="/">
+          <Route path="/dashboard" element={<Dashboard/>}/>
         </Route>
 
         <Route path="*" element={<Welcome />} />
