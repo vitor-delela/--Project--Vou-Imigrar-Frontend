@@ -9,6 +9,7 @@ import CountryInformation from '../components/CountryInformation'
 import StartJourneyButton from '../components/buttons/StartJourneyButton'
 import { getCountryDetails } from '../store/countrySlice'
 import { useNavigate, useParams } from 'react-router-dom'
+import PrimaryButton from '../components/buttons/PrimaryButton'
 
 export default function CountryDetails(props) {
   const { id } = useParams()
@@ -55,6 +56,11 @@ export default function CountryDetails(props) {
             : (
               <Text fontSize="14" fontWeight="extrabold" mt="2" textAlign="center">
                 Você já possui jornada para o país!
+                <Box mt="2">
+                  <PrimaryButton w='90%' onClick={() => navigate('/journey/${country.id}')}>
+                    Ir para a jornada iniciada 
+                  </PrimaryButton>
+                </Box>
               </Text>
             )
           }
