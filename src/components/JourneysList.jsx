@@ -23,7 +23,7 @@ export default function JourneysList (props) {
         </Tab>
         {finalizedJourneys.length > 0 &&
           <Tab sx={selectedTabStyle}>Finalizadas</Tab>
-          }
+        }
       </TabList>
 
       <TabPanels>
