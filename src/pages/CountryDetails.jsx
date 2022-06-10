@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../store/pageSlice'
-import { Container, Box, useToast, Spinner, Center } from '@chakra-ui/react'
+import { Container, Box, useToast, Spinner, Center, Text } from '@chakra-ui/react'
 import DescriptionBox from '../components/DescriptionBox'
 import CountryImage from '../components/CountryImage'
 import PhotosCarousel from '../components/PhotosCarousel'
@@ -10,7 +10,7 @@ import StartJourneyButton from '../components/buttons/StartJourneyButton'
 import { getCountryDetails } from '../store/countrySlice'
 import { useNavigate, useParams } from 'react-router-dom'
 
-export default function CountryDetails (props) {
+export default function CountryDetails(props) {
   const { id } = useParams()
   const toast = useToast()
   const navigate = useNavigate()
@@ -50,20 +50,24 @@ export default function CountryDetails (props) {
         <CountryImage src={country.image} />
         <Container marginTop='20px'>
           <DescriptionBox text={country.description} />
-          { country.hasStartedJourney === 'N'
-            ? <StartJourneyButton country={country.id}/>
-            : null
+          {country.hasStartedJourney === 'N'
+            ? <StartJourneyButton country={country.id} />
+            : (
+              <Text fontSize="14" fontWeight="extrabold" mt="2" textAlign="center">
+                Você já possui jornada para o país!
+              </Text>
+            )
           }
         </Container>
-        <PhotosCarousel photos={country.photos}/>
-        <CountryInformation information={country.infos}/>
+        <PhotosCarousel photos={country.photos} />
+        <CountryInformation information={country.infos} />
         {
           country.hasStartedJourney === 'N'
-            ? <StartJourneyButton country={country.id}/>
+            ? <StartJourneyButton country={country.id} />
             : null
         }
       </Box>
-      )
+    )
     : (
       <Center w='100%' maxW='600px' mt={8} mb={16}>
         <Spinner
@@ -74,5 +78,5 @@ export default function CountryDetails (props) {
           size='xl'
         />
       </Center>
-      )
+    )
 }
