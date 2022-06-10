@@ -6,8 +6,8 @@ import Logo from '../components/Logo'
 import PrimaryButton from '../components/buttons/PrimaryButton'
 import { Heading, Box, Text, Flex, Image, Icon, Alert, AlertIcon, AlertTitle } from '@chakra-ui/react'
 import { BiWorld } from 'react-icons/bi'
-import CountryCard from '../components/CountryCard'
 import { getUserStatusAndJourneys } from '../store/journeySlice'
+import JourneysList from '../components/JourneysList'
 
 const HomeImageContent = [
   {
@@ -93,23 +93,13 @@ export default function Home () {
 
       {status === 'STARTED_JOURNEY' &&
         <Box my={12} w='100%'>
-          <Text ml={2} mb={2}>Jornadas iniciadas</Text>
+          <Text ml={2} mb={2} fontSize={24} fontWeight='bold' color='purple'>Jornadas</Text>
           { !journeys
             ? <Alert status='error'>
                 <AlertIcon/>
-                <AlertTitle>Erro ao buscar jornadas iniciadas.</AlertTitle>
+                <AlertTitle>Erro ao buscar jornadas.</AlertTitle>
               </Alert>
-            : journeys.map((journey) => {
-              return <CountryCard
-                    key={journey.journeyId}
-                    src={journey.country.image}
-                    name={journey.country.name}
-                    percentage={journey.metRequirementPercentage}
-                    onClick={() => navigate(`/journey/${journey.country.id}`)}
-                    circular={true}
-                    opacity={journey.finalized === 'Y' ? 0.5 : 1}
-                  />
-            })
+            : <JourneysList journeys={journeys}/>
           }
         </Box>
       }
