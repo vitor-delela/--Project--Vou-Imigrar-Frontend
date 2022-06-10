@@ -15,7 +15,7 @@ export default function CountryMatches () {
   const [isShowingAllCountries, setIsShowingAllCountries] = useState(false)
   const [matches, setMatches] = useState([])
 
-  useEffect(async() => {
+  useEffect(async () => {
     dispatch(setPage('Match de Países'))
   })
 
