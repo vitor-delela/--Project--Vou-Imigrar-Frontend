@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../store/pageSlice'
-import { Container, Box, useToast, Spinner, Center, Text } from '@chakra-ui/react'
+import { Container, Box, useToast, Spinner, Center, Text, Stack, Link } from '@chakra-ui/react'
 import DescriptionBox from '../components/DescriptionBox'
 import CountryImage from '../components/CountryImage'
 import PhotosCarousel from '../components/PhotosCarousel'
@@ -9,7 +9,6 @@ import CountryInformation from '../components/CountryInformation'
 import StartJourneyButton from '../components/buttons/StartJourneyButton'
 import { getCountryDetails } from '../store/countrySlice'
 import { useNavigate, useParams } from 'react-router-dom'
-import PrimaryButton from '../components/buttons/PrimaryButton'
 
 export default function CountryDetails(props) {
   const { id } = useParams()
@@ -54,14 +53,22 @@ export default function CountryDetails(props) {
           {country.hasStartedJourney === 'N'
             ? <StartJourneyButton country={country.id} />
             : (
-              <Text fontSize="14" fontWeight="extrabold" mt="2" textAlign="center">
-                Você já possui jornada para o país!
-                <Box mt="2">
-                  <PrimaryButton w='90%' onClick={() => navigate('/journey/${country.id}')}>
-                    Ir para a jornada iniciada 
-                  </PrimaryButton>
-                </Box>
-              </Text>
+              <Stack alignItems='center' spacing={0.5}>
+                <Text fontSize="14" fontWeight="extrabold" mt="2">
+                  Você já possui jornada para o país!
+                </Text>
+                <Link
+                  onClick={() => { navigate(`/journey/${country.id}`) }}
+                  display='flex'
+                  alignItems='center'
+                  color='purple'
+                  isExternal
+                  fontSize={14}
+                  style={{textDecorationLine: 'underline'}}
+                >
+                  Ir para a jornada iniciada
+                </Link>
+              </Stack>
             )
           }
         </Container>
