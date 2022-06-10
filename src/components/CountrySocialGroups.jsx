@@ -5,7 +5,7 @@ import { MdKeyboardArrowRight } from 'react-icons/md'
 export default function CountrySocialGroups (props) {
   const socialGroups = props.groups
   return (
-    <Container my={8} bg='background' borderRadius={8}>
+    <Container my={4} bg='background' borderRadius={8}>
         <Box textAlign='left' p={[5, 0, 5, 5]} >
             <Text textAlign="left" fontSize={17} fontWeight="bold" pb={2.5}>
                 Grupos
