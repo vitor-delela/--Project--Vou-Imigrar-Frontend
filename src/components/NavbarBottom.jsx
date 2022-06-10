@@ -1,10 +1,9 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { SlideFade } from '@chakra-ui/react'
+import { SlideFade, Button, Flex, Stack, Box } from '@chakra-ui/react'
 
 import { BiWorld } from 'react-icons/bi'
 import { MdHome, MdPerson } from 'react-icons/md'
-import { Button, Flex, Stack, Box } from '@chakra-ui/react'
 
 export default function NavbarBottom () {
   const navigate = useNavigate()
@@ -26,29 +25,32 @@ export default function NavbarBottom () {
     >
       <Button bg='transparent' color='white' fontSize={32} onClick={() => { navigate('/country-matches') }} >
         {
+          // eslint-disable-next-line eqeqeq
           location.pathname == '/country-matches'
-          ? <Stack spacing='5px' align='center'>
+            ? <Stack spacing='5px' align='center'>
               <BiWorld fontSize={36} /> {selectedLine}
             </Stack>
-          : <BiWorld opacity={0.7} />
+            : <BiWorld opacity={0.7} />
         }
       </Button>
       <Button bg='transparent' color='white' fontSize={32} onClick={() => { navigate('/home') }}>
         {
+          // eslint-disable-next-line eqeqeq
           location.pathname == '/home'
-          ? <Stack spacing='5px' align='center'>
+            ? <Stack spacing='5px' align='center'>
               <MdHome fontSize={36} /> {selectedLine}
             </Stack>
-          : <MdHome opacity={0.7} />
+            : <MdHome opacity={0.7} />
         }
       </Button>
       <Button bg='transparent' color='white' fontSize={32} onClick={() => { navigate('/profile') }}>
         {
+          // eslint-disable-next-line eqeqeq
           location.pathname == '/profile'
-          ? <Stack spacing='5px' align='center'>
+            ? <Stack spacing='5px' align='center'>
               <MdPerson fontSize={36} /> {selectedLine}
             </Stack>
-          : <MdPerson opacity={0.7} />
+            : <MdPerson opacity={0.7} />
         }
       </Button>
     </Flex>

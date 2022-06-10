@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Container, Heading, HStack, Image, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Text, useDisclosure } from '@chakra-ui/react'
 
-export default function PhotosCarousel(props) {
+export default function PhotosCarousel (props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [photo, setPhoto] = useState()
 
-  function handleClickOpenImage(photo) {
+  function handleClickOpenImage (photo) {
     setPhoto(photo)
     onOpen()
   }

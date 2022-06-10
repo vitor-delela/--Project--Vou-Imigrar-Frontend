@@ -1,7 +1,7 @@
 import React from 'react'
 import { Flex, Text, Box, CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
 
-export default function CountryCard(props) {
+export default function CountryCard (props) {
   const getColor = (percentage) => {
     if (percentage <= 25) { return 'rgba(255, 0, 0, 0.83)' } else if (percentage <= 50) { return 'rgba(236, 142, 0, 0.83)' } else if (percentage <= 75) { return 'rgba(215, 220, 6, 0.78)' } else { return 'rgba(37, 211, 102, 0.66)' }
   }

@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React from 'react'
 import { Button, Icon } from '@chakra-ui/react'
 
@@ -5,12 +6,12 @@ import { MdDone, MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/m
 
 const getIcon = (icon) => {
   if (icon == 'done') {
-    return MdDone;
+    return MdDone
   }
   if (icon == 'left') {
-    return MdKeyboardArrowLeft;
+    return MdKeyboardArrowLeft
   }
-  return MdKeyboardArrowRight;
+  return MdKeyboardArrowRight
 }
 
 export default function RoundButton (props) {
