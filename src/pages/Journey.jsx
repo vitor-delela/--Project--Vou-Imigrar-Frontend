@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../store/pageSlice'
-import { Box, useToast, Spinner, Center } from '@chakra-ui/react'
+import { Box, useToast, Spinner, Center, Link } from '@chakra-ui/react'
 import CountryImage from '../components/CountryImage'
 import CountrySocialGroups from '../components/CountrySocialGroups'
 import FinishJourneyButton from '../components/buttons/FinishJourneyButton'
@@ -91,14 +91,16 @@ export default function Journey(props) {
   return (country && journey)
     ? (
       <Box w='100%' maxW='600px' mt={8} mb={8}>
-        <Box
-          cursor="pointer"
-          onClick={() => {
-            navigate(`/country/${country.id}`)
-          }}
-        >
-          <CountryImage src={country.image} />
-        </Box>
+        <CountryImage src={country.image} />
+        <Center margin="auto">
+          <Link my={2} fontSize="18" textAlign="center" color="rgb(102, 85, 213)" textDecoration="underline" cursor='pointer'
+            onClick={() => {
+              navigate(`/country/${country.id}`)
+            }}
+          >
+            Abrir Detalhes do País
+          </Link>
+        </Center>
         <CountrySocialGroups groups={journey.groups} />
         <ListComponent title='Requisitos' journey={journey} />
         {journey.finalized !== 'Y' && <FinishJourneyButton onClick={finishJourney} />}
