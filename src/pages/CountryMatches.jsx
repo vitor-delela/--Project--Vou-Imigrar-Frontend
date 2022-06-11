@@ -36,6 +36,7 @@ export default function CountryMatches () {
               name={match.country.name}
               percentage={match.matchPercentage}
               onClick={() => navigate(`/country/${match.country.id}`)}
+              opacity={match.hasFinalizedJourney === 'Y' ? 0.5 : 1}
             />
           })
           : matches.slice(0, 3).map((match) => {
@@ -45,6 +46,7 @@ export default function CountryMatches () {
               name={match.country.name}
               percentage={match.matchPercentage}
               onClick={() => navigate(`/country/${match.country.id}`)}
+              opacity={match.hasFinalizedJourney === 'Y' ? 0.5 : 1}
             />
           })
       }
