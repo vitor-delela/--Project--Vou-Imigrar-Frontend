@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-
 import { useSelector } from 'react-redux'
 
 import PlatformContainer from './components/PlatformContainer'
+import PlatformAdmin from './components/PlatformAdmin'
 
 import Welcome from './pages/Welcome'
 import Login from './pages/Login'
@@ -74,7 +75,7 @@ export default function AppRouter () {
           <Route path="/finished-journey" element={<FinishedJourney />}/>
         </Route>
 
-        <Route path="/">
+        <Route path="/" element={<PlatformAdmin backNavigation={true} />}>
           <Route path="/dashboard" element={<Dashboard/>}/>
         </Route>
 

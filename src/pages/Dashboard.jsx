@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-no-undef */
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
-import Logo from "../components/Logo";
+import Logo from '../components/Logo'
 import {
   Heading,
   Box,
@@ -11,11 +11,11 @@ import {
   Flex,
   Stack,
   Progress
-} from "@chakra-ui/react";
+} from '@chakra-ui/react'
 
 export default function Home() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   /*
   useEffect(async () => {
     const response = await dispatch(getUserStatusAndJourneys())
