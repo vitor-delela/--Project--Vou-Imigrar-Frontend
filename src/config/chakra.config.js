@@ -13,18 +13,15 @@ const theme = extendTheme({
         color: '#6655D4!important'
       },
       '#root': {
-        margin: 'auto',
-        maxWidth: 'calc(600px + 2rem)'
+        margin: 'auto'
       },
       '#app': {
         display: 'flex',
         justifyContent: 'center',
         alignSelf: 'center',
-        height: 'calc(100vh - 1rem)',
-        width: 'calc(100vw - 2rem)',
-        margin: '1rem',
-        marginBottom: 0,
-        maxWidth: '600px'
+        height: '100vh',
+        width: '100vw',
+        marginBottom: 0
       },
       '.center': {
         display: 'flex',
@@ -49,6 +46,14 @@ const theme = extendTheme({
       },
       '.selected': {
         backgroundColor: '#6D4FD3!important'
+      },
+      '.css-r6z5ec': {
+        height: '110%',
+        marginTop: '-50px!important'
+      },
+      '.css-r6z5ec div': {
+        height: '110%',
+        bgColor: 'purple'
       }
     }
   },
