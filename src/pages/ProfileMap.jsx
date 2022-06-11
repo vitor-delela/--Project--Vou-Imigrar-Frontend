@@ -65,10 +65,10 @@ export default function Profile () {
   }
 
   const sendResponse = async () => {
-    let answers = []
+    const answers = []
 
     Object.entries(response).map(([key, value] = a) => {
-      if (key !== "3") {
+      if (key !== '3') {
         answers.push({
           questionId: key,
           answerId: value
@@ -128,7 +128,7 @@ export default function Profile () {
   }
 
   return (
-    <Flex id="login" maxWidth='600px' className="center">
+    <Flex id="login" maxW='600px' m={'auto'} className="center">
       <Flex marginBottom={10}>
         <h1>{questions.length !== 0 ? questions[actualPage].description : 'Nenhuma pergunta a ser preenchida!'}</h1>
       </Flex>

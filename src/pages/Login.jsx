@@ -75,7 +75,7 @@ export default function Login () {
   }, [user])
 
   return (
-    <Flex id="login" className="center">
+    <Flex id="login" maxW={'600px'} m={'auto'} className="center">
       <Logo marginBottom='20px'/>
       <Input
         type="text"

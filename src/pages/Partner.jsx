@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setPage } from '../store/pageSlice'
 import { Box, useToast, Spinner, Center } from '@chakra-ui/react'
 import PartnerDescriptionBox from '../components/PartnerDescriptionBox'
-import { useNavigate, useParams, useLocation} from 'react-router-dom'
+import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import PartnerImage from '../components/PartnerImage'
 import ListComponent from '../components/ListComponent'
 import { getPartners } from '../store/partnerSlice'
@@ -19,9 +19,9 @@ export default function Partner (props) {
 
   const dispatch = useDispatch()
   useEffect(async () => {
-    if(partnerCategory){
-      dispatch(setPage("Parceiro"))
-    } else{
+    if (partnerCategory) {
+      dispatch(setPage('Parceiro'))
+    } else {
       dispatch(setPage('carregando Parceiro'))
       const response = await getPartners({ id })
 
@@ -38,7 +38,7 @@ export default function Partner (props) {
             maxWidth: '90%'
           }
         })
-        await new Promise(r => setTimeout(r, 3000));
+        await new Promise(r => setTimeout(r, 3000))
         navigate(-1)
       }
       setPartnerCategory(response.data)
@@ -48,11 +48,11 @@ export default function Partner (props) {
   const itemsSend = []
 
   const sendEmail = async (jouneyId, partnerId) => {
-    let response;
+    let response
     response = await HTTP.post(
       '/users/meet-infos', {
-        jouneyId: jouneyId,
-        partnerId: partnerId
+        jouneyId,
+        partnerId
       }
     )
     const email = response.data
@@ -61,25 +61,25 @@ export default function Partner (props) {
   }
 
   if (partnerCategory) {
-    partnerCategory.partners.map( (currentPartner) => {
+    partnerCategory.partners.map((currentPartner) => {
       itemsSend.push({
         type: 'accordion',
-          label: currentPartner.name,
-          body: {
-            text: currentPartner.description,
-            button: {
-              label: 'Agendar Reunião',
-              to: () => sendEmail(location.state.journeyId, id)
-            }
+        label: currentPartner.name,
+        body: {
+          text: currentPartner.description,
+          button: {
+            label: 'Agendar Reunião',
+            to: () => sendEmail(location.state.journeyId, id)
           }
+        }
       })
     })
   }
 
-  return  partnerCategory ?
-    (
+  return partnerCategory
+    ? (
       <Box w='100%' maxW='600px' mt={8} mb={8}>
-        <Center> 
+        <Center>
             <PartnerImage src={partnerCategory?.image}/>
         </Center>
         <Center>
@@ -88,9 +88,8 @@ export default function Partner (props) {
         <PartnerDescriptionBox text={partnerCategory.description} background="rgba(109, 79, 211, 0.05)" />
         <ListComponent items={itemsSend} />
       </Box>
-    )
-    : 
-    (
+      )
+    : (
       <Center w='100%' maxW='600px' mt={8} mb={16}>
         <Spinner
           thickness='4px'
@@ -100,9 +99,5 @@ export default function Partner (props) {
           size='xl'
         />
       </Center>
-    )
+      )
 }
-
-
-
-

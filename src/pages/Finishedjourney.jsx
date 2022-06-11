@@ -24,7 +24,7 @@ export default function Endendjourney () {
   })
 
   return (
-    <Flex flexDirection="column" alignItems="center" overflow="none">
+    <Flex flexDirection="column" maxW='600px' m={'auto'} alignItems="center" overflow="none">
       <Box pb={10}>
         <Logo h={12} w="auto" />
       </Box>

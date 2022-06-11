@@ -13,6 +13,8 @@ export default function Welcome () {
     <Flex
       id='welcome'
       className='center'
+      maxW={'600px'} m={'auto'}
+      p={2}
     >
       <Logo/>
       <Text

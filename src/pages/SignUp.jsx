@@ -152,7 +152,7 @@ export default function SignUp () {
   }
 
   return (
-    <Flex id="login" className="center">
+    <Flex id="login" maxW='600px' m={'auto'} className="center">
       <Logo />
       <Box w='100%' mt={8} mb={16}>
         <Grid w="100%" hidden={!(actualPage === 0)} mb={8}>

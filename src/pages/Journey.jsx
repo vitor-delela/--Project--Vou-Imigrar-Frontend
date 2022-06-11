@@ -76,7 +76,7 @@ export default function Journey (props) {
 
   return (country && journey)
     ? (
-      <Box w='100%' maxW='600px' mt={8} mb={8}>
+      <Box w='100%' maxW='600px' m={'auto'} mt={8} mb={8}>
         <Box
           cursor="pointer"
           onClick={() => {

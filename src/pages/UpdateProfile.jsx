@@ -84,7 +84,7 @@ export default function UpdateProfile () {
   }, [user])
 
   return (
-    <Flex id="update" className="center">
+    <Flex id="update" maxW='600px' m={'auto'} className="center">
       <Logo/>
       <Box w='100%' maxW='600px' mt={8} mb={16}>
           <Grid w="100%" maxW='600px'>

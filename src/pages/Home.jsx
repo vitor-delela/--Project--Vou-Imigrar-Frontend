@@ -39,7 +39,7 @@ export default function Home () {
   const content = HomeImageContent.find(obj => obj.id === status)
 
   return (
-    <Flex id="home" flexDirection='column' alignItems='center' h='100%'>
+    <Flex id="home" maxW='600px' m={'auto'} flexDirection='column' alignItems='center' h='100%'>
       <Heading alignSelf='center' mb={12}>
         <Logo h={12} w='auto'/>
       </Heading>

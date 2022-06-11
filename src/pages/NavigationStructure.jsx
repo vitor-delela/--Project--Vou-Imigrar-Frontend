@@ -10,6 +10,8 @@ export default function NavigationStructure () {
       display="flex"
       flexDirection='column'
       width='100%'
+      maxW={'600px'}
+      p={2}
     >
       <BackNavigation
         marginBottom="1rem"
