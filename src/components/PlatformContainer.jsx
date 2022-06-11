@@ -11,6 +11,8 @@ export default function PlatformContainer (props) {
       display="flex"
       flexDirection='column'
       width='100%'
+      maxW='600px'
+      p={2}
     >
       {props.backNavigation &&
         <BackNavigation
