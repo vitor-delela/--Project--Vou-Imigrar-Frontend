@@ -9,13 +9,14 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { getJourneyDetails, getCountry, postFinishJourney } from '../store/journeySlice'
 import ListComponent from '../components/ListComponent'
 
-export default function Journey(props) {
+export default function Journey (props) {
   const navigate = useNavigate()
   const toast = useToast()
   const dispatch = useDispatch()
 
   const showToastWhenStatusFailed = async (toastO) => {
     toast(toastO)
+    // eslint-disable-next-line promise/param-names
     await new Promise(r => setTimeout(r, 3000))
     navigate(-1)
   }
@@ -103,7 +104,7 @@ export default function Journey(props) {
         <ListComponent title='Requisitos' journey={journey} />
         {journey.finalized !== 'Y' && <FinishJourneyButton onClick={finishJourney} />}
       </Box>
-    )
+      )
     : (
       <Center w='100%' maxW='600px' mt={8} mb={16}>
         <Spinner
@@ -114,5 +115,5 @@ export default function Journey(props) {
           size='xl'
         />
       </Center>
-    )
+      )
 }

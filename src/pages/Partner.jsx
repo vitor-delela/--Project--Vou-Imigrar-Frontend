@@ -9,7 +9,7 @@ import ListComponent from '../components/ListComponent'
 import { getPartners } from '../store/partnerSlice'
 import { HTTP } from '../config/axios.config'
 
-export default function Partner(props) {
+export default function Partner (props) {
   const { id } = useParams()
   const toast = useToast()
   const navigate = useNavigate()
@@ -25,6 +25,7 @@ export default function Partner(props) {
       dispatch(setPage('carregando Parceiro'))
       const response = await getPartners({ id })
 
+      // eslint-disable-next-line eqeqeq
       if (response.status == 'failed' && !toast.isActive('partnersNotFound')) {
         toast({
           id: 'partnersNotFound',
@@ -38,6 +39,7 @@ export default function Partner(props) {
             maxWidth: '90%'
           }
         })
+        // eslint-disable-next-line promise/param-names
         await new Promise(r => setTimeout(r, 3000))
         navigate(-1)
       }
@@ -48,12 +50,11 @@ export default function Partner(props) {
   const itemsSend = []
 
   const sendEmail = async (jouneyId, partnerId) => {
-    let response
-    response = await HTTP.post(
+    const response = await HTTP.post(
       '/users/meet-infos', {
-      jouneyId,
-      partnerId
-    }
+        jouneyId,
+        partnerId
+      }
     )
     const email = response.data
     const body = encodeURIComponent(email.body)
@@ -61,6 +62,7 @@ export default function Partner(props) {
   }
 
   if (partnerCategory) {
+    // eslint-disable-next-line array-callback-return
     partnerCategory.partners.map((currentPartner) => {
       itemsSend.push({
         type: 'accordion',
@@ -88,7 +90,7 @@ export default function Partner(props) {
         <PartnerDescriptionBox text={partnerCategory.description} background="rgba(109, 79, 211, 0.05)" />
         <ListComponent items={itemsSend} />
       </Box>
-    )
+      )
     : (
       <Center w='100%' maxW='600px' mt={8} mb={16}>
         <Spinner
@@ -99,5 +101,5 @@ export default function Partner(props) {
           size='xl'
         />
       </Center>
-    )
+      )
 }
