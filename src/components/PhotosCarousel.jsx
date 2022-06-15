@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Heading, HStack, Image, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Text, useDisclosure } from '@chakra-ui/react'
 
 export default function PhotosCarousel (props) {
@@ -10,7 +10,29 @@ export default function PhotosCarousel (props) {
     onOpen()
   }
 
-  if (props.photos == undefined) {
+  const scroll = (slider) => {
+    if (slider) {
+      const maxScrollLeft = slider.scrollWidth - slider.clientWidth
+
+      slider.scrollLeft += 0.5
+      if (slider.scrollLeft >= maxScrollLeft) {
+        console.log(slider.scrollLeft)
+        slider.scrollLeft = 0
+      }
+    }
+  }
+
+  useEffect(() => {
+    const slider = document.getElementById('slider')
+
+    const interval = setInterval(() => {
+      scroll(slider)
+    }, 50)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  if (props.photos === undefined) {
     return (<div></div>)
   }
   return (
@@ -23,7 +45,7 @@ export default function PhotosCarousel (props) {
         Fotos
       </Heading>
       <Container marginTop='10px'>
-        <HStack maxW='90vw' spacing={4} overflow='auto' whiteSpace='nowrap' alignSelf='center'>
+        <HStack id='slider' maxW='90vw' spacing={4} overflow='auto' whiteSpace='nowrap' alignSelf='center'>
           {
             props.photos.map((p, index) => {
               return (
