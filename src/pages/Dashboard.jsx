@@ -51,6 +51,15 @@ export default function Home () {
           </Stack>
         </Box>
       </Flex>
+      <Box flex="1" p={4} bg="white" borderRadius={8} marginTop={15}>
+          <Text>Quantidade de jornadas</Text>
+          <Stack spacing={5}>
+            <Progress colorScheme="blue" size="sm" value={10} />
+            <Progress colorScheme="blue" size="md" value={20} />
+            <Progress colorScheme="blue" size="lg" value={30} />
+            <Progress colorScheme="blue" height="32px" value={50} />
+          </Stack>
+        </Box>
     </Flex>
   )
 }
