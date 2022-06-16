@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../store/pageSlice'
-import { Box, useToast, Spinner, Center } from '@chakra-ui/react'
+import { Box, useToast, Spinner, Center, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, Text, Button, ModalCloseButton, useDisclosure } from '@chakra-ui/react'
 import CountryImage from '../components/CountryImage'
 import CountrySocialGroups from '../components/CountrySocialGroups'
 import FinishJourneyButton from '../components/buttons/FinishJourneyButton'
@@ -13,6 +13,7 @@ export default function Journey (props) {
   const navigate = useNavigate()
   const toast = useToast()
   const dispatch = useDispatch()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const showToastWhenStatusFailed = async (toastO) => {
     toast(toastO)
@@ -24,6 +25,8 @@ export default function Journey (props) {
   const { countryId } = useParams()
   const [journey, setJourney] = useState(null)
   const [country, setCountry] = useState(null)
+  const [checkListSize, setCheckListSize] = useState(0)
+  const [checkListSizeCompleted, setCheckListSizeCompleted] = useState(0)
 
   useEffect(async () => {
     if (props.route !== undefined && props.route.params.country !== undefined) {
@@ -67,6 +70,7 @@ export default function Journey (props) {
         })
       }
       setJourney(responseJourney.data)
+      setCheckListSize(responseJourney.data.requirements.length)
     }
   }, [country, journey])
 
@@ -101,8 +105,36 @@ export default function Journey (props) {
           <CountryImage src={country.image} />
         </Box>
         <CountrySocialGroups groups={journey.groups} />
-        <ListComponent title='Requisitos' journey={journey} />
-        {journey.finalized !== 'Y' && <FinishJourneyButton onClick={finishJourney} />}
+        <ListComponent title='Requisitos' journey={journey} disabled={journey.finalized === 'Y'} onChangeChecklist={setCheckListSizeCompleted}/>
+        {journey.finalized !== 'Y' && <FinishJourneyButton onClick={onOpen} disabled={checkListSize !== checkListSizeCompleted}/>}
+        <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Finalizar jornada</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Text fontWeight='bold' mb='1rem'>
+                Você tem certeza que deseja finalizar esta jornada?
+              </Text>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button mr={3} onClick={onClose}>
+                Cancelar
+              </Button>
+              <Button
+                onClick={finishJourney}
+                bgColor="purple"
+                color="white"
+                _hover={{
+                  bg: 'primaryHover'
+                }}
+              >
+                Finalizar jornada
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </Box>
       )
     : (
