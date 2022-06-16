@@ -20,7 +20,7 @@ export default function CountryDetails (props) {
   const dispatch = useDispatch()
   useEffect(async () => {
     if (country) {
-      dispatch(setPage(country.name.toUpperCase()))
+      dispatch(setPage(`Detalhes - ${country.name.toUpperCase()}`))
     } else {
       dispatch(setPage('Carregando'))
       const response = await getCountryDetails({ id })

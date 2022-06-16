@@ -33,7 +33,7 @@ export default function Journey (props) {
       setCountry(props.route.params.country)
     }
     if (country && journey) {
-      dispatch(setPage(country.name.toUpperCase()))
+      dispatch(setPage(`Jornada - ${country.name.toUpperCase()}`))
     } else {
       dispatch(setPage('Carregando'))
       const responseJourney = await getJourneyDetails({ countryId })
