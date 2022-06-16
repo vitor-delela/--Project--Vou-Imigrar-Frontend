@@ -10,7 +10,7 @@ import StartJourneyButton from '../components/buttons/StartJourneyButton'
 import { getCountryDetails } from '../store/countrySlice'
 import { useNavigate, useParams } from 'react-router-dom'
 
-export default function CountryDetails(props) {
+export default function CountryDetails () {
   const { id } = useParams()
   const toast = useToast()
   const navigate = useNavigate()
@@ -69,7 +69,7 @@ export default function CountryDetails(props) {
                   Ir para a jornada iniciada
                 </Link>
               </Stack>
-            )
+              )
           }
         </Container>
         <PhotosCarousel photos={country.photos} />
@@ -80,7 +80,7 @@ export default function CountryDetails(props) {
             : null
         }
       </Box>
-    )
+      )
     : (
       <Center w='100%' maxW='600px' mt={8} mb={16}>
         <Spinner
@@ -91,5 +91,5 @@ export default function CountryDetails(props) {
           size='xl'
         />
       </Center>
-    )
+      )
 }
