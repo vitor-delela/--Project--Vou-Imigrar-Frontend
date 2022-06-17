@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { isExpired } from 'react-jwt'
 
 export const HTTP = axios.create({
   baseURL: import.meta.env.VITE_APP_API_URL
@@ -6,17 +7,14 @@ export const HTTP = axios.create({
 
 HTTP.interceptors.request.use(function (config) {
   const token = localStorage.getItem('token')
+  const isMyTokenExpired = isExpired(token)
   if (token) {
-    config.headers.Authorization = token
+    if (isMyTokenExpired) {
+      localStorage.clear()
+      window.location.href = '/'
+    } else {
+      config.headers.Authorization = token
+    }
   }
   return config
-})
-
-HTTP.interceptors.response.use(function (response) {
-  if (response.status === 403) {
-    localStorage.clear()
-    window.location.href = '/'
-  } else {
-    return response
-  }
 })
