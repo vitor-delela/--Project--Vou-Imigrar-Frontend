@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-undef */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getDadosAdmin } from '../store/dashboardSlace'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+//import { useDispatch } from 'react-redux'
 
 import Logo from '../components/Logo'
 import {
@@ -17,8 +17,10 @@ import {
 
 export default function Home () {
   const navigate = useNavigate()
-
   const toast = useToast()
+ 
+  const [adminInfo, setAdminInfo] = useState(null)
+ 
   useEffect(async () => {
     const response = await getDadosAdmin()
     if (response.status === 'failed' && !toast.isActive('dataNotFound')) {
@@ -34,12 +36,12 @@ export default function Home () {
           maxWidth: '90%'
         }
       })
-      await new Promise((r) => {
-        return setTimeout(r, 3000)
-      })
-      navigate(-1)
+      // eslint-disable-next-line promise/param-names
+     // await new Promise((r) => setTimeout(r, 3000))
+      //navigate(-1)
     }
     console.log(response)
+    setAdminInfo(response.data)
   })
 
   return (
@@ -51,17 +53,14 @@ export default function Home () {
       bg="#E5E5E5"
       flexDirection="column"
     >
-      <Heading alignSelf={"left"} mb={12}>
+      <Heading alignSelf={'left'} mb={12}>
         <Logo h={12} w="auto" />
       </Heading>
       <Flex gap={10}>
         <Box flex="1" p={4} bg="white" borderRadius={8}>
           <Text>Quantidade de usuários na plataforma</Text>
           <Stack spacing={5}>
-            <Progress colorScheme="blue" size="sm" value={10} />
-            <Progress colorScheme="blue" size="md" value={20} />
-            <Progress colorScheme="blue" size="lg" value={30} />
-            <Progress colorScheme="blue" height="32px" value={50} />
+          <Text>{adminInfo.totalUsers}</Text>
           </Stack>
         </Box>
         <Box flex="1" p={4} bg="white" borderRadius={8}>
@@ -93,5 +92,5 @@ export default function Home () {
         </Stack>
       </Box>
     </Flex>
-  );
+  )
 }
