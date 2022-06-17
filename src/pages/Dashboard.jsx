@@ -15,13 +15,12 @@ import {
   Box,
   Text,
   Flex,
-  Stack,
   useToast,
   Spinner,
   Center
 } from '@chakra-ui/react'
 
-export default function Home() {
+export default function Home () {
   const toast = useToast()
 
   const [adminInfo, setAdminInfo] = useState(null)
@@ -41,9 +40,6 @@ export default function Home() {
           maxWidth: '90%'
         }
       })
-      // eslint-disable-next-line promise/param-names
-      // await new Promise((r) => setTimeout(r, 3000))
-      // navigate(-1)
     }
     console.log(response.data)
     setAdminInfo(response.data)
@@ -70,7 +66,7 @@ export default function Home() {
             </Flex>
           </Box>
           <Box flex="1" p={4} bg="white" borderRadius={8} align="center">
-            <Text>Países com maior número de Jornadas iniciadas</Text>
+            <Text>Quantidade de Jornadas iniciadas por país</Text>
             <BarChart
               width={600}
               height={300}
@@ -89,7 +85,7 @@ export default function Home() {
             </BarChart>
           </Box>
           <Box flex="1" p={4} bg="white" borderRadius={8} align="center">
-            <Text>Países com maior número de Jornadas finalizadas</Text>
+            <Text>Quantidade de Jornadas finalizadas por país</Text>
             <BarChart
               width={600}
               height={300}
@@ -109,7 +105,7 @@ export default function Home() {
           </Box>
         </Flex>
         <Box flex="1" p={4} bg="white" borderRadius={8} marginTop={15} align="center">
-          <Text>Quantidade de jornadas</Text>
+          <Text>Quantidade total de jornadas por país</Text>
           <BarChart
             width={1400}
             height={300}
