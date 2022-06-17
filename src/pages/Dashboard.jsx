@@ -41,7 +41,6 @@ export default function Home () {
         }
       })
     }
-    console.log(response.data)
     setAdminInfo(response.data)
   }, [])
 
