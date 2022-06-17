@@ -11,3 +11,12 @@ HTTP.interceptors.request.use(function (config) {
   }
   return config
 })
+
+HTTP.interceptors.response.use(function (response) {
+  if (response.status === 403) {
+    localStorage.clear()
+    window.location.href = '/'
+  } else {
+    return response
+  }
+})

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../store/pageSlice'
-import { Container, Box, useToast, Spinner, Center } from '@chakra-ui/react'
+import { Container, Box, useToast, Spinner, Center, Text, Stack, Link } from '@chakra-ui/react'
 import DescriptionBox from '../components/DescriptionBox'
 import CountryImage from '../components/CountryImage'
 import PhotosCarousel from '../components/PhotosCarousel'
@@ -10,7 +10,7 @@ import StartJourneyButton from '../components/buttons/StartJourneyButton'
 import { getCountryDetails } from '../store/countrySlice'
 import { useNavigate, useParams } from 'react-router-dom'
 
-export default function CountryDetails (props) {
+export default function CountryDetails () {
   const { id } = useParams()
   const toast = useToast()
   const navigate = useNavigate()
@@ -20,7 +20,7 @@ export default function CountryDetails (props) {
   const dispatch = useDispatch()
   useEffect(async () => {
     if (country) {
-      dispatch(setPage(country.name.toUpperCase()))
+      dispatch(setPage(`Detalhes - ${country.name.toUpperCase()}`))
     } else {
       dispatch(setPage('Carregando'))
       const response = await getCountryDetails({ id })
@@ -50,16 +50,33 @@ export default function CountryDetails (props) {
         <CountryImage src={country.image} />
         <Container marginTop='20px'>
           <DescriptionBox text={country.description} />
-          { country.hasStartedJourney === 'N'
-            ? <StartJourneyButton country={country.id}/>
-            : null
+          {country.hasStartedJourney === 'N'
+            ? <StartJourneyButton country={country.id} />
+            : (
+              <Stack alignItems='center' spacing={0.5}>
+                <Text fontSize="14" fontWeight="extrabold" mt="2">
+                  Você já possui jornada para o país!
+                </Text>
+                <Link
+                  onClick={() => { navigate(`/journey/${country.id}`) }}
+                  display='flex'
+                  alignItems='center'
+                  color='purple'
+                  isExternal
+                  fontSize={14}
+                  style={{ textDecorationLine: 'underline' }}
+                >
+                  Ir para a jornada iniciada
+                </Link>
+              </Stack>
+              )
           }
         </Container>
-        <PhotosCarousel photos={country.photos}/>
-        <CountryInformation information={country.infos}/>
+        <PhotosCarousel photos={country.photos} />
+        <CountryInformation information={country.infos} />
         {
           country.hasStartedJourney === 'N'
-            ? <StartJourneyButton country={country.id}/>
+            ? <StartJourneyButton country={country.id} />
             : null
         }
       </Box>

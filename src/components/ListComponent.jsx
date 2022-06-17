@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Text, Heading, Checkbox, Link, AccordionItem, AccordionButton, AccordionPanel, Accordion, AccordionIcon, Icon, Divider } from '@chakra-ui/react'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 import { useDispatch } from 'react-redux'
@@ -11,6 +11,12 @@ export default function ListComponent (props) {
 
   const [requirements, setRequirements] = useState(props.journey?.requirements)
   const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(
+    () => {
+      props.onChangeChecklist(requirements.filter(requirement => requirement.isCompleted === 'Y').length)
+    }
+  )
 
   const changeChecklist = (id) => {
     setIsLoading(true)
@@ -25,6 +31,8 @@ export default function ListComponent (props) {
     setTimeout(() => {
       setIsLoading(false)
     }, 1000)
+    // send event to parent component
+    props.onChangeChecklist(requirements.filter(requirement => requirement.isCompleted === 'Y').length)
   }
 
   return (
@@ -138,7 +146,7 @@ export default function ListComponent (props) {
                           >
                             <Box flex={1} textAlign='left'>
                               <Checkbox
-                                isDisabled={isLoading}
+                                isDisabled={isLoading || props.disabled}
                                 _disabled={{ opacity: 0.5 }}
                                 onChange={() => changeChecklist(item.id)}
                                 colorScheme='pink'
@@ -163,7 +171,7 @@ export default function ListComponent (props) {
                             {
                               item.partnerCategoryId
                                 ? <Link
-                                onClick={() => { navigate(`/partner/${item.partnerCategoryId}`, {state: { journeyId: props.journey.id } } ) }}
+                                onClick={() => { navigate(`/partner/${item.partnerCategoryId}`, { state: { journeyId: props.journey.id } }) }}
                                 display='flex'
                                 alignItems='center'
                                 color='purple'

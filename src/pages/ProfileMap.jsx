@@ -9,13 +9,13 @@ import TextArea from '../components/TextArea'
 import RoundButton from '../components/buttons/RoundButton'
 import { useNavigate } from 'react-router-dom'
 
-const stepStyle = {
-  width: '16px',
-  height: '16px',
-  minWidth: 'unset',
-  p: 'unset',
-  cursor: 'auto'
-}
+// const stepStyle = {
+//   width: '16px',
+//   height: '16px',
+//   minWidth: 'unset',
+//   p: 'unset',
+//   cursor: 'auto'
+// }
 
 export default function Profile () {
   const dispatch = useDispatch()
@@ -67,6 +67,7 @@ export default function Profile () {
   const sendResponse = async () => {
     const answers = []
 
+    // eslint-disable-next-line array-callback-return
     Object.entries(response).map(([key, value] = a) => {
       if (key !== '3') {
         answers.push({
@@ -91,6 +92,7 @@ export default function Profile () {
       for (let i = 0; i < questions[actualPage].answers.length; i++) {
         answers.push(
           <Radio
+            // eslint-disable-next-line eqeqeq
             className={response[questions[actualPage].id] == questions[actualPage].answers[i].id && 'selected'}
             w="100%"
             value={questions[actualPage].answers[i].id}
@@ -117,15 +119,15 @@ export default function Profile () {
     return question
   }
 
-  const steps = () => {
-    const step = []
-    for (let i = 0; i < questions.length; i++) {
-      step.push(
-        <RoundButton key={i} hasIcon={false} buttonStyle={{ ...stepStyle, bg: i === actualPage ? 'lightBlue' : 'black' }} />
-      )
-    }
-    return step
-  }
+  // const steps = () => {
+  //   const step = []
+  //   for (let i = 0; i < questions.length; i++) {
+  //     step.push(
+  //       <RoundButton key={i} hasIcon={false} buttonStyle={{ ...stepStyle, bg: i === actualPage ? 'lightBlue' : 'black' }} />
+  //     )
+  //   }
+  //   return step
+  // }
 
   return (
     <Flex id="login" maxW='600px' m={'auto'} className="center">

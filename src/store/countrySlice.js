@@ -1,60 +1,60 @@
-import { HTTP } from "../config/axios.config";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { HTTP } from '../config/axios.config'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 export const getCountryDetails = async (request) => {
-  let response;
+  let response
   try {
     response = await HTTP.get(
       `/countries/findCountryDetailsById/${request.id}`
-    );
+    )
   } catch (_) {
     return {
-      status: "failed",
-      message: "País não encontrado.",
-    };
+      status: 'failed',
+      message: 'País não encontrado.'
+    }
   }
   return {
-    status: "success",
+    status: 'success',
     data: {
-      ...response.data,
-    },
-  };
-};
+      ...response.data
+    }
+  }
+}
 
 export const findAllMatches = createAsyncThunk(
-  "api/matches/findByUser",
+  'api/matches/findByUser',
   async (request) => {
-    let response;
+    let response
     try {
-      response = await HTTP.get("/matches/findByUser/");
+      response = await HTTP.get('/matches/findByUser/')
     } catch (_) {
       return {
-        status: "failed",
-        message: "Match não encontrado.",
-      };
+        status: 'failed',
+        message: 'Match não encontrado.'
+      }
     }
     return {
-      status: "success",
-      data: [...response.data],
-    };
+      status: 'success',
+      data: [...response.data]
+    }
   }
-);
+)
 
 export const slice = createSlice({
-  name: "country",
+  name: 'country',
   extraReducers: {
     [findAllMatches.pending]: (state, action) => {
-      state.status = "loading";
+      state.status = 'loading'
     },
     [findAllMatches.fulfilled]: (state, action) => {
       if (!action.payload.data) {
-        state.status = "failed";
-        state.error = action.payload.message;
-        return;
+        state.status = 'failed'
+        state.error = action.payload.message
+        return
       }
-      state.status = "match";
-    },
-  },
-});
+      state.status = 'match'
+    }
+  }
+})
 
-export default slice.reducer;
+export default slice.reducer

@@ -25,6 +25,7 @@ export default function Partner (props) {
       dispatch(setPage('carregando Parceiro'))
       const response = await getPartners({ id })
 
+      // eslint-disable-next-line eqeqeq
       if (response.status == 'failed' && !toast.isActive('partnersNotFound')) {
         toast({
           id: 'partnersNotFound',
@@ -48,8 +49,7 @@ export default function Partner (props) {
   const itemsSend = []
 
   const sendEmail = async (jouneyId, partnerId) => {
-    let response
-    response = await HTTP.post(
+    const response = await HTTP.post(
       '/users/meet-infos', {
         jouneyId,
         partnerId
@@ -80,10 +80,10 @@ export default function Partner (props) {
     ? (
       <Box w='100%' maxW='600px' mt={8} mb={8}>
         <Center>
-            <PartnerImage src={partnerCategory?.image}/>
+          <PartnerImage src={partnerCategory?.image} />
         </Center>
         <Center>
-          <PartnerDescriptionBox text={partnerCategory?.name} fontWeight='bold' background="rgba(109, 79, 211, 0.1)"/>
+          <PartnerDescriptionBox text={partnerCategory?.name} fontWeight='bold' background="rgba(109, 79, 211, 0.1)" />
         </Center>
         <PartnerDescriptionBox text={partnerCategory.description} background="rgba(109, 79, 211, 0.05)" />
         <ListComponent items={itemsSend} />

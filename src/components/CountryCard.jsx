@@ -19,8 +19,9 @@ export default function CountryCard (props) {
       bgPosition="top"
       bgRepeat="no-repeat"
       bgSize="cover"
+      opacity={props.opacity || 1}
     >
-      <Box h="150px"/>
+      <Box h="150px" />
       <Flex
         minH="40%"
         alignItems="center"
@@ -36,7 +37,7 @@ export default function CountryCard (props) {
             Clique para mais informações sobre este país
           </Text>
         </Flex>
-        { props.circular
+        {props.circular
           ? (
             <CircularProgress value={props.percentage} color="green" size={16}>
               <CircularProgressLabel color="white" fontSize={16}>{props.percentage}%</CircularProgressLabel>
@@ -48,7 +49,7 @@ export default function CountryCard (props) {
                 {props.percentage}%
               </Text>
             </Flex>
-            ) }
+            )}
       </Flex>
     </Flex>
   )

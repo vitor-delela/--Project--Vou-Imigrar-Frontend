@@ -12,7 +12,6 @@ import {
 } from 'react-icons/md'
 
 export default function PhotosCarousel (props) {
-
   const information = props.information
   const icons = [
     <MdCloudQueue fontWeight='bold' fontSize='80' />,

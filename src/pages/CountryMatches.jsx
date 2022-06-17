@@ -4,7 +4,6 @@ import { Box } from '@chakra-ui/react'
 
 import PrimaryButton from '../components/buttons/PrimaryButton'
 
-import { setPage } from '../store/pageSlice'
 import CountryCard from '../components/CountryCard'
 import { useNavigate } from 'react-router-dom'
 import { findAllMatches } from '../store/countrySlice'
@@ -15,9 +14,9 @@ export default function CountryMatches () {
   const [isShowingAllCountries, setIsShowingAllCountries] = useState(false)
   const [matches, setMatches] = useState([])
 
-  useEffect(async() => {
-    dispatch(setPage('Match de Países'))
-  })
+  const hasMatches = matches.length > 0
+  const buttonLabel = hasMatches ? 'Ver todos os países' : 'Iniciar mapeamento'
+  const clickButton = () => hasMatches ? setIsShowingAllCountries(true) : navigate('/map')
 
   useEffect(async () => {
     const response = await dispatch(findAllMatches())
@@ -37,6 +36,7 @@ export default function CountryMatches () {
               name={match.country.name}
               percentage={match.matchPercentage}
               onClick={() => navigate(`/country/${match.country.id}`)}
+              opacity={match.hasFinalizedJourney === 'Y' ? 0.5 : 1}
             />
           })
           : matches.slice(0, 3).map((match) => {
@@ -46,6 +46,7 @@ export default function CountryMatches () {
               name={match.country.name}
               percentage={match.matchPercentage}
               onClick={() => navigate(`/country/${match.country.id}`)}
+              opacity={match.hasFinalizedJourney === 'Y' ? 0.5 : 1}
             />
           })
       }
@@ -55,10 +56,10 @@ export default function CountryMatches () {
         fontWeight='bold'
         marginTop={8}
         borderRadius={8}
-        onClick={() => setIsShowingAllCountries(true)}
-        display={isShowingAllCountries ? 'none' : 'block'}
+        onClick={clickButton}
+        display={hasMatches && isShowingAllCountries ? 'none' : 'block'}
       >
-        Ver todos os países
+        {buttonLabel}
       </PrimaryButton>
     </Box>
   )
