@@ -14,7 +14,9 @@ export default function ListComponent (props) {
 
   useEffect(
     () => {
-      props.onChangeChecklist(requirements.filter(requirement => requirement.isCompleted === 'Y').length)
+      if (requirements) {
+        props.onChangeChecklist(requirements.filter(requirement => requirement.isCompleted === 'Y').length)
+      }
     }
   )
 
